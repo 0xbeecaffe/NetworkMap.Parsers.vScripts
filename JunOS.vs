@@ -1790,7 +1790,7 @@ def Reset(self) :
   <Parameters>
     <ScriptName>JunOS</ScriptName>
     <GlobalCode># last changed : 2018.10.17
-scriptVersion = "2.6"
+scriptVersion = "2.7"
 #--
 _hostName = None
 _stackCount = -1
@@ -1810,7 +1810,7 @@ class InterfaceSpan():
   """Initialize a new SwithInterfaceSpan by defining the from and to interface names"""
   def __init__(self, fromInterfaceName, toInterfaceName) :
     self.fromSwitchInterface = fromInterfaceName
-    f = re.findall(r"\d+(?=\.?)", fromInterfaceName)
+    f = re.findall(r"\d+(?=[/\d]*\.)", fromInterfaceName)
     if len(f) == 3 :
       self.fromFPC = int(f[0])
       self.fromPIC = int(f[1])
@@ -1818,7 +1818,7 @@ class InterfaceSpan():
     else:
       raise ValueError("FromInterface name is invalid")
     self.toSwitchInterface = toInterfaceName
-    t = re.findall(r"\d+(?=\.?)", toInterfaceName)
+    t = re.findall(r"\d+(?=[/\d]*\.)", toInterfaceName)
     if len(t) == 3 :
       self.toFPC = int(t[0])
       self.toPIC = int(t[1])
@@ -1827,7 +1827,7 @@ class InterfaceSpan():
       raise ValueError("ToInterface name is invalid")
     
   def IsInterfaceInRange(self, testSwitchInterface):
-    t = re.findall(r"\d+(?=\.?)", testSwitchInterface)
+    t = re.findall(r"\d+(?=[/\d]*\.)", testSwitchInterface)
     if len(t) == 3:
       testFPC = int(t[0])
       testPIC = int(t[1])
@@ -1882,6 +1882,6 @@ import System.Net</CustomNameSpaces>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
     <EditorSize>{Width=618, Height=590}</EditorSize>
-    <PropertiesEditorSize>{Width=885, Height=602}|{X=517,Y=279}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=1027, Height=759}|{X=228,Y=14}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
