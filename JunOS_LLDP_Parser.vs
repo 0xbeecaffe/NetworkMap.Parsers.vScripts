@@ -229,7 +229,18 @@ for thisLine in [line.strip() for line in lldpNeighbors.splitlines()]:
         # Check if logical unit number is specified in localIntfName
         # localIntfLUN = re.findall(r"\.\d+$", localIntfName)
         ri = Router.GetInterfaceByName(localIntfName)
-        if ri != None:  
+        if ri != None: 
+          interfaceLUN = re.findall(r"\.\d+$", localIntfName)
+          # Depending on JunOS version, it sometimes reports logical interfaces for LLDP peering that has no configuration
+          # In this case wil will take the Physical interface that should have the proper port mode (inherit subinterface) set by JunOS router module
+          if ri.PortMode == L3Discovery.RouterInterfacePortMode.Unknown and len(interfaceLUN) == 1:
+            phIntfName = re.sub(r"\.\d+$", "", localIntfName)
+            ri = Router.GetInterfaceByName(phIntfName)
+            if ri == None:
+              # Could not find physical interface. This is an error we can't handle, let's continue to next LLDP interface
+              DebugEx.WriteLine("JunOS LLDP Parser error : can't find physical interface {0}".format(phIntfName), DebugLevel.Warning)
+              continue 
+            localIntfName = phIntfName       
           # Neighbor registration variables
           remoteChassisID = ""
           remoteIntfName = ""
@@ -343,7 +354,7 @@ def IsInterfaceName(self, text):
 and register the neighbors found by the routing protocol for discovery.</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1237, Height=814}|{X=153,Y=5}</EditorSize>
+    <EditorSize>{Width=1460, Height=920}|{X=139,Y=15}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -555,11 +566,11 @@ global BreakExecution</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS_LLDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "0.8"
+    <GlobalCode>ScriptVersion = "0.9"
 # Describe the Module Name
 ModuleName = "JunOS LLDP Parser"
 # Describes current operation status
-OperationStatusLabel = "Init"
+OperationStatusLabel = ""
 # The Router instance associated to this parser. Set in Initialize
 Router = None
 #This is the protocol supported by this module
@@ -593,6 +604,6 @@ from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <Description>This vScript template can be used as a starting point for creating a new routing protocol Parser Module for Network Map.
 This is typically required to add support for a new routing protocol to a vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=548, Height=570}</EditorSize>
-    <PropertiesEditorSize>{Width=775, Height=526}|{X=380,Y=149}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=775, Height=526}|{X=452,Y=242}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
