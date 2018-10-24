@@ -862,7 +862,7 @@ except:
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -1789,8 +1789,8 @@ def Reset(self) :
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS</ScriptName>
-    <GlobalCode># last changed : 2018.10.17
-scriptVersion = "2.7"
+    <GlobalCode># last changed : 2018.10.24
+scriptVersion = "2.8"
 #--
 _hostName = None
 _stackCount = -1
@@ -1810,7 +1810,7 @@ class InterfaceSpan():
   """Initialize a new SwithInterfaceSpan by defining the from and to interface names"""
   def __init__(self, fromInterfaceName, toInterfaceName) :
     self.fromSwitchInterface = fromInterfaceName
-    f = re.findall(r"\d+(?=[/\d]*\.)", fromInterfaceName)
+    f = re.findall(r"\d+", fromInterfaceName.split(".")[0])
     if len(f) == 3 :
       self.fromFPC = int(f[0])
       self.fromPIC = int(f[1])
@@ -1818,7 +1818,7 @@ class InterfaceSpan():
     else:
       raise ValueError("FromInterface name is invalid")
     self.toSwitchInterface = toInterfaceName
-    t = re.findall(r"\d+(?=[/\d]*\.)", toInterfaceName)
+    t = re.findall(r"\d+", toInterfaceName.split(".")[0])
     if len(t) == 3 :
       self.toFPC = int(t[0])
       self.toPIC = int(t[1])
@@ -1827,7 +1827,7 @@ class InterfaceSpan():
       raise ValueError("ToInterface name is invalid")
     
   def IsInterfaceInRange(self, testSwitchInterface):
-    t = re.findall(r"\d+(?=[/\d]*\.)", testSwitchInterface)
+    t = re.findall(r"\d+", testSwitchInterface.split(".")[0])
     if len(t) == 3:
       testFPC = int(t[0])
       testPIC = int(t[1])
@@ -1872,7 +1872,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -1882,6 +1882,6 @@ import System.Net</CustomNameSpaces>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
     <EditorSize>{Width=618, Height=590}</EditorSize>
-    <PropertiesEditorSize>{Width=1027, Height=759}|{X=228,Y=14}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=1027, Height=759}|{X=2366,Y=200}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
