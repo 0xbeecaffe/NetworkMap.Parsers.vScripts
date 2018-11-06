@@ -784,7 +784,7 @@ ActionResult = GetInterfaces.GetInterfaceByName(ifName)</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -1347,79 +1347,70 @@ def ParseInterfaceConfigurations(self):
   currentIntfName = ""
   currentConfiguration = []
   for thisLine in self.AllInterfaceConfiguration.splitlines():
-    if thisLine == "}" :  continue
-    lineindent = len(thisLine) - len(thisLine.strip())
-    if lineindent == 0 :
-      # This should be a new interface
-      if currentIntfName != "":
-        # Need to separate by units
-        unitName = ""
-        logicalInterfaceConfiguration = []
-        for confLine in currentConfiguration:
-          if confLine.strip().startswith("unit"):
-            # This should be a new unit
-            if unitName == "":
-              # This is the physicyl interface
-              self._interfaceConfigurations[currentIntfName] = "\r\n".join(logicalInterfaceConfiguration)
+    try:
+      if thisLine == "}" :  continue
+      lineindent = len(thisLine) - len(thisLine.strip())
+      if lineindent == 0 :
+        # This should be a new interface
+        if currentIntfName != "":
+          # Need to separate by units
+          unitName = ""
+          logicalInterfaceConfiguration = []
+          for confLine in currentConfiguration:
+            if confLine.strip().startswith("unit"):
+              # This should be a new unit
+              if unitName == "":
+                # This is the physicyl interface
+                self._interfaceConfigurations[currentIntfName] = "\r\n".join(logicalInterfaceConfiguration)
+              else:
+                # Add current logical interface to _interfaceConfigurations
+                unitNumber = re.findall(r"\d+", unitName)[0]
+                logicalIntfName = currentIntfName + "." + unitNumber
+                self._interfaceConfigurations[logicalIntfName] = "\r\n".join(logicalInterfaceConfiguration)
+              if "{" in confLine:
+                unitName =  confLine[0:confLine.index("{")].strip()
+              elif ";" in confLine:
+                unitName =  confLine[0:confLine.index(";")].strip()
+              logicalInterfaceConfiguration = []
             else:
-              # Add current logical interface to _interfaceConfigurations
-              unitNumber = re.findall(r"\d+", unitName)[0]
-              logicalIntfName = currentIntfName + "." + unitNumber
-              self._interfaceConfigurations[logicalIntfName] = "\r\n".join(logicalInterfaceConfiguration)
-            if "{" in confLine:
-              unitName =  confLine[0:confLine.index("{")].strip()
-            elif ";" in confLine:
-              unitName =  confLine[0:confLine.index(";")].strip()
-            logicalInterfaceConfiguration = []
+              logicalInterfaceConfiguration.append(confLine)
+          # Add the last physical/logical interface to _interfaceConfigurations
+          if unitName != "":
+            unitNumber = re.findall(r"\d+", unitName)[0]
+            logicalIntfName = currentIntfName + "." + unitNumber
+            self._interfaceConfigurations[logicalIntfName] = "\r\n".join(logicalInterfaceConfiguration)   
           else:
-            logicalInterfaceConfiguration.append(confLine)
-        # Add the last physical/logical interface to _interfaceConfigurations
-        if unitName != "":
-          unitNumber = re.findall(r"\d+", unitName)[0]
-          logicalIntfName = currentIntfName + "." + unitNumber
-          self._interfaceConfigurations[logicalIntfName] = "\r\n".join(logicalInterfaceConfiguration)   
-        else:
-          self._interfaceConfigurations[currentIntfName] = "\r\n".join(currentConfiguration)   
+            self._interfaceConfigurations[currentIntfName] = "\r\n".join(currentConfiguration)   
 
-      if "{" in thisLine:
-        currentIntfName = thisLine[0:thisLine.index("{")].strip()
-      elif ";" in thisLine:
-        currentIntfName = thisLine[0:thisLine.index(";")].strip()
-      # Validate what we got
-      if not self.IsInterrestingInterface(currentIntfName) : 
-        currentIntfName = ""
-      # Clear current configuration
-      currentConfiguration = []
-    else:
-      currentConfiguration.append(thisLine)
+        if "{" in thisLine:
+          currentIntfName = thisLine[0:thisLine.index("{")].strip()
+        elif ";" in thisLine:
+          currentIntfName = thisLine[0:thisLine.index(";")].strip()
+        # Validate what we got
+        if not self.IsInterrestingInterface(currentIntfName) : 
+          currentIntfName = ""
+        # Clear current configuration
+        currentConfiguration = []
+      else:
+        currentConfiguration.append(thisLine)
+    except Exception as Ex:
+      message = "JunOS Router Module Error : could not parse an interface configuration for line &lt;{0}&gt;. Error is : {1} ".format(thisLine, str(Ex))
+      System.Diagnostics.DebugEx.WriteLine(message)   
 
 
 """ Parse out the interface range definitions from device"""
 def ParseInterfaceRanges(self):
   ranges = Session.ExecCommand("show configuration interfaces | display set | match interface-range")
   for line in [l.lower().strip() for l in ranges.splitlines()] :
-    words = line.split(" ")
-    if "interface-range" in line :
-      if " member-range " in line :
-        # line is like : set interfaces interface-range WORKSTATION-IP-PHONE member-range ge-0/0/0 to ge-0/0/41
-        # add ranges
-        rangeName = words[3]
-        fromInterfaceName = words[5]
-        toInterfaceName = words[7]
-        # find if already a defined range
-        foundRange = next((ir for ir in self.InterfaceRanges if ir.rangeName == rangeName), None)
-        if foundRange != None : 
-          foundRange.AddInterfaceSpan(fromInterfaceName, toInterfaceName)
-        else:
-          newRange = InterfaceRange(rangeName)
-          newRange.AddInterfaceSpan(fromInterfaceName, toInterfaceName)
-          self.InterfaceRanges.append(newRange)  
-      elif " member " in line :
-          # line is like : set interfaces interface-range WORKSTATION-IP-PHONE member ge-0/0/0
+    try:
+      words = line.split(" ")
+      if "interface-range" in line :
+        if " member-range " in line :
+          # line is like : set interfaces interface-range WORKSTATION-IP-PHONE member-range ge-0/0/0 to ge-0/0/41
           # add ranges
           rangeName = words[3]
           fromInterfaceName = words[5]
-          toInterfaceName = words[5]
+          toInterfaceName = words[7]
           # find if already a defined range
           foundRange = next((ir for ir in self.InterfaceRanges if ir.rangeName == rangeName), None)
           if foundRange != None : 
@@ -1427,25 +1418,43 @@ def ParseInterfaceRanges(self):
           else:
             newRange = InterfaceRange(rangeName)
             newRange.AddInterfaceSpan(fromInterfaceName, toInterfaceName)
-            self.InterfaceRanges.append(newRange)   
-      else :
-        rangeName = words[3]
-        # find a defined range (should aready be in the list)
-        foundRange = next((ir for ir in self.InterfaceRanges if ir.rangeName == rangeName), None)
-        if foundRange != None : 
-          # set interface properties for ranges
-          if "interface-mode" in line :
-            # line is like : set interfaces interface-range WORKSTATION-IP-PHONE unit 0 family ethernet-switching interface-mode access
-            foundRange.portMode = words[len(words) - 1]         
-          elif "port-mode" in line :
-            # line is like : set interfaces interface-range WORKSTATION-IP-PHONE unit 0 family ethernet-switching interface-mode access
-            foundRange.portMode = words[len(words) - 1] 
-          elif "vlan members" in line :
-            # line is like : set interfaces interface-range WORKSTATION-IP-PHONE unit 0 family ethernet-switching vlan members Corp-Access
-            foundRange.vlanMembers.append(words[len(words) - 1])
-        else:
-          raise Exception("Interface range name &lt;{0}&gt; definition is missing".format(rangeName))
+            self.InterfaceRanges.append(newRange)  
+        elif " member " in line :
+            # line is like : set interfaces interface-range WORKSTATION-IP-PHONE member ge-0/0/0
+            # add ranges
+            rangeName = words[3]
+            fromInterfaceName = words[5]
+            toInterfaceName = words[5]
+            # find if already a defined range
+            foundRange = next((ir for ir in self.InterfaceRanges if ir.rangeName == rangeName), None)
+            if foundRange != None : 
+              foundRange.AddInterfaceSpan(fromInterfaceName, toInterfaceName)
+            else:
+              newRange = InterfaceRange(rangeName)
+              newRange.AddInterfaceSpan(fromInterfaceName, toInterfaceName)
+              self.InterfaceRanges.append(newRange)   
+        else :
+          rangeName = words[3]
+          # find a defined range (should aready be in the list)
+          foundRange = next((ir for ir in self.InterfaceRanges if ir.rangeName == rangeName), None)
+          if foundRange != None : 
+            # set interface properties for ranges
+            if "interface-mode" in line :
+              # line is like : set interfaces interface-range WORKSTATION-IP-PHONE unit 0 family ethernet-switching interface-mode access
+              foundRange.portMode = words[len(words) - 1]         
+            elif "port-mode" in line :
+              # line is like : set interfaces interface-range WORKSTATION-IP-PHONE unit 0 family ethernet-switching interface-mode access
+              foundRange.portMode = words[len(words) - 1] 
+            elif "vlan members" in line :
+              # line is like : set interfaces interface-range WORKSTATION-IP-PHONE unit 0 family ethernet-switching vlan members Corp-Access
+              foundRange.vlanMembers.append(words[len(words) - 1])
+          else:
+            raise Exception("Interface range name &lt;{0}&gt; definition is missing".format(rangeName))
   
+    except Exception as Ex:
+      message = "JunOS Router Module Error : could not parse an interface range for line &lt;{0}&gt;. Error is : {1} ".format(line, str(Ex))
+      System.Diagnostics.DebugEx.WriteLine(message)   
+ 
   pass
   
 
@@ -1789,8 +1798,8 @@ def Reset(self) :
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS</ScriptName>
-    <GlobalCode># last changed : 2018.10.24
-scriptVersion = "2.8"
+    <GlobalCode># last changed : 2018.11.6
+scriptVersion = "2.9"
 #--
 _hostName = None
 _stackCount = -1
@@ -1872,7 +1881,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
