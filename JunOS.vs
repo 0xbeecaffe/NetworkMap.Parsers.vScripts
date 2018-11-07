@@ -784,7 +784,7 @@ ActionResult = GetInterfaces.GetInterfaceByName(ifName)</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -862,7 +862,7 @@ except:
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -1190,7 +1190,7 @@ def ParseInterfaces(self) :
               phri = next((intf for intf in self.Interfaces if intf.Name == phIntfName), None)
               if phri != None:
                 # Lets check if vlan-tagging has been configured on physical interface
-                if phri.Configuration and "vlan-tagging" in phri.Configuration:
+                if phri.Configuration and ("vlan-tagging" in phri.Configuration or "flexible-vlan-tagging" in phri.Configuration):
                   # vlan tagging is enabled, so this ius an L3 subinterface
                   phri.PortMode = L3Discovery.RouterInterfacePortMode.L3Subinterface
                   if phri.VLANS == None : existingVLANs = []
@@ -1275,25 +1275,37 @@ def ParseInterfaces(self) :
         ri.Address = ""
         ri.MaskLength = ""
         ri.Status =  "{0},{1}".format(words[1], words[2])
+        ri.Configuration = self.GetInterfaceConfiguration(ri.Name)
+        if ri.Configuration:
+          # in some cases JunOS forgets to report the interface as "aenet" in "show interfaces terse" output, therefore we perform this step
+          re_aggID = re.findall(r"(?&lt;=802.3ad)[\s\d\w]+", ri.Configuration, re.IGNORECASE)
+          if len(re_aggID) == 1:
+            ri.AggregateID = re_aggID[0].strip()
         self.Interfaces.Add(ri)  
         
   # Post-process aenet interfaces to inherit VLANs and portMode from aggregate interface
-  aenetInterfaces = [intf for intf in self.Interfaces if intf.AggregateID]
-  for thisAeInterface in aenetInterfaces:
-    aeInterface = next((intf for intf in self.Interfaces if intf.Name == thisAeInterface.AggregateID), None)
-    if aeInterface != None:
-      thisAeInterface.VLANS = aeInterface.VLANS
-      thisAeInterface.PortMode = aeInterface.PortMode
+  aggregatedInterfaces = [intf for intf in self.Interfaces if intf.AggregateID]
+  for thisAaggregatedInterface in aggregatedInterfaces:
+    aggregatorInterface = next((intf for intf in self.Interfaces if intf.Name == thisAaggregatedInterface.AggregateID), None)
+    if aggregatorInterface != None:
+      #parentInterface = aggregatorInterface
+      #aggregatorLun = re.findall(r"\.\d+$", aggregatorInterface.Name)
+      #if len(aggregatorLun) == 1:
+      #  aipName = re.sub(r"\.\d+$", "", aggregatorInterface.Name)
+      #  parentInterface = next((intf for intf in self.Interfaces if intf.Name == aipName), None)
+      
+      thisAaggregatedInterface.VLANS = aggregatorInterface.VLANS
+      thisAaggregatedInterface.PortMode = aggregatorInterface.PortMode
       # Let the physical interface inherit properties
-      intfLun = re.findall(r"\.\d+$", thisAeInterface.Name)
-      if len(intfLun) == 1:
-        phIntfName = re.sub(r"\.\d+$", "", thisAeInterface.Name)
-        phri = next((intf for intf in self.Interfaces if intf.Name == phIntfName), None)
-        if phri != None:
-          phri.PortMode = thisAeInterface.PortMode
-          phri.VLANS = thisAeInterface.VLANS
-          phri.Status = thisAeInterface.Status
-          phri.AggregateID = thisAeInterface.AggregateID
+      #intfLun = re.findall(r"\.\d+$", thisAaggregatedInterface.Name)
+      #if len(intfLun) == 1:
+      #  phIntfName = re.sub(r"\.\d+$", "", thisAaggregatedInterface.Name)
+      #  phri = next((intf for intf in self.Interfaces if intf.Name == phIntfName), None)
+      #  if phri != None:
+      #    phri.PortMode = parentInterface.PortMode
+      #    phri.VLANS = parentInterface.VLANS
+      #    phri.Status = parentInterface.Status
+      #    phri.AggregateID = parentInterface.AggregateID
       
   # Process descriptions
   interfaceDescriptions = Session.ExecCommand("show interfaces descriptions").splitlines()     
@@ -1471,7 +1483,7 @@ def Reset(self) :
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1355, Height=1069}|{X=293,Y=-3}</EditorSize>
+    <EditorSize>{Width=1355, Height=1069}|{X=2171,Y=50}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -1798,8 +1810,8 @@ def Reset(self) :
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS</ScriptName>
-    <GlobalCode># last changed : 2018.11.6
-scriptVersion = "2.9"
+    <GlobalCode># last changed : 2018.11.7
+scriptVersion = "3.0"
 #--
 _hostName = None
 _stackCount = -1
@@ -1881,7 +1893,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -1890,7 +1902,7 @@ import System.Net</CustomNameSpaces>
     <EditorScaleFactor>0.5764994</EditorScaleFactor>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
-    <EditorSize>{Width=618, Height=590}</EditorSize>
+    <EditorSize>{Width=618, Height=639}</EditorSize>
     <PropertiesEditorSize>{Width=1027, Height=759}|{X=2366,Y=200}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
