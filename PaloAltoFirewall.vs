@@ -375,7 +375,7 @@ ActionResult = parsedRoutes</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -989,16 +989,23 @@ def CalculateRouterIDAndASNumber(self):
   for thisProtocol in sRoutingProtocols:  
     if thisProtocol == L3Discovery.NeighborProtocol.BGP:
       bgpSummary = Session.ExecCommand("show routing protocol bgp summary")
-      rid = re.findall(r"(?&lt;=router id: )[\ ,d.]{0,99}", bgpSummary)
+      rid = re.findall(r"(?&lt;=router id: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
       if len(rid) &gt; 0 : 
         self.RouterID[str(thisProtocol)] = rid[0].strip()
         if self.staticRouterID == "" : self.staticRouterID = rid[0]
-      # get AS number
-      #
-      # TODO : this is not tested and is most probably INCORRECT way to get the AS number !
-      #
-      ASes = re.findall(r"(?&lt;=autonomous-system: )[\ ,\d.]{0,99}",  bgpNeighbors)
-      if len(ASes) &gt;= 0 : self.BGPASNumber = ASes[0]
+
+      ASSize = 2
+      re_LocalAS = re.findall(r"(?&lt;=Local AS: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
+      re_ASSize = re.findall(r"(?&lt;=AS size: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
+      if len(re_ASSize) == 1:
+        ASSize = int(re_ASSize[0])
+      if ASSize == 2:
+        if len(re_LocalAS) &gt;= 0 : self.BGPASNumber = re_LocalAS[0]
+      elif ASSize == 4:
+        ASDigits = re_LocalAS[0].split(".")
+        highASN = int(ASDigits[0])
+        lowASN = int(ASDigits[1])
+        self.BGPASNumber = str((highASN&lt;&lt;16) + lowASN)
       
     elif thisProtocol == L3Discovery.NeighborProtocol.OSPF:
       ospfStatus = Session.ExecCommand("show routing protocol ospf summary")
@@ -1606,7 +1613,8 @@ global BreakExecution</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-scriptVersion = "2.0"
+lastModified = "07.11.2018"
+scriptVersion = "2.1"
 VersionInfo = ""
 HostName = ""
 
@@ -1631,7 +1639,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -1641,6 +1649,6 @@ import System.Net</CustomNameSpaces>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
     <EditorSize>{Width=735, Height=677}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=2547,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
