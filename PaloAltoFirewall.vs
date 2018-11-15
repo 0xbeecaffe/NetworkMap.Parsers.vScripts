@@ -410,13 +410,14 @@ ScriptSuccess = True
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
     <Description>This call should be able to return the list of routed interfaces </Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=709, Height=659}|{X=78,Y=78}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1226,7 +1227,7 @@ def GetInterfaceConfiguration(self, ifName):
   ifConfig = ""
   foundFWInterface = next((intf for intf in self.FWInterfaces if intf.Name == ifName), None)
   if foundFWInterface != None:
-    ifConfig = "{0}{\r\n  ID={1}\r\n  Address={2}/{3}\r\n}".format(foundFWInterface.Name, foundFWInterface.ID, foundFWInterface.Address, foundFWInterface.MaskLength )
+    ifConfig = "Name={0}\r\n  ID={1}\r\n  Address={2}/{3}".format(foundFWInterface.Name, foundFWInterface.ID, foundFWInterface.Address, foundFWInterface.MaskLength )
   return ifConfig 
 
 """  Map an FWInterface object to L3Discovery.RouterInterface object"""
@@ -1253,6 +1254,7 @@ def Reset(self):
     <Description>This object will parse interface details</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=1066, Height=881}|{X=104,Y=104}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1613,8 +1615,8 @@ global BreakExecution</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "07.11.2018"
-scriptVersion = "2.1"
+lastModified = "15.11.2018"
+scriptVersion = "2.2"
 VersionInfo = ""
 HostName = ""
 
@@ -1648,7 +1650,7 @@ import System.Net</CustomNameSpaces>
     <EditorScaleFactor>0.6640003</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=735, Height=677}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=2547,Y=350}</PropertiesEditorSize>
+    <EditorSize>{Width=735, Height=759}</EditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
