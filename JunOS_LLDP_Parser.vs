@@ -594,7 +594,7 @@ import System.Net
 from System.Diagnostics import DebugEx
 from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>

@@ -235,7 +235,7 @@ for blockNum, thisBlock in enumerate(lldpInfoBlocks):
       ri = Router.GetInterfaceByName(localIntfName)
       if ri != None:    
         remoteChassisID = repChassisID.findall(neighborInfoText)[0].strip()
-        remoteIntfName = repPortDescription.findall(neighborInfoText)[0].strip()
+        remoteIntfName = repPortID.findall(neighborInfoText)[0].strip()
         remoteSystemName = repSystemName.findall(neighborInfoText)[0].strip()
         remoteNeighboringIP = ""    
         # Now we have all the data to register the neighbor
@@ -282,7 +282,7 @@ def IsInterfaceName(self, text):
 and register the neighbors found by the routing protocol for discovery.</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1198, Height=984}|{X=33,Y=52}</EditorSize>
+    <EditorSize>{Width=1375, Height=984}|{X=321,Y=112}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -494,11 +494,11 @@ global BreakExecution</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAltoFirewall_LLDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "0.1"
+    <GlobalCode>ScriptVersion = "0.3"
 # Describe the Module Name
 ModuleName = "PaloAlto Networks Firewall - LLDP Parser"
 # Describes current operation status
-OperationStatusLabel = "Init"
+OperationStatusLabel = ""
 # The Router instance associated to this parser. Set in Initialize
 Router = None
 #This is the protocol supported by this module
@@ -522,7 +522,7 @@ import System.Net
 from System.Diagnostics import DebugEx
 from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>

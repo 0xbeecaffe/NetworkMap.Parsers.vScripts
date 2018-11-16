@@ -410,7 +410,7 @@ ScriptSuccess = True
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -1080,6 +1080,10 @@ class FWInterface(object):
     self.Tag = ""
     self.Address = ""
     self.MaskLength = ""
+    self.VLANS = ""
+    self.PortMode = L3Discovery.RouterInterfacePortMode.Unknown
+    self.AggregateID = ""
+    L3Discovery.RouterInterfacePortMode.Unknown
 
 """Collects interface details for all interfaces """
 def ParseInterfaces(self) :
@@ -1087,6 +1091,8 @@ def ParseInterfaces(self) :
   # get all interface data
   response = Session.ExecCommand("show interface all")
   interfaceBlock = False
+  aggregationGroup = False
+  aggregateInterface = None
   currentHeaderFields = []
   currentHeaderLine = ""
   tunnelMAC = ""
@@ -1103,18 +1109,38 @@ def ParseInterfaces(self) :
         currentHeaderLine = thisLine
         currentHeaderFields = filter(None, currentHeaderLine.split(" "))
         interfaceBlock = True
+        aggregationGroup = False
         continue
       
       # skip the rest
       if thisLine.startswith("aggregation"):
         interfaceBlock = False
+        aggregationGroup = True
         continue
         
       # an empty line can also signal the end of an interface block   
       if interfaceBlock and thisLine == "":
         interfaceBlock = False
         continue
-      
+
+      # an empty line can also signal the end of an aggregation group
+      if aggregationGroup and thisLine == "":
+        aggregationGroup = False
+        continue        
+
+      # parse aggregation group data in block
+      if aggregationGroup:
+        if "members:" in thisLine:
+          aggregateInterfaceName =  filter(None, thisLine.split())[0]
+          aggregateInterface = next((intf for intf in self.FWInterfaces if intf.Name == aggregateInterfaceName), None)
+          continue
+        else:
+          aggregatedInterfaceName = thisLine.strip()
+          aggregatedInterface = next((intf for intf in self.FWInterfaces if intf.Name == aggregatedInterfaceName), None)
+          if aggregatedInterface and aggregateInterface:
+            aggregatedInterface.AggregateID = aggregateInterface.Name
+        continue
+        
       # parse interface data in block
       if interfaceBlock:
         lineWords = filter(None, thisLine.split(" "))
@@ -1143,10 +1169,13 @@ def ParseInterfaces(self) :
           # speed/duplex/state
           s = currentHeaderLine.index("speed/duplex/state")
           e = currentHeaderLine.index("mac")
-          SDS = thisLine[s:e].strip().split("/")
-          thisFWInterface.Speed = SDS[0]
-          if len(SDS) &gt;= 2 : thisFWInterface.Duplex = SDS[1]
-          if len(SDS) &gt;= 3 : thisFWInterface.State = SDS[2]
+          #replace [n/a] to unknown to allow splitting correctly
+          SDS = re.sub(r"\[n\/a\]", "uknown", thisLine[s:e].strip())
+          # split SDS
+          aSDS = SDS.split("/")
+          thisFWInterface.Speed = aSDS[0]
+          if len(aSDS) &gt;= 2 : thisFWInterface.Duplex = aSDS[1]
+          if len(aSDS) &gt;= 3 : thisFWInterface.State = aSDS[2]
           # MAC
           s = currentHeaderLine.index("mac")
           e = len(thisLine)  
@@ -1160,6 +1189,10 @@ def ParseInterfaces(self) :
         elif len(currentHeaderFields) == 7 :
           # this is the logical IF parameters block
           # header : name,id,vsys,zone,forwarding,tag,address  
+          # id
+          s = currentHeaderLine.index("id")
+          e = currentHeaderLine.index("vsys")
+          thisFWInterface.ID = thisLine[s:e].strip()         
           # vsys
           s = currentHeaderLine.index("vsys")
           e = currentHeaderLine.index("zone")
@@ -1184,10 +1217,32 @@ def ParseInterfaces(self) :
             addressAndMask = addr.split('/')
             thisFWInterface.Address = addressAndMask[0]
             thisFWInterface.MaskLength = addressAndMask[1]
+            thisFWInterface.PortMode = L3Discovery.RouterInterfacePortMode.Routed
+          if thisFWInterface.Tag and thisFWInterface.Tag != "0":
+            # interface is like eth1/21.520 - tag is 520
+            phIntfName = re.sub(r"\.\d+$", "", thisFWInterface.Name)
+            phri = next((intf for intf in self.FWInterfaces if intf.Name == phIntfName), None)
+            if phri != None:
+              if not phri.VLANS : existingVLANs = []
+              else : existingVLANs = filter(None, phri.VLANS.split("|"))
+              existingVLANs.append(thisFWInterface.Tag)
+              phri.VLANS = "|".join(existingVLANs)
+              phri.PortMode = L3Discovery.RouterInterfacePortMode.L3Subinterface
+            
     except Exception as Ex:
       msg = "PaloAltoFirewall vScript Parser : Error while processing interface information. Error is : {0}".format(str(Ex))
       System.Diagnostics.DebugEx.WriteLine(msg) 
       
+  
+  # Post-process aenet interfaces to inherit VLANs and portMode from aggregate interface
+  aggregatedInterfaces = [intf for intf in self.FWInterfaces if intf.AggregateID]
+  for thisAaggregatedInterface in aggregatedInterfaces:
+    aggregatorInterface = next((intf for intf in self.FWInterfaces if intf.Name == thisAaggregatedInterface.AggregateID), None)
+    if aggregatorInterface != None:
+      thisAaggregatedInterface.VLANS = aggregatorInterface.VLANS
+      thisAaggregatedInterface.PortMode = aggregatorInterface.PortMode
+
+  
   # --- Get management interface details ---
   response = Session.ExecCommand("show interface management")
   if response != "":
@@ -1236,17 +1291,21 @@ def FWInterface2RouterInterface(self, fwInterface):
   # -- 
   ri = L3Discovery.RouterInterface()
   ri.Name = fwInterface.Name
+  ri.SNMPIndex = fwInterface.ID
   ri.Address = fwInterface.Address
   ri.Status =  fwInterface.State
   ri.MaskLength = fwInterface.MaskLength
+  ri.VLANS = fwInterface.VLANS
+  ri.PortMode = fwInterface.PortMode
+  ri.AggregateID = fwInterface.AggregateID
   ri.Description = " ".join([fwInterface.Name, fwInterface.ID, fwInterface.VSYS, fwInterface.Zone])
   return ri
   
 """ Return interfaces in the form of list of RouterInterface"""
 def GetRoutedInterfaces(self):
   if len(self.FWInterfaces) == 0 : self.ParseInterfaces() 
-  routedInterfaces = filter(lambda x: x.Address != "", self.FWInterfaces)
-  return map(self.FWInterface2RouterInterface, routedInterfaces)
+  # we need all interfaces, removed filtering -- routedInterfaces = filter(lambda x: x.Address != "", self.FWInterfaces)
+  return map(self.FWInterface2RouterInterface, self.FWInterfaces)
   
 def Reset(self):
   self.FWInterfaces = []</CustomCodeBlock>
@@ -1254,7 +1313,7 @@ def Reset(self):
     <Description>This object will parse interface details</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1066, Height=881}|{X=104,Y=104}</EditorSize>
+    <EditorSize>{Width=1273, Height=922}|{X=166,Y=48}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1616,7 +1675,7 @@ global BreakExecution</MainCode>
 #                                 #
 ###################################
 lastModified = "15.11.2018"
-scriptVersion = "2.2"
+scriptVersion = "2.6"
 VersionInfo = ""
 HostName = ""
 
@@ -1641,16 +1700,16 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.6640003</EditorScaleFactor>
+    <EditorScaleFactor>0.5119324</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=735, Height=759}</EditorSize>
+    <EditorSize>{Width=643, Height=640}</EditorSize>
     <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

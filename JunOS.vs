@@ -1194,7 +1194,7 @@ def ParseInterfaces(self) :
                   # vlan tagging is enabled, so this ius an L3 subinterface
                   phri.PortMode = L3Discovery.RouterInterfacePortMode.L3Subinterface
                   if phri.VLANS == None : existingVLANs = []
-                  else : existingVLANs = phri.VLANS.split("|")
+                  else : existingVLANs = filter(None, phri.VLANS.split("|"))
                   # Get vlan-id from configuration. If not found, assume lun number equals to the VLAN ID
                   m_vlanID = re.findall(r"(?&lt;=vlan-id )\d+", ri.Configuration)
                   if len(m_vlanID) == 1 : 
@@ -1811,7 +1811,7 @@ def Reset(self) :
   <Parameters>
     <ScriptName>JunOS</ScriptName>
     <GlobalCode># last changed : 2018.11.7
-scriptVersion = "3.0"
+scriptVersion = "3.1"
 #--
 _hostName = None
 _stackCount = -1
@@ -1893,7 +1893,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -1903,6 +1903,6 @@ import System.Net</CustomNameSpaces>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
     <EditorSize>{Width=618, Height=639}</EditorSize>
-    <PropertiesEditorSize>{Width=1027, Height=759}|{X=2366,Y=200}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=1027, Height=759}|{X=446,Y=200}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
