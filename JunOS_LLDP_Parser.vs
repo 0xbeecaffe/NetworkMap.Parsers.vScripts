@@ -189,6 +189,7 @@ ActionResult = OperationStatusLabel</MainCode>
 
 global Router
 global ParsingForProtocols
+global ConnectionInfo
 
 # The neighbor registry object is received in ConnectionInfo.aParam
 # This must be used to register a new neighbor for further discovery.
@@ -197,6 +198,10 @@ nRegistry = ConnectionInfo.aParam
 # The token should be checked repetitively whether cancellation was requested 
 # by user and if yes, stop further processing.
 cToken = ConnectionInfo.bParam
+# RoutingInstance onject is received in cParam
+instance = ConnectionInfo.cParam
+instanceName = "default"
+if instance : instanceName = instance.Name.lower()
 
 OperationStatusLabel = "Identifying router..."
 #--  
@@ -228,14 +233,14 @@ for thisLine in [line.strip() for line in lldpNeighbors.splitlines()]:
       if self.IsInterrestingInterface(localIntfName):  
         # Check if logical unit number is specified in localIntfName
         # localIntfLUN = re.findall(r"\.\d+$", localIntfName)
-        ri = Router.GetInterfaceByName(localIntfName)
+        ri = Router.GetInterfaceByName(localIntfName, instance)
         if ri != None: 
           interfaceLUN = re.findall(r"\.\d+$", localIntfName)
           # Depending on JunOS version, it sometimes reports logical interfaces for LLDP peering that has no configuration
           # In this case wil will take the Physical interface that should have the proper port mode (inherit subinterface) set by JunOS router module
           if ri.PortMode == L3Discovery.RouterInterfacePortMode.Unknown and len(interfaceLUN) == 1:
             phIntfName = re.sub(r"\.\d+$", "", localIntfName)
-            ri = Router.GetInterfaceByName(phIntfName)
+            ri = Router.GetInterfaceByName(phIntfName, instance)
             if ri == None:
               # Could not find physical interface. This is an error we can't handle, let's continue to next LLDP interface
               DebugEx.WriteLine("JunOS LLDP Parser error : can't find physical interface {0}".format(phIntfName), DebugLevel.Warning)
@@ -566,7 +571,8 @@ global BreakExecution</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS_LLDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "0.9"
+    <GlobalCode># v4.0 supports Routing instances
+ScriptVersion = "4.0"
 # Describe the Module Name
 ModuleName = "JunOS LLDP Parser"
 # Describes current operation status

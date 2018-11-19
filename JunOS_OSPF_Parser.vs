@@ -132,17 +132,29 @@ the current Protocol Parser</Description>
     <Commands />
     <MainCode>global Router
 global OperationStatusLabel
+global ConnectionInfo
 
 # The neighbor registry object is received in ConnectionInfo.aParam
 nRegistry = ConnectionInfo.aParam
 # A CancellationToken is received in ConnectionInfo.bParam
 cToken = ConnectionInfo.bParam
+# RoutingInstance onject is received in cParam
+instance = ConnectionInfo.cParam
+instanceName = "default"
+if instance : instanceName = instance.Name.lower()
 
 OperationStatusLabel = "Querying OSPF neighbors..."  
-TextToParse = Session.ExecCommand("show ospf neighbor")
+TextToParse = ""
+if instanceName != "default" :
+  TextToParse = Session.ExecCommand("show ospf neighbor instance {0}".format(instanceName))
+else:
+  TextToParse = Session.ExecCommand("show ospf neighbor")
 #--
 OperationStatusLabel = "Querying OSPF interfaces..."
-ospfInterfaces = Session.ExecCommand("show ospf interface")
+if instanceName != "default" :
+  ospfInterfaces = Session.ExecCommand("show ospf interface instance {0}".format(instanceName))
+else:
+  ospfInterfaces = Session.ExecCommand("show ospf interface")
 #--
 OperationStatusLabel = "Processing OSPF data..."
 cToken.ThrowIfCancellationRequested()
@@ -170,7 +182,7 @@ for line in ospf_lines:
     if len(foundIPs) == 2 and System.Net.IPAddress.TryParse(foundIPs[0], nIP) and System.Net.IPAddress.TryParse(foundIPs[1], nID) :
       # This is a new peer, initialize variables
       OperationStatusLabel = "Querying router interface {0}...".format(words[1])
-      ri = Router.GetInterfaceByName(words[1])
+      ri = Router.GetInterfaceByName(words[1], instance)
       if ri != None:
         # add OSPF Area info to RouterInterface
         if ospfInterfaces != None:
@@ -209,6 +221,7 @@ for line in ospf_lines:
     <Description>Discover OSPF adjacencies and register peers for discovery</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=1184, Height=859}|{X=239,Y=91}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -714,7 +727,8 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "2.0"
+    <GlobalCode>ScriptVersion = "4.0"
+# v4.0 supports Routing instances
 ModuleName =  "Juniper, JunOS OSPF Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
 OperationStatusLabel = "Working"
@@ -749,6 +763,6 @@ import System.Net</CustomNameSpaces>
     <Description>This Protocol Parser can handle JunOS routers 
 and switches running OSPF protocol.</Description>
     <EditorSize>{Width=680, Height=666}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=507,Y=275}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
