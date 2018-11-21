@@ -316,7 +316,7 @@ for thisLine in [line.strip() for line in lldpNeighbors.splitlines()]:
             if len(foundIP) == 1 :
               remoteNeighboringIP = (foundIP[0][1]).strip()
           # Now we have all the data to register the neighbor
-          nRegistry.RegisterNeighbor(Router, L3Discovery.NeighborProtocol.LLDP,  remoteChassisID, "", remoteSystemName, remoteNeighboringIP, ri, "OK", remoteIntfName) 
+          nRegistry.RegisterNeighbor(Router, instance, L3Discovery.NeighborProtocol.LLDP,  remoteChassisID, "", remoteSystemName, remoteNeighboringIP, ri, "OK", remoteIntfName) 
         else:
           DebugEx.WriteLine("Router object failed to provide details for interface &lt; {0} &gt;".format(localIntfName), DebugLevel.Warning)
   except Exception as Ex:

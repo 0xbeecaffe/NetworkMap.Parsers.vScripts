@@ -198,6 +198,9 @@ nRegistry = ConnectionInfo.aParam
 # by user and if yes, stop further processing.
 cToken = ConnectionInfo.bParam
 
+# RoutingInstance reference is received in cParam
+instance = ConnectionInfo.cParam
+
 OperationStatusLabel = "Identifying router..."
 #--  
 cToken.ThrowIfCancellationRequested()
@@ -232,14 +235,14 @@ for blockNum, thisBlock in enumerate(lldpInfoBlocks):
       localInfoText = localInfoBlock[0]
       neighborInfoText = neighborInfoBlock[0]
       localIntfName = repLocalInterfaceName.findall(localInfoText)[0].strip()
-      ri = Router.GetInterfaceByName(localIntfName)
+      ri = Router.GetInterfaceByName(localIntfName, instance)
       if ri != None:    
         remoteChassisID = repChassisID.findall(neighborInfoText)[0].strip()
         remoteIntfName = repPortID.findall(neighborInfoText)[0].strip()
         remoteSystemName = repSystemName.findall(neighborInfoText)[0].strip()
         remoteNeighboringIP = ""    
         # Now we have all the data to register the neighbor
-        nRegistry.RegisterNeighbor(Router, L3Discovery.NeighborProtocol.LLDP,  remoteChassisID, "", remoteSystemName, remoteNeighboringIP, ri, "OK", remoteIntfName) 
+        nRegistry.RegisterNeighbor(Router, instance, L3Discovery.NeighborProtocol.LLDP,  remoteChassisID, "", remoteSystemName, remoteNeighboringIP, ri, "OK", remoteIntfName) 
       else:
         DebugEx.WriteLine("Router object failed to provide details for interface &lt; {0} &gt;".format(localIntfName), DebugLevel.Warning)
   except Exception as Ex:
@@ -282,7 +285,7 @@ def IsInterfaceName(self, text):
 and register the neighbors found by the routing protocol for discovery.</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1375, Height=984}|{X=321,Y=112}</EditorSize>
+    <EditorSize>{Width=1375, Height=984}|{X=122,Y=26}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -494,7 +497,7 @@ global BreakExecution</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAltoFirewall_LLDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "0.3"
+    <GlobalCode>ScriptVersion = "4.0"
 # Describe the Module Name
 ModuleName = "PaloAlto Networks Firewall - LLDP Parser"
 # Describes current operation status
@@ -532,6 +535,6 @@ from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <Description>This vScript template can be used as a starting point for creating a new routing protocol Parser Module for Network Map.
 This is typically required to add support for a new routing protocol to a vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=616, Height=606}</EditorSize>
-    <PropertiesEditorSize>{Width=965, Height=736}|{X=477,Y=212}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=965, Height=736}|{X=357,Y=137}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

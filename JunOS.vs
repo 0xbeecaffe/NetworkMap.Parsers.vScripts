@@ -7,8 +7,8 @@
     <DisplayLabel>Start</DisplayLabel>
     <Commands />
     <MainCode />
-    <Origin_X>197</Origin_X>
-    <Origin_Y>29</Origin_Y>
+    <Origin_X>443</Origin_X>
+    <Origin_Y>8</Origin_Y>
     <Size_Width>121</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -35,8 +35,8 @@
 
 ActionResult = None
 raise ValueError("Junos Router received an unhandled Command request : {0}".format(ConnectionInfo.Command))</MainCode>
-    <Origin_X>698</Origin_X>
-    <Origin_Y>134</Origin_Y>
+    <Origin_X>315</Origin_X>
+    <Origin_Y>42</Origin_Y>
     <Size_Width>146</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -487,7 +487,7 @@ ActionResult = parsedRoutes</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -525,7 +525,7 @@ ScriptSuccess = True</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -575,6 +575,7 @@ ActionResult = RouterIDAndASNumber.GetRouterID(protocol, instance)</MainCode>
     <DisplayLabel>Active Protocols</DisplayLabel>
     <Commands />
     <MainCode>global ActionResult
+global ConnectionInfo
 global _runningRoutingProtocols
 
 # The RoutingInstance object for the request passed in aParam
@@ -582,42 +583,42 @@ instance = ConnectionInfo.aParam
 instanceName = "master"
 if instance : instanceName = instance.Name.lower()
 
-if _runningRoutingProtocols.get(instance.Name, None) == None:
-  _runningRoutingProtocols[instance.Name] = []
+if _runningRoutingProtocols.get(instanceName, None) == None:
+  _runningRoutingProtocols[instanceName] = []
 
-if len(_runningRoutingProtocols[instance.Name]) == 0 :
+if len(_runningRoutingProtocols[instanceName]) == 0 :
   # OSPF
   if instanceName == "master" : cmd = "show ospf overview"
   else :cmd = "show ospf overview instance {0}".format(instanceName)
   response = Session.ExecCommand(cmd)
   if (not ("not running" in response)): 
-    _runningRoutingProtocols[instance.Name].Add(L3Discovery.NeighborProtocol.OSPF)
+    _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.OSPF)
   # RIP
   if instanceName == "master" : cmd = "show rip neighbor"  
   else : cmd = "show rip neighbor instance {0}".format(instanceName)
   response = Session.ExecCommand(cmd)
   if (not ("not running" in response)): 
-    _runningRoutingProtocols[instance.Name].Add(L3Discovery.NeighborProtocol.RIP)  
+    _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.RIP)  
   # BGP
-  cmd = "show bgp neighbor instance {0}".format(instance.Name)
+  cmd = "show bgp neighbor instance {0}".format(instanceName)
   response = Session.ExecCommand(cmd)
   if (not ("not running" in response)): 
-    _runningRoutingProtocols[instance.Name].Add(L3Discovery.NeighborProtocol.BGP)
+    _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.BGP)
   # STATIC 
   # TODO : "not running" is invalid in this context
   if instanceName == "master" : cmd = "show configuration routing-options static"  
-  else : cmd = "show configuration routing-instances {0} routing-options static".format(instance.Name)
+  else : cmd = "show configuration routing-instances {0} routing-options static".format(instanceName)
   response = Session.ExecCommand(cmd)
   if (not ("not running" in response)): 
-    _runningRoutingProtocols[instance.Name].Add(L3Discovery.NeighborProtocol.STATIC)  
+    _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.STATIC)  
   # LLDP - only for default instance
   if instanceName == "master":
     response = Session.ExecCommand("show lldp")
     lldpenabled = re.findall(r"LLDP\s+:\s+Enabled", response)
     if len(lldpenabled) == 1 : 
-      _runningRoutingProtocols[instance.Name].Add(L3Discovery.NeighborProtocol.LLDP)
+      _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.LLDP)
 
-ActionResult = _runningRoutingProtocols[instance.Name]</MainCode>
+ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
     <Origin_X>196</Origin_X>
     <Origin_Y>609</Origin_Y>
     <Size_Width>146</Size_Width>
@@ -634,7 +635,7 @@ ActionResult = _runningRoutingProtocols[instance.Name]</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=950, Height=790}|{X=283,Y=114}</EditorSize>
+    <EditorSize>{Width=950, Height=790}|{X=2159,Y=84}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -644,9 +645,9 @@ ActionResult = _runningRoutingProtocols[instance.Name]</MainCode>
     <DisplayLabel>BGP AS Number</DisplayLabel>
     <Commands />
     <MainCode>global ActionResult
-
+global ConnectionInfo
 # the RoutingInstance object to query is received in aParam
-istance = ConnectionInfo.aParam
+instance = ConnectionInfo.aParam
 ActionResult = RouterIDAndASNumber.GetBGPASNumber(instance)
 </MainCode>
     <Origin_X>86</Origin_X>
@@ -658,7 +659,7 @@ ActionResult = RouterIDAndASNumber.GetBGPASNumber(instance)
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -823,7 +824,7 @@ ActionResult = GetInterfaces.GetInterfaceByName(ifName, instance)</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -849,9 +850,9 @@ global ConnectionInfo
 
 # the interface ip address to be queried is received in ConnectionInfo.aParam
 ifAddress = ConnectionInfo.aParam
+
 # RoutingInstance object received in bParam
 instance = ConnectionInfo.bParam
-
 
 #return the interface name
 ActionResult = GetInterfaces.GetInterfaceNameByAddress(ifAddress, instance)</MainCode>
@@ -864,7 +865,7 @@ ActionResult = GetInterfaces.GetInterfaceNameByAddress(ifAddress, instance)</Mai
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -946,7 +947,7 @@ BGPASNumber = {}</Variables>
 def GetRouterID(self, protocol, instance):
   rid = ""
   instanceName = "master"
-  if instance != None: instanceName = instance.Name
+  if instance != None: instanceName = instance.Name.lower()
   if len(self.RouterID.get(instanceName, {})) == 0 : self.CalculateRouterIDAndASNumber(instance)
   instanceRIDs = self.RouterID.get(instanceName, None)
   if instanceRIDs != None:
@@ -955,7 +956,7 @@ def GetRouterID(self, protocol, instance):
   
 def GetBGPASNumber(self, instance):
   instanceName = "master"
-  if instance != None: instanceName = instance.Name
+  if instance != None: instanceName = instance.Name.lower()
   if len(self.BGPASNumber) == 0 : self.CalculateRouterIDAndASNumber(instance)
   return self.BGPASNumber.get(instanceName, "")
 
@@ -963,7 +964,7 @@ def GetBGPASNumber(self, instance):
 def CalculateRouterIDAndASNumber(self, instance):
   global _runningRoutingProtocols
   instanceName = "master"
-  if instance != None: instanceName = instance.Name
+  if instance != None: instanceName = instance.Name.lower()
   if self.RouterID.get(instanceName, None) == None: self.RouterID[instanceName] = {}
   
   # Global router ID is a the router ID of the most preferred routing protocol
@@ -983,19 +984,19 @@ def CalculateRouterIDAndASNumber(self, instance):
       # init dictionary for protocol if empty
       if self.RouterID[instanceName].get(str(thisProtocol), None) == None: self.RouterID[instanceName][str(thisProtocol)] = {}
       # construct CLI command
-      cmd = "show bgp neighbor"
-      if instanceName.lower() != "master" : cmd += " instance {0}".format(instanceName)
+      cmd = "show bgp neighbor instance {0}".format(instanceName)
       bgpNeighbors = Session.ExecCommand(cmd)
       # execute CLI command and parse result
       rid = re.findall(r"(?&lt;=Local ID: )[\d.]{0,99}", bgpNeighbors)
       if len(rid) &gt; 0 : self.RouterID[instanceName][str(thisProtocol)] = rid[0]
       elif globalRouterID != "" : self.RouterID[instanceName][str(thisProtocol)] = globalRouterID
       # get AS number
+      if self.BGPASNumber.get(instanceName, None) == None: self.BGPASNumber[instanceName]= ""
       ASes = re.findall(r"(?&lt;=AS )[\d.]{0,99}",  bgpNeighbors)
-      if len(ASes) &gt;= 2 : self.BGPASNumber = ASes[1]
+      if len(ASes) &gt;= 2 : self.BGPASNumber[instanceName] = ASes[1]
       else : 
         ASes = re.findall(r"(?&lt;=autonomous-system )[\d.]{0,99}", routingOptions)
-        if len(ASes) &gt; 0 : self.BGPASNumber = ASes[0]
+        if len(ASes) &gt; 0 : self.BGPASNumber[instanceName] = ASes[0]
       
     elif thisProtocol == L3Discovery.NeighborProtocol.OSPF:
       # init dictionary for protocol if empty
@@ -1043,7 +1044,7 @@ def Reset(self):
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1191, Height=796}|{X=359,Y=106}</EditorSize>
+    <EditorSize>{Width=1404, Height=1074}|{X=264,Y=48}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1061,8 +1062,8 @@ if "junos" in _versionInfo.lower():
   ActionResult = True
 else :
   ActionResult = False</MainCode>
-    <Origin_X>310</Origin_X>
-    <Origin_Y>75</Origin_Y>
+    <Origin_X>561</Origin_X>
+    <Origin_Y>29</Origin_Y>
     <Size_Width>122</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -1104,8 +1105,8 @@ Version.Reset()
 SystemSerial.Reset()
 RouterIDAndASNumber.Reset()
 GetInterfaces.Reset()</MainCode>
-    <Origin_X>416</Origin_X>
-    <Origin_Y>26</Origin_Y>
+    <Origin_X>253</Origin_X>
+    <Origin_Y>89</Origin_Y>
     <Size_Width>121</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -1135,6 +1136,9 @@ nRegistry = ConnectionInfo.aParam
 # The IRouter object required by nRegistry.RegisterNHRPPeer() call is received in ConnectionInfo.bParam
 iRouter = ConnectionInfo.bParam
 
+# The Routing instance reference is received in cParam
+instance = ConnectionInfo.cParam
+
 # collect VRRP information
 vrrpSummary = Session.ExecCommand("show vrrp summary")
 VIPAddress = ""
@@ -1149,7 +1153,7 @@ for thisLine in vrrpSummary.splitlines():
     if indentLevel == 0:
       # interface definition is changing
       if GroupID != "" and VIPAddress != "":
-        nRegistry.RegisterNHRPPeer(iRouter, ri, L3Discovery.NHRPProtocol.VRRP, isActive, VIPAddress, GroupID, PeerAddress)
+        nRegistry.RegisterNHRPPeer(iRouter, instance, ri, L3Discovery.NHRPProtocol.VRRP, isActive, VIPAddress, GroupID, PeerAddress)
         VIPAddress = ""
         GroupID = ""
         PeerAddress = ""
@@ -1159,7 +1163,7 @@ for thisLine in vrrpSummary.splitlines():
       if len(words) &gt;= 3 :
         ifName = words[0]
         isActive = "master" in thisLine.lower()
-        ri = GetInterfaces.GetInterfaceByName(ifName)
+        ri = GetInterfaces.GetInterfaceByName(ifName, instance)
         GroupID = words[2]
       continue
     if ri != None:
@@ -1179,7 +1183,7 @@ for thisLine in vrrpSummary.splitlines():
     
 # -- register the last one
 if ri != None and VIPAddress != "" and GroupID != "" :
-  nRegistry.RegisterNHRPPeer(iRouter, ri, L3Discovery.NHRPProtocol.VRRP, isActive, VIPAddress, GroupID, PeerAddress)    
+  nRegistry.RegisterNHRPPeer(iRouter, instance, ri, L3Discovery.NHRPProtocol.VRRP, isActive, VIPAddress, GroupID, PeerAddress)    
 </MainCode>
     <Origin_X>410</Origin_X>
     <Origin_Y>706</Origin_Y>
@@ -1190,7 +1194,7 @@ if ri != None and VIPAddress != "" and GroupID != "" :
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -1198,6 +1202,7 @@ if ri != None and VIPAddress != "" and GroupID != "" :
 and will register VIP addresses</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=1168, Height=983}|{X=2533,Y=147}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1440,7 +1445,7 @@ def GetInterfaceByName(self, ifName, instance):
     self.Interfaces[instanceName] = [] 
   # check interface list for this instance
   if len(self.Interfaces[instanceName]) == 0 : self.ParseInterfaces(instance)
-  foundInterface = next((intf for intf in self.Interfaces if intf.Name == ifName), None)
+  foundInterface = next((intf for intf in self.Interfaces[instanceName] if intf.Name == ifName), None)
   return foundInterface
   
 """ Returns a RouterInterface object for the interface specified by its ip address """    
@@ -1451,7 +1456,7 @@ def GetInterfaceNameByAddress(self, ipAddress, instance):
   if self.Interfaces.get(instanceName, None) == None:
     self.Interfaces[instanceName] = [] 
   # check interface list for this instance
-  if len(self.Interfaces[instanceName]) == 0 : self.ParseInterfaces()
+  if len(self.Interfaces[instanceName]) == 0 : self.ParseInterfaces(instance)
   ifName = ""
   foundInterface = next((intf for intf in self.Interfaces[instanceName] if intf.Address == ipAddress), None)
   if foundInterface != None:
@@ -1598,7 +1603,7 @@ def Reset(self) :
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1322, Height=966}|{X=185,Y=6}</EditorSize>
+    <EditorSize>{Width=1322, Height=966}|{X=309,Y=65}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1621,8 +1626,8 @@ if len(_logicalSystems) == 0:
     _logicalSystems = repLSs
     
 ActionResult = _logicalSystems</MainCode>
-    <Origin_X>541</Origin_X>
-    <Origin_Y>40</Origin_Y>
+    <Origin_X>651</Origin_X>
+    <Origin_Y>77</Origin_Y>
     <Size_Width>128</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -1675,12 +1680,13 @@ if len(_routingInstances[logicalSystem]) == 0:
     thisInstance = L3Discovery.RoutingInstance()
     thisInstance.LogicalSystemName = logicalSystem
     thisInstance.Name = thisInstanceName
+    instances.append(thisInstance)
 
   _routingInstances[logicalSystem] = instances
   
 ActionResult = _routingInstances[logicalSystem]</MainCode>
-    <Origin_X>647</Origin_X>
-    <Origin_Y>83</Origin_Y>
+    <Origin_X>710</Origin_X>
+    <Origin_Y>132</Origin_Y>
     <Size_Width>127</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -2145,10 +2151,10 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.6473445</EditorScaleFactor>
+    <EditorScaleFactor>0.7287844</EditorScaleFactor>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
-    <EditorSize>{Width=846, Height=656}</EditorSize>
-    <PropertiesEditorSize>{Width=1027, Height=759}|{X=326,Y=125}</PropertiesEditorSize>
+    <EditorSize>{Width=784, Height=730}</EditorSize>
+    <PropertiesEditorSize>{Width=1027, Height=759}|{X=446,Y=200}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

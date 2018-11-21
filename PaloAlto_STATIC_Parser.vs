@@ -159,6 +159,8 @@ from System.Net import IPAddress
 nRegistry = ConnectionInfo.aParam
 # A CancellationToken is received in ConnectionInfo.bParam
 cToken = ConnectionInfo.bParam
+# RoutingInstance reference is received in cParam
+instance = ConnectionInfo.cParam
 
 OperationStatusLabel = "Querying STATIC routes..."  
 response = Session.ExecCommand("show routing route type static")
@@ -213,10 +215,10 @@ for thisLine in static_lines:
               outInterfaceName = thisLine[s:e].strip()    
               # --          
               OperationStatusLabel = "Querying interface {0}...".format(outInterfaceName)
-              ri = Router.GetInterfaceByName(outInterfaceName)
+              ri = Router.GetInterfaceByName(outInterfaceName, instance)
               if ri != None:
                 OperationStatusLabel = "Registering static neighbor {0}...".format(ri.Address)
-                nRegistry.RegisterSTATICNeighbor(Router, routeForNetwork, nextHop, ri.Address, ri);
+                nRegistry.RegisterSTATICNeighbor(Router, instance, routeForNetwork, nextHop, ri.Address, ri);
                   
           except Exception as Ex:
             message = "PaloAlto STATIC route parser error : could not parse route table line &lt; {0} &gt;. Error is : {1} ".format(thisLine, str(Ex))
@@ -247,7 +249,7 @@ for thisLine in static_lines:
 and register the neighbors found by the routing protocol for discovery.</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=772, Height=617}|{X=52,Y=52}</EditorSize>
+    <EditorSize>{Width=1252, Height=916}|{X=52,Y=52}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -449,12 +451,12 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAlto_STATIC_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "2.0"
+    <GlobalCode>ScriptVersion = "4.0"
 # Describe the Module Name
 ModuleName = "PaloAlto STATIC Protocol Parser Support Module - Python vScript Parser"
 # Describes current operation status. The name of this variable is fixed !
 # PGT will search specifically for "OperationStatusLabel"
-OperationStatusLabel = "Working"
+OperationStatusLabel = ""
 # The Router instance associated to this parser. Set in Initialize
 Router = None
 #This is the protocol supported by this module
@@ -488,6 +490,6 @@ creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=629, Height=540}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=507,Y=275}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

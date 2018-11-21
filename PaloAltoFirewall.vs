@@ -7,8 +7,8 @@
     <DisplayLabel>Start</DisplayLabel>
     <Commands />
     <MainCode />
-    <Origin_X>250</Origin_X>
-    <Origin_Y>60</Origin_Y>
+    <Origin_X>465</Origin_X>
+    <Origin_Y>55</Origin_Y>
     <Size_Width>100</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -38,8 +38,8 @@
 ####################################################################################
 
 raise ValueError("{0} vScripot Router received an unhandled Command request : {1}".format(Name, ConnectionInfo.Command))</MainCode>
-    <Origin_X>543</Origin_X>
-    <Origin_Y>112</Origin_Y>
+    <Origin_X>324</Origin_X>
+    <Origin_Y>153</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -71,7 +71,7 @@ raise ValueError("{0} vScripot Router received an unhandled Command request : {1
 ###########################################################
 pass</MainCode>
     <Origin_X>465</Origin_X>
-    <Origin_Y>405</Origin_Y>
+    <Origin_Y>489</Origin_Y>
     <Size_Width>100</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -87,6 +87,7 @@ pass</MainCode>
 Take care of connector ordering !   </Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=794, Height=737}|{X=52,Y=52}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -103,8 +104,8 @@ Take care of connector ordering !   </Description>
 global ActionResult
 
 ActionResult = "{0} Router Support Module - Python vScript Parser v{1}".format(Name, scriptVersion)</MainCode>
-    <Origin_X>647</Origin_X>
-    <Origin_Y>177</Origin_Y>
+    <Origin_X>762</Origin_X>
+    <Origin_Y>305</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -135,8 +136,8 @@ ActionResult = "{0} Router Support Module - Python vScript Parser v{1}".format(N
 global ActionResult
 
 ActionResult = Version.GetVersion()</MainCode>
-    <Origin_X>645</Origin_X>
-    <Origin_Y>651</Origin_Y>
+    <Origin_X>610</Origin_X>
+    <Origin_Y>778</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -170,8 +171,8 @@ global ActionResult
 # so return that one.
 
 ActionResult = Version.GetVersion()</MainCode>
-    <Origin_X>761</Origin_X>
-    <Origin_Y>513</Origin_Y>
+    <Origin_X>754</Origin_X>
+    <Origin_Y>659</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -208,8 +209,8 @@ if len(_s) &gt; 0:
  ActionResult = _s[0]
 else:
   ActionResult = "n/a"</MainCode>
-    <Origin_X>563</Origin_X>
-    <Origin_Y>725</Origin_Y>
+    <Origin_X>534</Origin_X>
+    <Origin_Y>839</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -244,8 +245,8 @@ if len(_m) &gt; 0:
  ActionResult = _m[0]
 else:
   ActionResult = "n/a"</MainCode>
-    <Origin_X>785</Origin_X>
-    <Origin_Y>436</Origin_Y>
+    <Origin_X>797</Origin_X>
+    <Origin_Y>593</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -280,8 +281,8 @@ stackCount == 1
 # Implement required logic to get the correct number
 #
 ActionResult = stackCount;</MainCode>
-    <Origin_X>319</Origin_X>
-    <Origin_Y>716</Origin_Y>
+    <Origin_X>292</Origin_X>
+    <Origin_Y>788</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -311,6 +312,9 @@ ActionResult = stackCount;</MainCode>
 #############################################################################
 global ActionResult
 from System.Net import IPAddress
+
+# RoutingInstance is received in aParam
+instance= ConnectionInfo.aParam
 
 parsedRoutes = []
 # query full route table
@@ -366,8 +370,8 @@ for thisLine in routeLines:
     System.Diagnostics.DebugEx.WriteLine(message)
   
 ActionResult = parsedRoutes</MainCode>
-    <Origin_X>95</Origin_X>
-    <Origin_Y>368</Origin_Y>
+    <Origin_X>81</Origin_X>
+    <Origin_Y>452</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -382,6 +386,7 @@ ActionResult = parsedRoutes</MainCode>
     <Description>This call should be able to return the full routing table of the device</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=878, Height=791}|{X=26,Y=26}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -398,11 +403,12 @@ ActionResult = parsedRoutes</MainCode>
 global ActionResult
 global ScriptSuccess
 
-ActionResult = GetInterfaces.GetRoutedInterfaces()
-ScriptSuccess = True
-</MainCode>
-    <Origin_X>91</Origin_X>
-    <Origin_Y>434</Origin_Y>
+# RoutingInszance is receied in aParam
+instance = ConnectionInfo.aParam
+ActionResult = GetInterfaces.GetRoutedInterfaces(instance)
+ScriptSuccess = True</MainCode>
+    <Origin_X>71</Origin_X>
+    <Origin_Y>519</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -442,9 +448,11 @@ global ActionResult
 
 # The protocol for which to get the RouterID
 protocol = ConnectionInfo.aParam
-ActionResult = RouterIDAndASNumber.GetRouterID(protocol)</MainCode>
-    <Origin_X>716</Origin_X>
-    <Origin_Y>586</Origin_Y>
+# The RoutingInstance is received in bParam
+instance = ConnectionInfo.bParam
+ActionResult = RouterIDAndASNumber.GetRouterID(protocol, instance)</MainCode>
+    <Origin_X>703</Origin_X>
+    <Origin_Y>724</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>47</Size_Height>
     <isStart>false</isStart>
@@ -459,6 +467,7 @@ ActionResult = RouterIDAndASNumber.GetRouterID(protocol)</MainCode>
     <Description> This call should be able to return RouterID of this device</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=836, Height=682}|{X=182,Y=182}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -474,6 +483,8 @@ ActionResult = RouterIDAndASNumber.GetRouterID(protocol)</MainCode>
 ############################################################################################
 global ActionResult
 global _runningRoutingProtocols
+# The RoutingInstance object for the request passed in aParam
+instance = ConnectionInfo.aParam
 
 if len(_runningRoutingProtocols) == 0 :
   response = Session.ExecCommand("show routing protocol ospf summary")
@@ -502,7 +513,7 @@ if len(_runningRoutingProtocols) == 0 :
 
 ActionResult = _runningRoutingProtocols</MainCode>
     <Origin_X>216</Origin_X>
-    <Origin_Y>648</Origin_Y>
+    <Origin_Y>732</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -517,6 +528,7 @@ ActionResult = _runningRoutingProtocols</MainCode>
     <Description>This call should be able to return the list of RoutingProtocols running on nthis router</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=958, Height=730}|{X=208,Y=208}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -532,14 +544,11 @@ ActionResult = _runningRoutingProtocols</MainCode>
 ######################################################################
 global ActionResult
 
-ASN = ""
-#
-# Implement required logic to acquire BGP AS number
-#
-ActionResult = ASN
-</MainCode>
+# the RoutingInstance object to query is received in aParam
+instance = ConnectionInfo.aParam
+ActionResult = RouterIDAndASNumber.GetBGPASNumber(instance)</MainCode>
     <Origin_X>98</Origin_X>
-    <Origin_Y>513</Origin_Y>
+    <Origin_Y>597</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -554,6 +563,7 @@ ActionResult = ASN
     <Description>This call should be able to return BGP AS number for this router</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=852, Height=703}|{X=93,Y=181}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -574,7 +584,7 @@ global HstName
 # so return that one.
 ActionResult = HostName</MainCode>
     <Origin_X>139</Origin_X>
-    <Origin_Y>582</Origin_Y>
+    <Origin_Y>666</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -611,8 +621,8 @@ Platform = "PaloAlto"
 # network discorey in any way.
 #
 ActionResult = Platform</MainCode>
-    <Origin_X>721</Origin_X>
-    <Origin_Y>237</Origin_Y>
+    <Origin_X>786</Origin_X>
+    <Origin_Y>384</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -649,8 +659,8 @@ DeviceType = "Firewall"
 # network discorey in any way.
 #
 ActionResult = DeviceType</MainCode>
-    <Origin_X>763</Origin_X>
-    <Origin_Y>301</Origin_Y>
+    <Origin_X>815</Origin_X>
+    <Origin_Y>457</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -690,8 +700,8 @@ Vendor = "PaloAlto"
 # For a new vendor register the vendor name there first.
 #
 ActionResult = Vendor</MainCode>
-    <Origin_X>785</Origin_X>
-    <Origin_Y>368</Origin_Y>
+    <Origin_X>822</Origin_X>
+    <Origin_Y>530</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -725,10 +735,13 @@ global ActionResult
 # strip any leading or trailing spaces, otherwise command execution will fail
 ifName = ConnectionInfo.aParam.strip()
 
+# RoutingInstance object received in bParam
+instance = ConnectionInfo.bParam
+
 #return the interface
-ActionResult = GetInterfaces.GetInterfaceByName(ifName)</MainCode>
+ActionResult = GetInterfaces.GetInterfaceByName(ifName, instance)</MainCode>
     <Origin_X>112</Origin_X>
-    <Origin_Y>301</Origin_Y>
+    <Origin_Y>385</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -743,6 +756,7 @@ ActionResult = GetInterfaces.GetInterfaceByName(ifName)</MainCode>
     <Description>This call should be able to return the RouterInterface object for the desired interface </Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=800, Height=620}|{X=78,Y=78}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -761,10 +775,13 @@ global ActionResult
 # the interface ip address to be queried is received in ConnectionInfo.aParam
 ifAddress = ConnectionInfo.aParam
 
+# RoutingInstance object received in bParam
+instance = ConnectionInfo.bParam
+
 #return the interface name
-ActionResult = GetInterfaces.GetInterfaceNameByAddress(ifAddress)</MainCode>
+ActionResult = GetInterfaces.GetInterfaceNameByAddress(ifAddress, instance)</MainCode>
     <Origin_X>152</Origin_X>
-    <Origin_Y>237</Origin_Y>
+    <Origin_Y>321</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -779,6 +796,7 @@ ActionResult = GetInterfaces.GetInterfaceNameByAddress(ifAddress)</MainCode>
     <Description>This call should be able to return an interface name based on its IP address</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=825, Height=700}|{X=525,Y=211}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -806,7 +824,7 @@ try:
 except:
   ActionResult = False</MainCode>
     <Origin_X>214</Origin_X>
-    <Origin_Y>177</Origin_Y>
+    <Origin_Y>261</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -822,6 +840,7 @@ except:
 A returned bool value should indicate whether the update was successful.</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=52,Y=52}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -845,8 +864,8 @@ if "paloaltonetworks" in _versionInfo.lower():
     ActionResult = False
 else :
   ActionResult = False</MainCode>
-    <Origin_X>345</Origin_X>
-    <Origin_Y>113</Origin_Y>
+    <Origin_X>527</Origin_X>
+    <Origin_Y>151</Origin_Y>
     <Size_Width>122</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -884,8 +903,8 @@ _interfaceConfigurations = {}
 Version.Reset()
 RouterIDAndASNumber.Reset()
 GetInterfaces.Reset()</MainCode>
-    <Origin_X>441</Origin_X>
-    <Origin_Y>65</Origin_Y>
+    <Origin_X>270</Origin_X>
+    <Origin_Y>200</Origin_Y>
     <Size_Width>121</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -917,7 +936,7 @@ global BreakExecution
 global ScriptExecutor
 global Session</MainCode>
     <Origin_X>248</Origin_X>
-    <Origin_Y>849</Origin_Y>
+    <Origin_Y>933</Origin_Y>
     <Size_Width>149</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -954,7 +973,7 @@ global BreakExecution
 global ScriptExecutor
 global Session</MainCode>
     <Origin_X>642</Origin_X>
-    <Origin_Y>849</Origin_Y>
+    <Origin_Y>933</Origin_Y>
     <Size_Width>150</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -962,28 +981,28 @@ global Session</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables># RouterID is a dictionary keyed by RoutingProtocol as a string
-RouterID = {}
-BGPASNumber = ""
+__RouterID = {}
+__BGPASNumber = ""
 # static Router ID is used for STATIC routing
 staticRouterID = ""</Variables>
     <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
-    <CustomCodeBlock>def GetRouterID(self, protocol):
-  if len(self.RouterID) == 0 : self.CalculateRouterIDAndASNumber()
-  rid = self.RouterID.get(str(protocol), "")
+    <CustomCodeBlock>def GetRouterID(self, protocol, instance):
+  if len(self.__RouterID) == 0 : self.CalculateRouterIDAndASNumber(instance)
+  rid = self.__RouterID.get(str(protocol), "")
   return rid
   
-def GetBGPASNumber(self):
-  if self.BGPASNumber == None : self.CalculateRouterIDAndASNumber()
-  return self.BGPASNumber
+def GetBGPASNumber(self, instance):
+  if self.__BGPASNumber == None : self.CalculateRouterIDAndASNumber(instance)
+  return self.__BGPASNumber
   
-def CalculateRouterIDAndASNumber(self):
+def CalculateRouterIDAndASNumber(self, instance):
   global _runningRoutingProtocols
  
   # first get the ip address from system info, we will use it when dynamic routing protocol is in use
   response = Session.ExecCommand("show system info | match ip-address:")
   words = filter(None, response.split(":"))
-  if  len(words) == 2 : self.staticRouterID = words[1].strip()
+  if  len(words) == 2 : self.__staticRouterID = words[1].strip()
   
   # sort the routing protocols by preference (its integer value)
   sRoutingProtocols = sorted(_runningRoutingProtocols, key=lambda p: int(p))
@@ -992,8 +1011,8 @@ def CalculateRouterIDAndASNumber(self):
       bgpSummary = Session.ExecCommand("show routing protocol bgp summary")
       rid = re.findall(r"(?&lt;=router id: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
       if len(rid) &gt; 0 : 
-        self.RouterID[str(thisProtocol)] = rid[0].strip()
-        if self.staticRouterID == "" : self.staticRouterID = rid[0]
+        self.__RouterID[str(thisProtocol)] = rid[0].strip()
+        if self.__staticRouterID == "" : self.__staticRouterID = rid[0]
 
       ASSize = 2
       re_LocalAS = re.findall(r"(?&lt;=Local AS: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
@@ -1001,43 +1020,43 @@ def CalculateRouterIDAndASNumber(self):
       if len(re_ASSize) == 1:
         ASSize = int(re_ASSize[0])
       if ASSize == 2:
-        if len(re_LocalAS) &gt;= 0 : self.BGPASNumber = re_LocalAS[0]
+        if len(re_LocalAS) &gt;= 0 : self.__BGPASNumber = re_LocalAS[0]
       elif ASSize == 4:
         ASDigits = re_LocalAS[0].split(".")
         highASN = int(ASDigits[0])
         lowASN = int(ASDigits[1])
-        self.BGPASNumber = str((highASN&lt;&lt;16) + lowASN)
+        self.__BGPASNumber = str((highASN&lt;&lt;16) + lowASN)
       
     elif thisProtocol == L3Discovery.NeighborProtocol.OSPF:
       ospfStatus = Session.ExecCommand("show routing protocol ospf summary")
       rid = re.findall(r"(?&lt;=router id: )[\ ,\d.]{0,99}", ospfStatus)
       if len(rid) &gt; 0 : 
-        self.RouterID[str(thisProtocol)] = rid[0].strip()
-        if self.staticRouterID == "" : self.staticRouterID = rid[0]
+        self.__RouterID[str(thisProtocol)] = rid[0].strip()
+        if self.__staticRouterID == "" : self.__staticRouterID = rid[0]
 
     elif thisProtocol == L3Discovery.NeighborProtocol.RIP:
       ripfStatus = Session.ExecCommand("show routing protocol rip summary")
       rid = re.findall(r"(?&lt;=router id: )[\ ,\d.]{0,99}", ripStatus)
       if len(rid) &gt; 0 : 
-        self.RouterID[str(thisProtocol)] = rid[0].strip()
-        if self.staticRouterID == "" : self.staticRouterID = rid[0]
+        self.__RouterID[str(thisProtocol)] = rid[0].strip()
+        if self.__staticRouterID == "" : self.__staticRouterID = rid[0]
         
     elif thisProtocol == L3Discovery.NeighborProtocol.LLDP:
       lldpMAC = Session.ExecCommand("show system info | match mac-address")
       rid = re.findall(r"[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}", lldpMAC)
       if len(rid) == 1:
-        self.RouterID[str(thisProtocol)] = rid[0].strip()
+        self.__RouterID[str(thisProtocol)] = rid[0].strip()
       
     elif thisProtocol == L3Discovery.NeighborProtocol.STATIC:
-      self.RouterID[str(thisProtocol)] = self.staticRouterID
+      self.__RouterID[str(thisProtocol)] = self.__staticRouterID
       
     else :
-      self.RouterID[str(thisProtocol)] = self.staticRouterID
+      self.__RouterID[str(thisProtocol)] = self.__staticRouterID
         
 def Reset(self):
-  self.RouterID = {}
-  self.BGPASNumber = ""
-  self.staticRouterID = ""</CustomCodeBlock>
+  self.__RouterID = {}
+  self.__BGPASNumber = ""
+  self.__staticRouterID = ""</CustomCodeBlock>
     <DemoMode>false</DemoMode>
     <Description>This object is responsible to retrieve protocol
 dependent RouterID and parse BGP AS number</Description>
@@ -1054,7 +1073,7 @@ dependent RouterID and parse BGP AS number</Description>
     <Commands />
     <MainCode />
     <Origin_X>449</Origin_X>
-    <Origin_Y>853</Origin_Y>
+    <Origin_Y>936</Origin_Y>
     <Size_Width>144</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -1262,13 +1281,13 @@ def ParseInterfaces(self) :
             
 
 """Returns a RouterInterface object for the interface specified by its name"""        
-def GetInterfaceByName(self, ifName):
+def GetInterfaceByName(self, ifName, instance):
   if len(self.FWInterfaces) == 0 : self.ParseInterfaces()
   foundFWInterface = next((intf for intf in self.FWInterfaces if intf.Name == ifName), None)
   return self.FWInterface2RouterInterface(foundFWInterface)
   
 """ Returns a RouterInterface object for the interface specified by its ip address """    
-def GetInterfaceNameByAddress(self, ipAddress):
+def GetInterfaceNameByAddress(self, ipAddress, instance):
   if len(self.FWInterfaces) == 0 : self.ParseInterfaces()
   ifName = ""
   foundFWInterface = next((intf for intf in self.FWInterfaces if intf.Address == ipAddress), None)
@@ -1302,7 +1321,7 @@ def FWInterface2RouterInterface(self, fwInterface):
   return ri
   
 """ Return interfaces in the form of list of RouterInterface"""
-def GetRoutedInterfaces(self):
+def GetRoutedInterfaces(self, instance):
   if len(self.FWInterfaces) == 0 : self.ParseInterfaces() 
   # we need all interfaces, removed filtering -- routedInterfaces = filter(lambda x: x.Address != "", self.FWInterfaces)
   return map(self.FWInterface2RouterInterface, self.FWInterfaces)
@@ -1322,13 +1341,10 @@ def Reset(self):
     <Name>RegisterNHRP</Name>
     <DisplayLabel>Register NHRP</DisplayLabel>
     <Commands />
-    <MainCode>global ActionResult
-global ConnectionDropped
-global ScriptSuccess
-global ConnectionInfo
-global BreakExecution</MainCode>
-    <Origin_X>442</Origin_X>
-    <Origin_Y>775</Origin_Y>
+    <MainCode># Not relevant to PaloAlto firewall
+pass</MainCode>
+    <Origin_X>383</Origin_X>
+    <Origin_Y>847</Origin_Y>
     <Size_Width>139</Size_Width>
     <Size_Height>43</Size_Height>
     <isStart>false</isStart>
@@ -1343,6 +1359,80 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=731, Height=666}|{X=104,Y=104}</EditorSize>
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>27</vsID>
+    <CommandID>84e73edc-c749-4f68-9cd0-0f45927e92d8</CommandID>
+    <Name>GetVirtualSystems</Name>
+    <DisplayLabel>Virtual systems</DisplayLabel>
+    <Commands />
+    <MainCode>global ActionResult
+global ConnectionDropped
+global ScriptSuccess
+global ConnectionInfo
+global BreakExecution
+
+# TODO : find out how to retrieve Vsys names
+ActionResult = ["Default"]</MainCode>
+    <Origin_X>637</Origin_X>
+    <Origin_Y>195</Origin_Y>
+    <Size_Width>145</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description>Returns the list of VSys-es defined</Description>
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=836, Height=680}|{X=182,Y=182}</EditorSize>
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>28</vsID>
+    <CommandID>7bd65d91-8884-407d-9a9a-197a20bef4ba</CommandID>
+    <Name>GetVirtualRouters</Name>
+    <DisplayLabel>Virtual Routers</DisplayLabel>
+    <Commands />
+    <MainCode>global ActionResult
+global ConnectionDropped
+global ScriptSuccess
+global ConnectionInfo
+global BreakExecution
+
+response = Session.ExecCommand("show routing summary")
+vrs = re.findall(r"(?=VIRTUAL ROUTER:\s([a-zA-Z0-9]+))", response)
+instances = []
+for thisVR in vrs :
+  instance = L3Discovery.RoutingInstance()
+  instance.Name = thisVR
+  instances.append(instance)
+
+ActionResult  = instances</MainCode>
+    <Origin_X>705</Origin_X>
+    <Origin_Y>254</Origin_Y>
+    <Size_Width>157</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description>Returns the list of VRs for requested VSys</Description>
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=806, Height=700}|{X=208,Y=208}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -1663,9 +1753,39 @@ global BreakExecution</MainCode>
     <Condition>return ConnectionInfo.Command == "RegisterNHRP"</Condition>
     <Variables />
     <Break>false</Break>
+    <Order>20</Order>
+    <Description />
+    <WatchVariables />
+  </vScriptConnector>
+  <vScriptConnector>
+    <cID>23</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVirtualSystems</Name>
+    <DisplayLabel>EU-DEFRA-FR4-CS01</DisplayLabel>
+    <Left>2</Left>
+    <Right>27</Right>
+    <Condition>return ConnectionInfo.Command == "GetLogicalSystems"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>21</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=234,Y=234}</EditorSize>
+  </vScriptConnector>
+  <vScriptConnector>
+    <cID>24</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVirtualRouters</Name>
+    <DisplayLabel>GetVirtualRouters</DisplayLabel>
+    <Left>2</Left>
+    <Right>28</Right>
+    <Condition>return ConnectionInfo.Command == "GetRoutingInstances"</Condition>
+    <Variables />
+    <Break>false</Break>
     <Order>22</Order>
     <Description />
     <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=26,Y=26}</EditorSize>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAltoFirewall</ScriptName>
@@ -1674,8 +1794,8 @@ global BreakExecution</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "15.11.2018"
-scriptVersion = "2.6"
+lastModified = "20.11.2018"
+scriptVersion = "4.0"
 VersionInfo = ""
 HostName = ""
 
@@ -1706,10 +1826,10 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.5119324</EditorScaleFactor>
+    <EditorScaleFactor>0.6823195</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=643, Height=640}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <EditorSize>{Width=858, Height=763}</EditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=507,Y=133}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
