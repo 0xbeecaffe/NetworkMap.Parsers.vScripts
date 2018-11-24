@@ -1668,7 +1668,7 @@ if len(_routingInstances[logicalSystem]) == 0:
     cmd = "show route instance operational logical-system {0} | match vrf".format(logicalSystem)
   # execute command and parse result
   cmdResult= Session.ExecCommand(cmd)
-  instanceNames =  c = map(lambda e: e.strip("vrf "), filter(lambda e: e != "{master}", cmdResult.splitlines()))
+  instanceNames =  c = map(lambda e: e.strip("vrf "), filter(lambda e: not e.startswith("{master"), cmdResult.splitlines()))
   instances = []
   # Add the default (global) instance
   defInstance = L3Discovery.RoutingInstance()
@@ -1694,7 +1694,7 @@ ActionResult = _routingInstances[logicalSystem]</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -2145,7 +2145,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -2155,6 +2155,6 @@ import System.Net</CustomNameSpaces>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
     <EditorSize>{Width=784, Height=730}</EditorSize>
-    <PropertiesEditorSize>{Width=1027, Height=759}|{X=446,Y=200}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=1027, Height=759}|{X=326,Y=125}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
