@@ -447,7 +447,7 @@ for thisNetworkMatch in networkBlockIterator:
           if len(thisProtocolNames) == 1 : rte.Protocol = thisProtocolNames[0]
           else : rte.Protocol = "UNKNOWN"
           # RouterID
-          rte.RouterID = RouterIDAndASNumber.GetRouterID(rte.Protocol)
+          rte.RouterID = RouterIDAndASNumber.GetRouterID(rte.Protocol, instance)
           # Prefix and Mask length
           prefixAndMask = thisNetwork.split("/")
           rte.Prefix = prefixAndMask[0]
@@ -2145,7 +2145,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
