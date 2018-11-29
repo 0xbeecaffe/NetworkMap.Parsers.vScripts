@@ -604,6 +604,11 @@ if len(_runningRoutingProtocols[instanceName]) == 0 :
   response = Session.ExecCommand(cmd)
   if (not ("not running" in response)): 
     _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.BGP)
+  # ISIS
+  cmd = "show isis overview instance {0}".format(instanceName)
+  response = Session.ExecCommand(cmd)
+  if (not ("not running" in response)): 
+    _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.ISIS)
   # STATIC 
   # TODO : "not running" is invalid in this context
   if instanceName == "master" : cmd = "show configuration routing-options static"  
@@ -620,7 +625,7 @@ if len(_runningRoutingProtocols[instanceName]) == 0 :
 
 ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
     <Origin_X>196</Origin_X>
-    <Origin_Y>609</Origin_Y>
+    <Origin_Y>607</Origin_Y>
     <Size_Width>146</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -628,14 +633,14 @@ ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=950, Height=790}|{X=2159,Y=84}</EditorSize>
+    <EditorSize>{Width=950, Height=790}|{X=209,Y=22}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1007,8 +1012,20 @@ def CalculateRouterIDAndASNumber(self, instance):
       # execute CLI command and parse result
       ospfStatus = Session.ExecCommand(cmd)
       rid = re.findall(r"(?&lt;=Router ID: )[\d.]{0,99}", ospfStatus)
-      if len(rid) &gt; 0 : self.RouterID[instanceName][str(thisProtocol)] = rid[0]
+      if len(rid) &gt; 0 : self.RouterID[instanceName][str(thisProtocol)] = rid[0].strip()
       elif globalRouterID != "" : self.RouterID[instanceName][str(thisProtocol)] = globalRouterID
+      
+    elif thisProtocol == L3Discovery.NeighborProtocol.ISIS:
+      # init dictionary for protocol if empty
+      if self.RouterID[instanceName].get(str(thisProtocol), None) == None: self.RouterID[instanceName][str(thisProtocol)] = {}
+      # construct CLI command
+      cmd = "show isis overview"
+      if instanceName.lower() != "master" : cmd += " instance {0}".format(instanceName)
+      # execute CLI command and parse result
+      isisStatus = Session.ExecCommand(cmd)
+      rid = re.findall(r"(?&lt;=Sysid:).+", isisStatus, re.IGNORECASE)
+      if len(rid) &gt; 0 : self.RouterID[instanceName][str(thisProtocol)] = rid[0].strip()
+      elif globalRouterID != "" : self.RouterID[instanceName][str(thisProtocol)] = globalRouterID      
       
     elif thisProtocol == L3Discovery.NeighborProtocol.LLDP:
       # init dictionary for protocol if empty
@@ -1044,7 +1061,7 @@ def Reset(self):
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1404, Height=1074}|{X=264,Y=48}</EditorSize>
+    <EditorSize>{Width=1227, Height=744}|{X=84,Y=72}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -2145,16 +2162,16 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.7287844</EditorScaleFactor>
+    <EditorScaleFactor>0.735538</EditorScaleFactor>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
-    <EditorSize>{Width=784, Height=730}</EditorSize>
-    <PropertiesEditorSize>{Width=1027, Height=759}|{X=326,Y=125}</PropertiesEditorSize>
+    <EditorSize>{Width=1000, Height=621}</EditorSize>
+    <PropertiesEditorSize>{Width=1027, Height=759}|{X=254,Y=32}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
