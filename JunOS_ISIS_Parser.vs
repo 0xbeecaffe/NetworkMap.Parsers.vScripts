@@ -240,6 +240,9 @@ for thisLine in [line.strip() for line in isisAdjacencies.splitlines()]:
           remoteSystemName = words[1]
           remoteSystemID = isisHostName2SysID.get(remoteSystemName, "")
           neighborState = words[3]
+          # TODO : this parser does not work correctly if there are multiple adjacencies betwwen same systems differentiated only by SNPA
+          # In order to allow using SNPA value, the parser database must be extended with a general endpoint ID for neighbors. Perhaps in some future release...
+          SNPA = "n/a"
           # Now we have all the data to register the neighbor
           # RegisterNeighbor(IRouter, RoutingInstance, NeighborProtocol, string neighborRouterID, string remoteAS, string description, string remoteNeighboringIP, RouterInterface localInterface, string neighborState, string neighborInterfaceName = "")
           nRegistry.RegisterNeighbor(Router, instance, L3Discovery.NeighborProtocol.ISIS,  remoteSystemID, "", remoteSystemName, "", ri, neighborState, "") 
@@ -526,13 +529,13 @@ import System.Net
 from System.Diagnostics import DebugEx
 from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.4471804</EditorScaleFactor>
+    <EditorScaleFactor>0.6391805</EditorScaleFactor>
     <Description>This vScript template can be used as a starting point for creating a new routing protocol Parser Module for Network Map.
 This is typically required to add support for a new routing protocol to a vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=496, Height=443}</EditorSize>

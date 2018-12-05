@@ -438,6 +438,7 @@ for thisNetworkMatch in networkBlockIterator:
         nextHopAddresses = re.findall(r"(?&lt;=to )[\d\.]{0,99}", thisProtocolBlock)
         routeTags = re.findall(r"(?&lt;=tag )[\d\.]{0,99}", thisProtocolBlock)
         outInterfaces = re.findall(r"(?&lt;=via ).*", thisProtocolBlock)
+        leartFrom = re.findall(r"(?&lt;=from )[\d\.]{0,99}", thisProtocolBlock)
         routePreference = re.findall(r"[0-9]+", protocolBlockHeader)
         
         matchIndex = 0
@@ -457,6 +458,9 @@ for thisNetworkMatch in networkBlockIterator:
           # NextHop address
           if len(nextHopAddresses) &gt; matchIndex : rte.NextHop = nextHopAddresses[matchIndex]
           else : rte.NextHop = ""
+          # LeartFrom
+          if len(leartFrom) == 1 : rte.From = leartFrom[0]
+          else : rte.From = ""
           # Prefix parameters
           rte.Best = isBestRoute
           if len(routeTags) == 1 : rte.Tag = routeTags[0]
@@ -2077,7 +2081,7 @@ ActionResult = _routingInstances[logicalSystem]</MainCode>
   <Parameters>
     <ScriptName>JunOS</ScriptName>
     <GlobalCode># last changed : 2018.11.18
-scriptVersion = "4.0"
+scriptVersion = "4.1"
 #--- v4.0 adds support for multiple routing instances, work with engine v7.0 or later ---
 _hostName = None
 _stackCount = -1
@@ -2162,7 +2166,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -2172,6 +2176,6 @@ import System.Net</CustomNameSpaces>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
     <EditorSize>{Width=1000, Height=621}</EditorSize>
-    <PropertiesEditorSize>{Width=1027, Height=759}|{X=254,Y=32}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=1027, Height=759}|{X=446,Y=200}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

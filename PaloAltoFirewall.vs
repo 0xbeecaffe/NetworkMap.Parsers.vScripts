@@ -317,11 +317,26 @@ from System.Net import IPAddress
 instance= ConnectionInfo.aParam
 
 parsedRoutes = []
-# query full route table
-routeLines = Session.ExecCommand("show routing route").splitlines()
+if instance.Name.lower() != "default" :
+  # query the route table of specified VR
+  routeLines = Session.ExecCommand("show routing route virtual-router {0}".format(instance.Name)).splitlines()
+else:
+  # query full route table
+  routeLines = Session.ExecCommand("show routing route").splitlines()
+  
+currentHeaderFields = []
+currentHeaderLine = ""  
 # iterate through the network blocks
 for thisLine in routeLines:
   try:
+    # a line with the first word of "destination " is the header
+    if thisLine.startswith("destination "):
+      currentHeaderLine = thisLine
+      currentHeaderFields = filter(None, currentHeaderLine.split(" "))
+      interfaceBlock = True
+      aggregationGroup = False
+      continue  
+  
     words = filter(None, thisLine.split(" "))
     if len(words) &gt; 0:
       firstWord = words[0]
@@ -334,13 +349,18 @@ for thisLine in routeLines:
         ipa = clr.Reference[IPAddress]()
         # check if the last word is a valid ip address
         if IPAddress.TryParse(prefixAddress, ipa) and str(ipa.Value) == prefixAddress:    
-          try:
-            # the 4th word is the flag telling us the protocol type
+          try:          
+            # flag tells us the protocol type
             # flags: A:active, ?:loose, C:connect, H:host, S:static, ~:internal, R:rip, O:ospf, B:bgp, 
             #        Oi:ospf intra-area, Oo:ospf inter-area, O1:ospf ext-type-1, O2:ospf ext-type-2, E:ecmp
-            isActiveRoute = words[3] == "A"
+            # flags
+            s = currentHeaderLine.index("flags")
+            e = currentHeaderLine.index("age")
+            rFlags = thisLine[s:e].strip()             
+            
+            isActiveRoute = "A" in rFlags
             if isActiveRoute:
-              protocolType = words[4]
+              protocolType = rFlags.split()[1]
               thisLineProtocol = L3Discovery.NeighborProtocol.UNKNOWN
               if protocolType == "C" : thisLineProtocol = L3Discovery.NeighborProtocol.CONNECTED
               elif protocolType.startswith("O") : thisLineProtocol = L3Discovery.NeighborProtocol.OSPF
@@ -350,15 +370,26 @@ for thisLine in routeLines:
               elif protocolType == "B" : thisLineProtocol = L3Discovery.NeighborProtocol.BGP
               rte = L3Discovery.RouteTableEntry()
               rte.Protocol = str(thisLineProtocol)
-              rte.RouterID = RouterIDAndASNumber.GetRouterID(rte.Protocol)
+              rte.RouterID = RouterIDAndASNumber.GetRouterID(rte.Protocol, instance)
               rte.Prefix = prefixAddress
               rte.MaskLength = int(prefixLength)
-              rte.NextHop = words[1]
+              # nexthop
+              s = currentHeaderLine.index("nexthop")
+              e = currentHeaderLine.index("metric")
+              rte.NextHop = thisLine[s:e].strip()  
+              # metric
+              s = currentHeaderLine.index("metric")
+              e = currentHeaderLine.index("flags")
+              rte.Metric = thisLine[s:e].strip()                
+              # interface
+              s = currentHeaderLine.index("interface")
+              e = currentHeaderLine.index("next-AS")
+              rte.OutInterface = thisLine[s:e].strip() 
+              # --
+              rte.From = "" # don't know actually
               rte.Best = False # don't know actually
               rte.Tag = ""
-              if len(words) &gt;= 6 : rte.OutInterface = words[5]
               rte.AD = ""
-              rte.Metric = words[2]
               parsedRoutes.Add(rte)
 
           except Exception as Ex:
@@ -379,7 +410,7 @@ ActionResult = parsedRoutes</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -1794,8 +1825,8 @@ ActionResult  = instances</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "20.11.2018"
-scriptVersion = "4.0"
+lastModified = "05.12.2018"
+scriptVersion = "4.1"
 VersionInfo = ""
 HostName = ""
 
@@ -1820,7 +1851,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -1830,6 +1861,6 @@ import System.Net</CustomNameSpaces>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
     <EditorSize>{Width=858, Height=763}</EditorSize>
-    <PropertiesEditorSize>{Width=907, Height=602}|{X=507,Y=133}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=279}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
