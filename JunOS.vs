@@ -386,11 +386,11 @@ global ConnectionInfo
 # RoutingInstance is received in aParam
 instance= ConnectionInfo.aParam
 parsedRoutes = []
-# query full route table
-cmd = "show route"
+# query full inet.0 route table for the requested instance
 instanceName = "master"
+cmd = "show route table inet.0"
 if instance : instanceName = instance.Name.lower()
-if instanceName != "master" : cmd += " table {0}.inet.0".format(instance.Name)
+if instanceName != "master" : cmd = "show route table {0}.inet.0".format(instance.Name)
 routes = Session.ExecCommand(cmd)
 # define regex expressions for logical text blocks
 networkBlockFilter = re.compile(r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b\/\d{1,2}")
@@ -435,10 +435,11 @@ for thisNetworkMatch in networkBlockIterator:
         
         thisProtocolBlock =  thisRouteBlock[protocolBlockStart : protocolBlockEnd]
         thisProtocolNames = re.findall(r"[a-zA-Z,-]+", protocolBlockHeader)
-        nextHopAddresses = re.findall(r"(?&lt;=to )[\d\.]{0,99}", thisProtocolBlock)
-        routeTags = re.findall(r"(?&lt;=tag )[\d\.]{0,99}", thisProtocolBlock)
-        outInterfaces = re.findall(r"(?&lt;=via ).*", thisProtocolBlock)
-        leartFrom = re.findall(r"(?&lt;=from )[\d\.]{0,99}", thisProtocolBlock)
+        nextHopAddresses = re.findall(r"(?&lt;=to )[\d\.]{0,99}", thisProtocolBlock, re.IGNORECASE)
+        routeTags = re.findall(r"(?&lt;=tag )[\d\.]{0,99}", thisProtocolBlock, re.IGNORECASE)
+        asPath = re.findall(r"(?&lt;=AS path:).[^,]*",thisProtocolBlock, re.IGNORECASE)
+        outInterfaces = re.findall(r"(?&lt;=via ).*", thisProtocolBlock, re.IGNORECASE)
+        leartFrom = re.findall(r"(?&lt;=from )[\d\.]{0,99}", thisProtocolBlock, re.IGNORECASE)
         routePreference = re.findall(r"[0-9]+", protocolBlockHeader)
         
         matchIndex = 0
@@ -467,6 +468,9 @@ for thisNetworkMatch in networkBlockIterator:
           else : rte.Tag = ""
           if len(routePreference) == 1 : rte.AD = routePreference[0]
           else : rte.AD = ""
+          if len(asPath) == 1 : rte.ASPath = asPath[0]
+          else : rte.ASPath = ""
+          rte.Community = ""
           rte.Metric = ""
           parsedRoutes.Add(rte)
           matchIndex += 1
@@ -498,7 +502,7 @@ ActionResult = parsedRoutes</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1023, Height=830}|{X=78,Y=78}</EditorSize>
+    <EditorSize>{Width=1323, Height=807}|{X=108,Y=75}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -536,7 +540,7 @@ ScriptSuccess = True</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=802, Height=572}|{X=78,Y=78}</EditorSize>
+    <EditorSize>{Width=1224, Height=869}|{X=78,Y=78}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -2080,8 +2084,8 @@ ActionResult = _routingInstances[logicalSystem]</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS</ScriptName>
-    <GlobalCode># last changed : 2018.11.18
-scriptVersion = "4.1"
+    <GlobalCode># last changed : 2018.12.08
+scriptVersion = "4.2.2"
 #--- v4.0 adds support for multiple routing instances, work with engine v7.0 or later ---
 _hostName = None
 _stackCount = -1
@@ -2175,7 +2179,7 @@ import System.Net</CustomNameSpaces>
     <EditorScaleFactor>0.735538</EditorScaleFactor>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
-    <EditorSize>{Width=1000, Height=621}</EditorSize>
-    <PropertiesEditorSize>{Width=1027, Height=759}|{X=446,Y=200}</PropertiesEditorSize>
+    <EditorSize>{Width=1181, Height=795}</EditorSize>
+    <PropertiesEditorSize>{Width=1027, Height=759}|{X=326,Y=125}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
