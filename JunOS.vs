@@ -382,15 +382,30 @@ ActionResult = _stackCount;</MainCode>
     <Commands />
     <MainCode>global ActionResult
 global ConnectionInfo
+global _maxRouteTableEntries
 
 # RoutingInstance is received in aParam
 instance= ConnectionInfo.aParam
 parsedRoutes = []
-# query full inet.0 route table for the requested instance
 instanceName = "master"
-cmd = "show route table inet.0"
 if instance : instanceName = instance.Name.lower()
-if instanceName != "master" : cmd = "show route table {0}.inet.0".format(instance.Name)
+# get route table size
+routeTableSize = 0
+cmd = "show route summary table inet.0"
+if instanceName != "master" : cmd = "show route summary table {0}.inet.0".format(instance.Name)
+routeSummary = Session.ExecCommand(cmd)
+re_destinationCount = re.findall(r"\d+(?= destinations)", routeSummary)
+if len(re_destinationCount) &gt; 0:
+  routeTableSize = int(re_destinationCount[0].strip())
+if routeTableSize &gt; _maxRouteTableEntries :
+  # query only default route 
+  cmd = "show route 0.0.0.0 inet.0"
+  if instanceName != "master" : cmd = "show route 0.0.0.0 table {0}.inet.0".format(instance.Name)
+else:
+  # query inet.0 route table for the requested instance
+  cmd = "show route table inet.0"
+  if instanceName != "master" : cmd = "show route table {0}.inet.0".format(instance.Name)
+  
 routes = Session.ExecCommand(cmd)
 # define regex expressions for logical text blocks
 networkBlockFilter = re.compile(r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b\/\d{1,2}")
@@ -502,7 +517,7 @@ ActionResult = parsedRoutes</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1323, Height=807}|{X=108,Y=75}</EditorSize>
+    <EditorSize>{Width=1323, Height=807}|{X=303,Y=112}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -2085,10 +2100,12 @@ ActionResult = _routingInstances[logicalSystem]</MainCode>
   <Parameters>
     <ScriptName>JunOS</ScriptName>
     <GlobalCode># last changed : 2018.12.08
-scriptVersion = "4.2.2"
+scriptVersion = "4.2.4"
 #--- v4.0 adds support for multiple routing instances, work with engine v7.0 or later ---
 _hostName = None
 _stackCount = -1
+# Beyond _maxRouteTableEntries only the default route will be queried
+_maxRouteTableEntries = 30000
 # The list of logical systems defined
 _logicalSystems = []
 # The dictionary of RoutingInstances keyed by LogicalSystem name
@@ -2179,7 +2196,7 @@ import System.Net</CustomNameSpaces>
     <EditorScaleFactor>0.735538</EditorScaleFactor>
     <Description>This vScript implements a NetworkMap Router Module
 capable of handling Juniper EX/MX/SRX devices runing JunOS.</Description>
-    <EditorSize>{Width=1181, Height=795}</EditorSize>
+    <EditorSize>{Width=872, Height=805}</EditorSize>
     <PropertiesEditorSize>{Width=1027, Height=759}|{X=326,Y=125}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
