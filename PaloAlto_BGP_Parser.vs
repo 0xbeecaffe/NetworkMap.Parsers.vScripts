@@ -48,7 +48,7 @@ Router = ConnectionInfo.aParam
 if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -70,6 +70,7 @@ else:
 for the specified protocol using the given Router instance.</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=892, Height=700}|{X=880,Y=378}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -163,7 +164,7 @@ instance = ConnectionInfo.cParam
 
 OperationStatusLabel = "Querying BGP neighbors..."  
 try:
-  bgpSummary = Session.ExecCommand("show routing protocol bgp summary")
+  bgpSummary = Session.ExecCommand("show routing protocol bgp summary virtual-router {0}".format(instance.Name))
   cToken.ThrowIfCancellationRequested()
 
   # Regex patterns precompiled
@@ -423,7 +424,7 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAlto_BGP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "4.0"
+    <GlobalCode>ScriptVersion = "5.0"
 # Describe the Module Name
 ModuleName = "PaloAlto BGP Protocol Parser Support Module - Python vScript Parser"
 # Describes current operation status. The name of this variable is fixed !
@@ -450,18 +451,18 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.5701841</EditorScaleFactor>
+    <EditorScaleFactor>0.6435742</EditorScaleFactor>
     <Description>This vScript template can be used as a starting point for
 creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
-    <EditorSize>{Width=505, Height=441}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=2115,Y=182}</PropertiesEditorSize>
+    <EditorSize>{Width=570, Height=516}</EditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

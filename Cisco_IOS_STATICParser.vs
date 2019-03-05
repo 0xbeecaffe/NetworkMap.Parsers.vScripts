@@ -50,7 +50,7 @@ Router = ConnectionInfo.aParam
 if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -72,6 +72,7 @@ else:
 for the specified protocol using the given Router instance.</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=1227, Height=797}|{X=104,Y=104}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -162,11 +163,16 @@ nRegistry = ConnectionInfo.aParam
 # The token should be checked repetitively whether cancellation was requested 
 # by user and if yes, stop further processing.
 cToken = ConnectionInfo.bParam
+# The routing instance to parser is received via cParam
+instance = ConnectionInfo.cParam
 
 OperationStatusLabel = "Identifying router..."
-isIOSXE = "IOS-XE" in Router.Version
+isIOSXE = "IOS-XE" in Router.GetVersion()
 #--  
-TextToParse = Session.ExecCommand("show ip route static")
+if instance and not instance.IsDefaultRoutingInstance() :
+  TextToParse = Session.ExecCommand("show ip route vrf {0} static".format(instance.Name))
+else:
+  TextToParse = Session.ExecCommand("show ip route static")
 cToken.ThrowIfCancellationRequested()
 
 OperationStatusLabel = "Processing STATIC routes..."
@@ -182,8 +188,10 @@ for line in static_lines:
       nexthop = foundNexthop[0]
       # get the outgoing interface
       OperationStatusLabel = "Finding egress interface for {0}...".format(nexthop)
-      cefResponse = Session.ExecCommand("show ip cef {0}".format(nexthop)).splitlines()
-     
+      if instance and not instance.IsDefaultRoutingInstance() :
+        cefResponse = Session.ExecCommand("show ip cef vrf {0} {1}".format(instance.Name, nexthop)).splitlines()
+      else:
+        cefResponse = Session.ExecCommand("show ip cef {0}".format(nexthop)).splitlines()
       if isIOSXE:
         cefEntry = next((thisCEFEntry for thisCEFEntry in cefResponse if ("nexthop" in thisCEFEntry or "attached to" in thisCEFEntry)), None)
         # Exaple cefEntry output :   attached to TenGigabitEthernet0/1/0.3805
@@ -195,10 +203,10 @@ for line in static_lines:
             outInterfaceName = cefwords[len(cefwords)-1]
             outInterfaceName = outInterfaceName.strip(",")
             OperationStatusLabel = "Querying interface {0}...".format(outInterfaceName)
-            ri = Router.GetInterfaceByName(outInterfaceName)
+            ri = Router.GetInterfaceByName(outInterfaceName, instance)
             if ri != None:
               OperationStatusLabel = "Registering static neighbor {0}...".format(ri.Address)
-              nRegistry.RegisterSTATICNeighbor(Router, routeForNetwork, nexthop, ri.Address, ri);        
+              nRegistry.RegisterSTATICNeighbor(Router, instance, routeForNetwork, nexthop, ri.Address, ri);        
       else:
         cefEntry = next((thisCEFEntry for thisCEFEntry in cefResponse if ("via" in thisCEFEntry or "attached to" in thisCEFEntry)), None)
         # Exaple cefEntry output 1 : via 172.18.145.82, FastEthernet0/0, 0 dependencies
@@ -214,10 +222,10 @@ for line in static_lines:
             outInterfaceName = cefwords[len(cefwords) - 1] 
           if outInterfaceName != "":
             OperationStatusLabel = "Querying interface {0}...".format(outInterfaceName)
-            ri = Router.GetInterfaceByName(outInterfaceName)
+            ri = Router.GetInterfaceByName(outInterfaceName, instance)
             if ri != None:
               OperationStatusLabel = "Registering static neighbor {0}...".format(ri.Address)
-              nRegistry.RegisterSTATICNeighbor(Router, routeForNetwork, nexthop, ri.Address, ri);
+              nRegistry.RegisterSTATICNeighbor(Router, instance, routeForNetwork, nexthop, ri.Address, ri);
 #
 # No need to return anything via ActionResult
 #</MainCode>
@@ -230,7 +238,7 @@ for line in static_lines:
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -238,7 +246,7 @@ for line in static_lines:
 and register the neighbors found by the routing protocol for discovery.</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=840, Height=678}|{X=286,Y=286}</EditorSize>
+    <EditorSize>{Width=1169, Height=773}|{X=210,Y=67}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -261,7 +269,7 @@ raise ValueError("{0} has received an unhandled Command request : {1}".format(Mo
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -434,7 +442,7 @@ global BreakExecution</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_STATIC_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "2.0"
+    <GlobalCode>ScriptVersion = "5.0.2"
 # Describe the Module Name
 ModuleName = "Cisco IOS STATIC Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -460,18 +468,18 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.8799996</EditorScaleFactor>
+    <EditorScaleFactor>0.7283188</EditorScaleFactor>
     <Description>This vScript template can be used as a starting point for
 creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
-    <EditorSize>{Width=784, Height=564}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <EditorSize>{Width=582, Height=463}</EditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=435,Y=182}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

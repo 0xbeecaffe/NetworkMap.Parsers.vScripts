@@ -45,7 +45,7 @@ if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   # This parser only supports JunOS ruter vendor and OSPF protocol
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -141,6 +141,8 @@ global OperationStatusLabel
 nRegistry = ConnectionInfo.aParam
 # A CancellationToken is received in ConnectionInfo.bParam
 cToken = ConnectionInfo.bParam
+# The routing instance to parser is received via cParam
+instance = ConnectionInfo.cParam
 #--  
 OperationStatusLabel = "Querying EIGRP neighbors..."  
 TextToParse = Session.ExecCommand("show ip eigrp neighbors")
@@ -174,15 +176,15 @@ for line in eigrp_lines:
       ifNameFieldIndex = words.index(str(nIP.Value)) + 1
       ifName = words[ifNameFieldIndex]
       OperationStatusLabel = "Querying router interface {0}...".format(ifName)
-      ri = Router.GetInterfaceByName(ifName)
+      ri = Router.GetInterfaceByName(ifName, instance)
       if ri != None:
         remoteNeighboringIP = str(nIP.Value)
         description = ""
         OperationStatusLabel = "Registering EIGRP neighbor {0}...".format(remoteNeighboringIP)
-        nRegistry.RegisterNeighbor(Router, L3Discovery.NeighborProtocol.EIGRP, remoteNeighboringIP, "", description, remoteNeighboringIP, ri, "established")
+        nRegistry.RegisterNeighbor(Router, instance, L3Discovery.NeighborProtocol.EIGRP, remoteNeighboringIP, "", description, remoteNeighboringIP, ri, "established")
         
   except Exception as Ex:
-    msg = "Cisco IOS EIGRP vScript Parser : Error while parsing eigrp output line [{0}]. Error is : {1}".format(line, str(Ex))
+    msg = "Cisco IOS EIGRP vScript Parser : Error while processing eigrp at line [{0}]. Error is : {1}".format(line, str(Ex))
     System.Diagnostics.DebugEx.WriteLine(msg) 
 </MainCode>
     <Origin_X>478</Origin_X>
@@ -201,7 +203,7 @@ for line in eigrp_lines:
     <Description>Discover EIGRP adjacencies and register peers for discovery</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=786, Height=690}|{X=234,Y=234}</EditorSize>
+    <EditorSize>{Width=1274, Height=839}|{X=337,Y=239}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -397,7 +399,7 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_EIGRP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "2.0"
+    <GlobalCode>ScriptVersion = "5.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS EIGRP Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -431,7 +433,7 @@ import System.Net</CustomNameSpaces>
     <IsRepository>false</IsRepository>
     <EditorScaleFactor>0.8679999</EditorScaleFactor>
     <Description />
-    <EditorSize>{Width=837, Height=565}</EditorSize>
+    <EditorSize>{Width=655, Height=505}</EditorSize>
     <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

@@ -48,7 +48,7 @@ Router = ConnectionInfo.aParam
 if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -497,7 +497,7 @@ global BreakExecution</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAltoFirewall_LLDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "4.0"
+    <GlobalCode>ScriptVersion = "5.0"
 # Describe the Module Name
 ModuleName = "PaloAlto Networks Firewall - LLDP Parser"
 # Describes current operation status
@@ -535,6 +535,6 @@ from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <Description>This vScript template can be used as a starting point for creating a new routing protocol Parser Module for Network Map.
 This is typically required to add support for a new routing protocol to a vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=616, Height=606}</EditorSize>
-    <PropertiesEditorSize>{Width=965, Height=736}|{X=357,Y=137}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=965, Height=736}|{X=477,Y=212}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

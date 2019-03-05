@@ -48,7 +48,7 @@ Router = ConnectionInfo.aParam
 if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -215,6 +215,7 @@ repLocalPortID = re.compile(r"(Local Port ID\s+:)(.*)", re.IGNORECASE)
 repPortID = re.compile(r"(Port ID\s+:)(.*)", re.IGNORECASE)
 repPortDescription = re.compile(r"(Port description\s+:)(.*)", re.IGNORECASE)
 repManagementAddress = re.compile(r"(Address\s+:)(.*)", re.IGNORECASE)
+repMACAddress = re.compile(r"[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}", re.IGNORECASE)
 
 unknownSystemName = "Unknown system"
 unknownChassisType = "Unknown chassis type"
@@ -277,7 +278,8 @@ for thisLine in [line.strip() for line in lldpNeighbors.splitlines()]:
           else : remoteSystemName = unknownSystemName
           # -- ChassisID - Mandatory field in LLDP, but VMWare vSwitch does not send this, so be careful
           x = repChassisID.findall(niText)
-          if len(x) &gt; 0 : remoteChassisID = (x[0][1]).strip()
+          if len(x) &gt; 0 : 
+            remoteChassisID = (x[0][1]).strip()
           else : remoteChassisID = unknownChassisID
           #-- PortID - Mandatory field in LLDP
           x = repPortID.findall(niText)
@@ -288,11 +290,13 @@ for thisLine in [line.strip() for line in lldpNeighbors.splitlines()]:
             chassisType = (x[0][1]).strip()
             if remoteSystemName == unknownSystemName and chassisType.lower() == "mac address" :
               # Use remoteChassisID as a unique ID
-              if ri.Description != None and ri.Description != "" : remoteSystemName = ri.Description
+              if ri.Description : remoteSystemName = ri.Description
               else : remoteSystemName = remoteChassisID  
-            if remoteChassisID == unknownChassisID  and chassisType.lower() == "interface name" :
-              if remoteSystemName != unknownSystemName : 
-                remoteChassisID = remoteSystemName
+            elif chassisType.lower() == "interface name" :
+              remoteChassisID = remoteSystemName
+            elif chassisType.lower() == "network address" :
+              remoteChassisID = remoteSystemName
+              
           else : chassisType = unknownChassisType
           # Find management address if present
           managementBlock = False
@@ -330,7 +334,7 @@ for thisLine in [line.strip() for line in lldpNeighbors.splitlines()]:
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock>""" Determines if a given address is formatted as a MAC address"""
 def IsMACAddress(self, address):
@@ -359,7 +363,7 @@ def IsInterfaceName(self, text):
 and register the neighbors found by the routing protocol for discovery.</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1460, Height=920}|{X=139,Y=15}</EditorSize>
+    <EditorSize>{Width=1460, Height=920}|{X=450,Y=132}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -572,7 +576,7 @@ global BreakExecution</MainCode>
   <Parameters>
     <ScriptName>JunOS_LLDP_Parser</ScriptName>
     <GlobalCode># v4.0 supports Routing instances
-ScriptVersion = "4.0"
+ScriptVersion = "5.0"
 # Describe the Module Name
 ModuleName = "JunOS LLDP Parser"
 # Describes current operation status
@@ -610,6 +614,6 @@ from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <Description>This vScript template can be used as a starting point for creating a new routing protocol Parser Module for Network Map.
 This is typically required to add support for a new routing protocol to a vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=548, Height=570}</EditorSize>
-    <PropertiesEditorSize>{Width=775, Height=526}|{X=452,Y=242}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=775, Height=526}|{X=572,Y=317}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

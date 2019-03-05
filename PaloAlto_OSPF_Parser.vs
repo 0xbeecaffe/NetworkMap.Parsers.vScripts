@@ -48,7 +48,7 @@ Router = ConnectionInfo.aParam
 if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -70,6 +70,7 @@ else:
 for the specified protocol using the given Router instance.</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=1190, Height=842}|{X=182,Y=182}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -162,7 +163,7 @@ cToken = ConnectionInfo.bParam
 instance = ConnectionInfo.cParam
 
 OperationStatusLabel = "Querying OSPF neighbors..."  
-TextToParse = Session.ExecCommand("show routing protocol ospf neighbor")
+TextToParse = Session.ExecCommand("show routing protocol ospf neighbor virtual-router {0}".format(instance.Name))
 #--
 OperationStatusLabel = "Processing OSPF data..."
 cToken.ThrowIfCancellationRequested()
@@ -666,7 +667,7 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAlto_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "4.0"
+    <GlobalCode>ScriptVersion = "5.0"
 # Describe the Module Name
 ModuleName = "PaloAlto OSPF Protocol Parser Support Module - Python vScript Parser"
 # Describes current operation status. The name of this variable is fixed !
@@ -705,6 +706,6 @@ creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=710, Height=681}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=507,Y=275}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

@@ -48,7 +48,7 @@ Router = ConnectionInfo.aParam
 if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -501,7 +501,7 @@ global BreakExecution</MainCode>
   <Parameters>
     <ScriptName>JunOS_ISIS_Parser</ScriptName>
     <GlobalCode># v4.0 supports Routing instances
-ScriptVersion = "4.0"
+ScriptVersion = "5.0"
 # Describe the Module Name
 ModuleName = "JunOS ISIS Parser"
 # Describes current operation status
@@ -539,6 +539,6 @@ from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <Description>This vScript template can be used as a starting point for creating a new routing protocol Parser Module for Network Map.
 This is typically required to add support for a new routing protocol to a vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=496, Height=443}</EditorSize>
-    <PropertiesEditorSize>{Width=775, Height=526}|{X=380,Y=149}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=775, Height=526}|{X=572,Y=317}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

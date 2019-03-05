@@ -48,7 +48,7 @@ Router = ConnectionInfo.aParam
 if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -197,6 +197,8 @@ nRegistry = ConnectionInfo.aParam
 # The token should be checked repetitively whether cancellation was requested 
 # by user and if yes, stop further processing.
 cToken = ConnectionInfo.bParam
+# The routing instance parsing is requested for
+instance = ConnectionInfo.cParam
 
 OperationStatusLabel = "Identifying router..."
 #--  
@@ -223,7 +225,7 @@ for blockNum, thisBlock in enumerate(cdpInfoBlocks):
     # print ("Match {matchNum} was found at {start}-{end}: {match}".format(matchNum = matchNum, start = thisBlock.start(), end = thisBlock.end(), match = thisBlock.group()))
     infoBlockText = thisBlock.group()
     localIntfName = repLocalInterfaceName.findall(infoBlockText)[0].strip()
-    ri = Router.GetInterfaceByName(localIntfName)
+    ri = Router.GetInterfaceByName(localIntfName, instance)
     if ri != None:    
       # don't use FQDN, only hostname
       remoteChassisID = repNeighborDeviceID.findall(infoBlockText)[0].strip().split(".")[0]
@@ -231,7 +233,7 @@ for blockNum, thisBlock in enumerate(cdpInfoBlocks):
       remoteNeighboringIP = repNeighborMgmtIP.findall(infoBlockText)[0].strip()
       # Now we have all the data to register the neighbor
       # RegisterNeighbor(IRouter router, NeighborProtocol protocol, string neighborRouterID, string remoteAS, string description, string remoteNeighboringIP, RouterInterface localInterface, string neighborState, string neighborInterfaceName = "")
-      nRegistry.RegisterNeighbor(Router, L3Discovery.NeighborProtocol.CDP,  remoteChassisID, "", remoteChassisID, remoteNeighboringIP, ri, "OK", remoteIntfName) 
+      nRegistry.RegisterNeighbor(Router, instance, L3Discovery.NeighborProtocol.CDP,  remoteChassisID, "", remoteChassisID, remoteNeighboringIP, ri, "OK", remoteIntfName) 
     else:
       DebugEx.WriteLine("Router object failed to provide details for interface &lt; {0} &gt;".format(localIntfName), DebugLevel.Warning)
   except Exception as Ex:
@@ -486,7 +488,7 @@ global BreakExecution</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_CDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "0.1"
+    <GlobalCode>ScriptVersion = "1.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS CDP Parser"
 # Describes current operation status
@@ -514,7 +516,7 @@ import System.Net
 from System.Diagnostics import DebugEx
 from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>

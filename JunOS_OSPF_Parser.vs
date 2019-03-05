@@ -43,7 +43,7 @@ if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   # This parser only supports JunOS ruter vendor and OSPF protocol
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -756,7 +756,7 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "4.0"
+    <GlobalCode>ScriptVersion = "5.0"
 # v4.0 supports Routing instances
 ModuleName =  "Juniper, JunOS OSPF Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -782,7 +782,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -792,6 +792,6 @@ import System.Net</CustomNameSpaces>
     <Description>This Protocol Parser can handle JunOS routers 
 and switches running OSPF protocol.</Description>
     <EditorSize>{Width=519, Height=530}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=2547,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

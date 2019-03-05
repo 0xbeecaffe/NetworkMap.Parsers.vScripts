@@ -45,7 +45,7 @@ if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   # This parser only supports JunOS ruter vendor and OSPF protocol
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
   else:
     ActionResult = False
 else:
@@ -141,6 +141,8 @@ global OperationStatusLabel
 nRegistry = ConnectionInfo.aParam
 # A CancellationToken is received in ConnectionInfo.bParam
 cToken = ConnectionInfo.bParam
+# The routing instance to parser is received via cParam
+instance = ConnectionInfo.cParam
 #--  
 OperationStatusLabel = "Querying OSPF neighbors..."  
 TextToParse = Session.ExecCommand("show ip ospf neighbor")
@@ -175,7 +177,7 @@ for line in ospf_lines:
       # This is a new peer, initialize variables
       ifName = words[len(words)-1]
       OperationStatusLabel = "Querying router interface {0}...".format(ifName)
-      ri = Router.GetInterfaceByName(ifName)
+      ri = Router.GetInterfaceByName(ifName, instance)
       if ri != None:
         # add OSPF Area info to RouterInterface
         if ospfInterfaces != None:
@@ -191,10 +193,10 @@ for line in ospf_lines:
         remoteNeighboringIP = str(nIP.Value)
         description = ""
         OperationStatusLabel = "Registering OSPF neighbor {0}...".format(neighborRouterID)
-        nRegistry.RegisterNeighbor(Router, L3Discovery.NeighborProtocol.OSPF, neighborRouterID, "", description, remoteNeighboringIP, ri, neighborState)
+        nRegistry.RegisterNeighbor(Router, instance, L3Discovery.NeighborProtocol.OSPF, neighborRouterID, "", description, remoteNeighboringIP, ri, neighborState)
         
   except Exception as Ex:
-    msg = "Cisco IOS OSPF vScript Parser : Error while parsing ospf output line [{0}]. Error is : {1}".format(line, str(Ex))
+    msg = "Cisco IOS OSPF vScript Parser : Error while processing ospf at line [{0}]. Error is : {1}".format(line, str(Ex))
     System.Diagnostics.DebugEx.WriteLine(msg) 
 </MainCode>
     <Origin_X>518</Origin_X>
@@ -213,7 +215,7 @@ for line in ospf_lines:
     <Description>Discover OSPF adjacencies and register peers for discovery</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1116, Height=851}|{X=130,Y=130}</EditorSize>
+    <EditorSize>{Width=936, Height=735}|{X=153,Y=132}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -735,7 +737,7 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "2.0"
+    <GlobalCode>ScriptVersion = "5.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS OSPF Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -769,7 +771,7 @@ import System.Net</CustomNameSpaces>
     <IsRepository>false</IsRepository>
     <EditorScaleFactor>0.9159999</EditorScaleFactor>
     <Description />
-    <EditorSize>{Width=1932, Height=977}</EditorSize>
+    <EditorSize>{Width=894, Height=781}</EditorSize>
     <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

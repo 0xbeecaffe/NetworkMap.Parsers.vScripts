@@ -410,7 +410,7 @@ ActionResult = parsedRoutes</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -516,33 +516,61 @@ global ActionResult
 global _runningRoutingProtocols
 # The RoutingInstance object for the request passed in aParam
 instance = ConnectionInfo.aParam
+instanceName = ""
+isDefaultInstance = True
+if instance :
+  instanceName = instance.Name
+  isDefaultInstance = instance.IsDefaultRoutingInstance()
 
-if len(_runningRoutingProtocols) == 0 :
-  response = Session.ExecCommand("show routing protocol ospf summary")
-  if (response != ""): _runningRoutingProtocols.Add(L3Discovery.NeighborProtocol.OSPF)
-    
-  response = Session.ExecCommand("show routing protocol rip summary")
-  if (response != ""): _runningRoutingProtocols.Add(L3Discovery.NeighborProtocol.RIP)  
-  
-  response = Session.ExecCommand("show routing protocol bgp summary")
-  if (response != ""): _runningRoutingProtocols.Add(L3Discovery.NeighborProtocol.BGP)
-  
-  response = Session.ExecCommand("show lldp neighbors all")
-  if (response != ""): _runningRoutingProtocols.Add(L3Discovery.NeighborProtocol.LLDP)
-    
-  response = Session.ExecCommand("show routing route type static count 1")
+instanceProtocols = _runningRoutingProtocols.get(instanceName, None)
+if instanceProtocols == None:
+  _runningRoutingProtocols[instanceName] = []
+
+if len(_runningRoutingProtocols[instanceName]) == 0 :
+  # -- OSPF --
+  if instanceName:
+    response = Session.ExecCommand("show routing protocol ospf summary virtual-router {0}".format(instanceName))
+  else:
+    response = Session.ExecCommand("show routing protocol ospf summary")
+  if (response != ""): 
+    _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.OSPF)
+  ## -- RIP --
+  if instanceName:  
+    response = Session.ExecCommand("show routing protocol rip summary virtual-router {0}".format(instanceName))
+  else:
+    response = Session.ExecCommand("show routing protocol rip summary")
+  if (response != ""): 
+    _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.RIP)  
+  ## -- BGP --
+  if instanceName:  
+    response = Session.ExecCommand("show routing protocol bgp summary virtual-router {0}".format(instanceName))
+  else:
+    response = Session.ExecCommand("show routing protocol bgp summary")
+  if (response != ""): 
+    _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.BGP)
+  # -- LLDP only for default routing instance (VR) --
+  if isDefaultInstance :
+    response = Session.ExecCommand("show lldp neighbors all")
+    if (response != ""): 
+      _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.LLDP)
+  # -- STATIC -- 
+  if instanceName:   
+    response = Session.ExecCommand("show routing route type static count 1")
+  else:
+    response = Session.ExecCommand("show routing route type static count 1 virtual-router {0}".format(instanceName))
   _staticRouteCount = re.findall(r"(?&lt;=total routes shown: ).*", response)
-  if len(_staticRouteCount) &gt; 0 : _staticRouteCount = _staticRouteCount[0]
-  _sc = 0
-  
-  try:
-    _sc = int(_staticRouteCount)
-  except:
-    _sc = -1
-  
-  if _sc &gt; 0 : _runningRoutingProtocols.Add(L3Discovery.NeighborProtocol.STATIC)  
+  if len(_staticRouteCount) &gt; 0 : 
+    _staticRouteCount = _staticRouteCount[0]
+    _sc = 0
+    
+    try:
+      _sc = int(_staticRouteCount)
+    except:
+      _sc = -1
+    
+    if _sc &gt; 0 : _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.STATIC)  
 
-ActionResult = _runningRoutingProtocols</MainCode>
+ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
     <Origin_X>216</Origin_X>
     <Origin_Y>732</Origin_Y>
     <Size_Width>147</Size_Width>
@@ -552,14 +580,14 @@ ActionResult = _runningRoutingProtocols</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
     <Description>This call should be able to return the list of RoutingProtocols running on nthis router</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=958, Height=730}|{X=208,Y=208}</EditorSize>
+    <EditorSize>{Width=1305, Height=788}|{X=210,Y=55}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -928,7 +956,7 @@ global _interfaceConfigurations
 _versionInfo = ""
 _hostName = ""
 _stackCount = -1
-_runningRoutingProtocols = []
+_runningRoutingProtocols = {}
 _interfaceConfigurations = {}
 
 Version.Reset()
@@ -951,6 +979,7 @@ GetInterfaces.Reset()</MainCode>
 clearing any and variables populated during a previous run</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=939, Height=646}|{X=208,Y=208}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1004,46 +1033,73 @@ global BreakExecution
 global ScriptExecutor
 global Session</MainCode>
     <Origin_X>642</Origin_X>
-    <Origin_Y>933</Origin_Y>
+    <Origin_Y>931</Origin_Y>
     <Size_Width>150</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
-    <Variables># RouterID is a dictionary keyed by RoutingProtocol as a string
-__RouterID = {}
-__BGPASNumber = ""
+    <Variables># RouterID is a dictionary in dictionary containing strings. Outer keyed by routing instance (VR) name, inner keyed by RoutingProtocol 
+RouterIDs = {}
+# BGPASNumber is a dictionary keyed by VR name
+BGPASNumbers = {}
 # static Router ID is used for STATIC routing
 staticRouterID = ""</Variables>
     <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock>def GetRouterID(self, protocol, instance):
-  if len(self.__RouterID) == 0 : self.CalculateRouterIDAndASNumber(instance)
-  rid = self.__RouterID.get(str(protocol), "")
+  instanceName = ""
+  if instance : 
+    instanceName = instance.Name
+  instanceRIDs =   self.RouterIDs.get(instanceName, {})
+  if len(instanceRIDs) == 0 :     
+    self.CalculateRouterIDAndASNumber(instance)
+  instanceRIDs = self.RouterIDs.get(instanceName, {})
+  rid = instanceRIDs.get(str(protocol), "")
   return rid
   
 def GetBGPASNumber(self, instance):
-  if self.__BGPASNumber == None : self.CalculateRouterIDAndASNumber(instance)
-  return self.__BGPASNumber
+  instanceName = ""
+  if instance : 
+    instanceName = instance.Name
+  instanceAS = self.BGPASNumbers.get(instanceName, None)
+  if instanceAS == None : 
+    self.CalculateRouterIDAndASNumber(instance)
+    instanceAS = self.BGPASNumbers.get(instanceName, "")
+  
+  return instanceAS
   
 def CalculateRouterIDAndASNumber(self, instance):
+  """ """
   global _runningRoutingProtocols
  
+  instanceName = ""
+  if instance : 
+    instanceName = instance.Name
+  # Create empty RouterID dict for instance if missing
+  instanceRIDs = self.RouterIDs.get(instanceName, None)
+  if instanceRIDs == None :  
+    self.RouterIDs[instanceName] = {}    
   # first get the ip address from system info, we will use it when dynamic routing protocol is in use
   response = Session.ExecCommand("show system info | match ip-address:")
   words = filter(None, response.split(":"))
-  if  len(words) == 2 : self.__staticRouterID = words[1].strip()
+  if  len(words) == 2 : self.staticRouterID = words[1].strip()
   
   # sort the routing protocols by preference (its integer value)
-  sRoutingProtocols = sorted(_runningRoutingProtocols, key=lambda p: int(p))
+  instanceProtocols = _runningRoutingProtocols[instanceName]
+  sRoutingProtocols = sorted(instanceProtocols, key=lambda p: int(p))
   for thisProtocol in sRoutingProtocols:  
     if thisProtocol == L3Discovery.NeighborProtocol.BGP:
-      bgpSummary = Session.ExecCommand("show routing protocol bgp summary")
+      cmd = "show routing protocol bgp summary"
+      if instance:
+        cmd = "show routing protocol bgp summary virtual-router {0}".format(instance.Name)
+      bgpSummary = Session.ExecCommand(cmd)
       rid = re.findall(r"(?&lt;=router id: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
       if len(rid) &gt; 0 : 
-        self.__RouterID[str(thisProtocol)] = rid[0].strip()
-        if self.__staticRouterID == "" : self.__staticRouterID = rid[0]
+        self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
+        if self.staticRouterID == "" : 
+          self.staticRouterID = rid[0]
 
       ASSize = 2
       re_LocalAS = re.findall(r"(?&lt;=Local AS: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
@@ -1051,49 +1107,62 @@ def CalculateRouterIDAndASNumber(self, instance):
       if len(re_ASSize) == 1:
         ASSize = int(re_ASSize[0])
       if ASSize == 2:
-        if len(re_LocalAS) &gt;= 0 : self.__BGPASNumber = re_LocalAS[0]
+        if len(re_LocalAS) &gt; 0 : 
+          self.BGPASNumbers[instanceName] = re_LocalAS[0]
       elif ASSize == 4:
-        ASDigits = re_LocalAS[0].split(".")
-        highASN = int(ASDigits[0])
-        lowASN = int(ASDigits[1])
-        self.__BGPASNumber = str((highASN&lt;&lt;16) + lowASN)
+        ASDigits = re_LocalAS[0].strip().split(".")
+        if len(ASDigits) == 1:
+          self.BGPASNumbers[instanceName] = ASDigits[0]
+        else:
+          highASN = int(ASDigits[0])
+          lowASN = int(ASDigits[1])
+          self.BGPASNumbers[instanceName] = str((highASN&lt;&lt;16) + lowASN)
       
     elif thisProtocol == L3Discovery.NeighborProtocol.OSPF:
-      ospfStatus = Session.ExecCommand("show routing protocol ospf summary")
+      cmd = "show routing protocol ospf summary"
+      if instance:
+        cmd = "show routing protocol ospf summary virtual-router {0}".format(instance.Name)
+      ospfStatus = Session.ExecCommand(cmd)
       rid = re.findall(r"(?&lt;=router id: )[\ ,\d.]{0,99}", ospfStatus)
       if len(rid) &gt; 0 : 
-        self.__RouterID[str(thisProtocol)] = rid[0].strip()
-        if self.__staticRouterID == "" : self.__staticRouterID = rid[0]
+      
+        self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
+        if self.staticRouterID == "" : 
+          self.staticRouterID = rid[0]
 
     elif thisProtocol == L3Discovery.NeighborProtocol.RIP:
-      ripfStatus = Session.ExecCommand("show routing protocol rip summary")
+      cmd = "show routing protocol rip summary"
+      if instance:
+        cmd = "show routing protocol rip summary virtual-router {0}".format(instance.Name)
+      ripfStatus = Session.ExecCommand(cmd)
       rid = re.findall(r"(?&lt;=router id: )[\ ,\d.]{0,99}", ripStatus)
       if len(rid) &gt; 0 : 
-        self.__RouterID[str(thisProtocol)] = rid[0].strip()
-        if self.__staticRouterID == "" : self.__staticRouterID = rid[0]
+        self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
+        if self.staticRouterID == "" : 
+          self.staticRouterID = rid[0]
         
     elif thisProtocol == L3Discovery.NeighborProtocol.LLDP:
       lldpMAC = Session.ExecCommand("show system info | match mac-address")
       rid = re.findall(r"[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}", lldpMAC)
       if len(rid) == 1:
-        self.__RouterID[str(thisProtocol)] = rid[0].strip()
+        self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
       
     elif thisProtocol == L3Discovery.NeighborProtocol.STATIC:
-      self.__RouterID[str(thisProtocol)] = self.__staticRouterID
+      self.RouterIDs[instanceName][str(thisProtocol)] = self.staticRouterID
       
     else :
-      self.__RouterID[str(thisProtocol)] = self.__staticRouterID
+      self.RouterIDs[instanceName][str(thisProtocol)] = self.staticRouterID
         
 def Reset(self):
-  self.__RouterID = {}
-  self.__BGPASNumber = ""
-  self.__staticRouterID = ""</CustomCodeBlock>
+  self.RouterIDs = {}
+  self.BGPASNumbers = {}
+  self.staticRouterID = ""</CustomCodeBlock>
     <DemoMode>false</DemoMode>
     <Description>This object is responsible to retrieve protocol
 dependent RouterID and parse BGP AS number</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1275, Height=851}|{X=26,Y=26}</EditorSize>
+    <EditorSize>{Width=1275, Height=851}|{X=54,Y=51}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1127,6 +1196,7 @@ class FWInterface(object):
     self.VSYS = ""
     self.Zone = ""
     self.Forwarding = ""
+    self.VR = ""
     self.Tag = ""
     self.Address = ""
     self.MaskLength = ""
@@ -1147,23 +1217,24 @@ def ParseInterfaces(self) :
   currentHeaderLine = ""
   tunnelMAC = ""
   loopbackMAC = ""
-  intf_lines = [str.lower(thisLine.strip()) for thisLine in response.splitlines()]
+  intf_lines = [thisLine.strip() for thisLine in response.splitlines()]
   for thisLine in intf_lines:  
+    sLine = thisLine.lower()
     try:
       # a line with dashes is just a separator, skip it
       if thisLine.startswith("------"): 
         continue
       
       # a line with the first word of "name " signals an interface block, and gives us the header
-      if thisLine.startswith("name "):
-        currentHeaderLine = thisLine
+      if sLine.startswith("name "):
+        currentHeaderLine = sLine
         currentHeaderFields = filter(None, currentHeaderLine.split(" "))
         interfaceBlock = True
         aggregationGroup = False
         continue
       
       # skip the rest
-      if thisLine.startswith("aggregation"):
+      if sLine.startswith("aggregation"):
         interfaceBlock = False
         aggregationGroup = True
         continue
@@ -1180,7 +1251,7 @@ def ParseInterfaces(self) :
 
       # parse aggregation group data in block
       if aggregationGroup:
-        if "members:" in thisLine:
+        if "members:" in sLine:
           aggregateInterfaceName =  filter(None, thisLine.split())[0]
           aggregateInterface = next((intf for intf in self.FWInterfaces if intf.Name == aggregateInterfaceName), None)
           continue
@@ -1201,9 +1272,9 @@ def ParseInterfaces(self) :
           # interface not found by name, create new one
           thisFWInterface = self.FWInterface()
           thisFWInterface.Name = ifName
-          if ifName.startswith("tunnel."):
+          if ifName.lower().startswith("tunnel."):
             thisFWInterface.MAC = tunnelMAC
-          if ifName.startswith("loopback."):
+          if ifName.lower().startswith("loopback."):
             thisFWInterface.MAC = loopbackMAC
             
           self.FWInterfaces.Add(thisFWInterface)
@@ -1220,7 +1291,7 @@ def ParseInterfaces(self) :
           s = currentHeaderLine.index("speed/duplex/state")
           e = currentHeaderLine.index("mac")
           #replace [n/a] to unknown to allow splitting correctly
-          SDS = re.sub(r"\[n\/a\]", "uknown", thisLine[s:e].strip())
+          SDS = re.sub(r"\[n\/a\]", "uknown", thisLine[s:e].strip(), re.IGNORECASE)
           # split SDS
           aSDS = SDS.split("/")
           thisFWInterface.Speed = aSDS[0]
@@ -1231,9 +1302,9 @@ def ParseInterfaces(self) :
           e = len(thisLine)  
           thisFWInterface.MAC = thisLine[s:e].strip()
           # memorize MAC address for cloned interfaces
-          if ifName == "tunnel":
+          if ifName.lower() == "tunnel":
             tunnelMAC = thisFWInterface.MAC
-          if ifName == "loopback":
+          elif ifName.lower() == "loopback":
             loopbackMAC = thisFWInterface.MAC
           
         elif len(currentHeaderFields) == 7 :
@@ -1254,7 +1325,9 @@ def ParseInterfaces(self) :
           # forwarding
           s = currentHeaderLine.index("forwarding")
           e = currentHeaderLine.index("tag")
-          thisFWInterface.Forwarding = thisLine[s:e].strip()
+          thisFWInterface.Forwarding =  thisLine[s:e].strip()
+          if thisFWInterface.Forwarding.lower().startswith("vr:"):
+            thisFWInterface.VR = re.sub(r"vr:", "", thisFWInterface.Forwarding, re.IGNORECASE)
           # tag
           s = currentHeaderLine.index("tag")
           e = currentHeaderLine.index("address")        
@@ -1314,14 +1387,15 @@ def ParseInterfaces(self) :
 """Returns a RouterInterface object for the interface specified by its name"""        
 def GetInterfaceByName(self, ifName, instance):
   if len(self.FWInterfaces) == 0 : self.ParseInterfaces()
-  foundFWInterface = next((intf for intf in self.FWInterfaces if intf.Name == ifName), None)
+  
+  foundFWInterface = next((intf for intf in self.FWInterfaces if intf.Name == ifName and (not intf.VR or intf.VR == instance.Name)), None)
   return self.FWInterface2RouterInterface(foundFWInterface)
   
 """ Returns a RouterInterface object for the interface specified by its ip address """    
 def GetInterfaceNameByAddress(self, ipAddress, instance):
   if len(self.FWInterfaces) == 0 : self.ParseInterfaces()
   ifName = ""
-  foundFWInterface = next((intf for intf in self.FWInterfaces if intf.Address == ipAddress), None)
+  foundFWInterface = next((intf for intf in self.FWInterfaces if intf.Address == ipAddress and (not intf.VR or intf.VR == instance.Name)), None)
   if foundFWInterface != None:
     ifName = foundFWInterface.Name
   return ifName     
@@ -1349,13 +1423,15 @@ def FWInterface2RouterInterface(self, fwInterface):
   ri.PortMode = fwInterface.PortMode
   ri.AggregateID = fwInterface.AggregateID
   ri.Description = " ".join([fwInterface.Name, fwInterface.ID, fwInterface.VSYS, fwInterface.Zone])
+  ri.VRFName = fwInterface.VR
   return ri
   
 """ Return interfaces in the form of list of RouterInterface"""
 def GetRoutedInterfaces(self, instance):
   if len(self.FWInterfaces) == 0 : self.ParseInterfaces() 
   # we need all interfaces, removed filtering -- routedInterfaces = filter(lambda x: x.Address != "", self.FWInterfaces)
-  return map(self.FWInterface2RouterInterface, self.FWInterfaces)
+  vrInterfaces = [intf for intf in self.FWInterfaces if intf.VR == instance.Name ]
+  return map(self.FWInterface2RouterInterface, vrInterfaces)
   
 def Reset(self):
   self.FWInterfaces = []</CustomCodeBlock>
@@ -1363,7 +1439,7 @@ def Reset(self):
     <Description>This object will parse interface details</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1273, Height=922}|{X=166,Y=48}</EditorSize>
+    <EditorSize>{Width=1070, Height=655}|{X=180,Y=55}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1825,13 +1901,13 @@ ActionResult  = instances</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "05.12.2018"
-scriptVersion = "4.1"
+lastModified = "16.02.2019"
+scriptVersion = "4.8"
 VersionInfo = ""
 HostName = ""
 
-# The routing protocols run by this router
-_runningRoutingProtocols = []
+# The routing protocols run by this router. Keyed by routing instance (VR) name
+_runningRoutingProtocols = {}
 # Interface config cache, keyed by Interface Name
 _interfaceConfigurations = {}
 # Routed interfaces
@@ -1857,10 +1933,10 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.6823195</EditorScaleFactor>
+    <EditorScaleFactor>0.5019311</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=858, Height=763}</EditorSize>
-    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=279}</PropertiesEditorSize>
+    <EditorSize>{Width=618, Height=696}</EditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=386,Y=204}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

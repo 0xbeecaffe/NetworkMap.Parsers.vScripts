@@ -49,21 +49,22 @@ from System.Diagnostics import DebugLevel
 # Router object is passed in ConnectionInfo.aParam
 Router = ConnectionInfo.aParam
 # Set ActionResult to a boolean value to indicate if this parser can handle the request
-DebugEx.WriteLine("Initializing {0} for Router {1}".format(ModuleName, Router.ManagementIP), DebugLevel.Full)
+mgmtIP = Router.GetManagementIP()
+DebugEx.WriteLine("Initializing {0} for Router {1}".format(ModuleName, mgmtIP), DebugLevel.Full)
 if Router != None:
   # Requested protocol type is passed in ConnectionInfo.bParam
   if ConnectionInfo.bParam in ParsingForProtocols:
-    ActionResult = Router.Vendor == ParsingForVendor
+    ActionResult = Router.GetVendor() == ParsingForVendor
     if not ActionResult:
-      DebugEx.WriteLine("Initializer of {0} for Router {1} returned : FALSE, becuse vendor mismatch".format(ModuleName, Router.ManagementIP), DebugLevel.Full)
+      DebugEx.WriteLine("Initializer of {0} for Router {1} returned : FALSE, becuse vendor mismatch".format(ModuleName, mgmtIP), DebugLevel.Full)
   else:
     ActionResult = False
-    DebugEx.WriteLine("Initializer of {0} for Router {1} returned : FALSE, becuse protocol mismatch".format(ModuleName, Router.ManagementIP), DebugLevel.Full)
+    DebugEx.WriteLine("Initializer of {0} for Router {1} returned : FALSE, becuse protocol mismatch".format(ModuleName, mgmtIP), DebugLevel.Full)
 else:
   ActionResult = False
 
 if ActionResult:
-  DebugEx.WriteLine("{0} is active for Router {1}".format(ModuleName, Router.ManagementIP), DebugLevel.Full)</MainCode>
+  DebugEx.WriteLine("{0} is active for Router {1}".format(ModuleName, mgmtIP), DebugLevel.Full)</MainCode>
     <Origin_X>460</Origin_X>
     <Origin_Y>89</Origin_Y>
     <Size_Width>172</Size_Width>
@@ -81,6 +82,7 @@ if ActionResult:
 for the specified protocol using the given Router instance.</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=1187, Height=802}|{X=182,Y=182}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -171,10 +173,16 @@ nRegistry = ConnectionInfo.aParam
 # The token should be checked repetitively whether cancellation was requested 
 # by user and if yes, stop further processing.
 cToken = ConnectionInfo.bParam
+# The routing instance to parser is received via cParam
+instance = ConnectionInfo.cParam
 
 OperationStatusLabel = "Identifying router..."
 #--  
-TextToParse = Session.ExecCommand("show ip bgp neighbors")
+if instance and not instance.IsDefaultRoutingInstance() :
+  TextToParse = Session.ExecCommand("show ip bgp vpnv4 vrf {0} neighbors".format(instance.Name))
+else:
+  TextToParse = Session.ExecCommand("show ip bgp neighbors")
+  
 cToken.ThrowIfCancellationRequested()
 
 OperationStatusLabel = "Procesing BGP data..."
@@ -226,18 +234,18 @@ for line in bgp_lines:
         ri = L3Discovery.RouterInterface()
       else:  
         OperationStatusLabel = "Finding interface with ip address {0}...".format(localIP)
-        localIfName = Router.GetInterfaceNameByIPAddress(localIP)
+        localIfName = Router.GetInterfaceNameByIPAddress(localIP, instance)
         OperationStatusLabel = "Querying interface {0}...".format(localIfName)
-        ri = Router.GetInterfaceByName(localIfName)
+        ri = Router.GetInterfaceByName(localIfName, instance)
       registeredNeighborCount += 1
       OperationStatusLabel = "Registering neighbor {0} in state {1}".format(remoteRID, bgpState)
-      nRegistry.RegisterNeighbor(Router, L3Discovery.NeighborProtocol.BGP, remoteRID, remoteAS, "", neighborIP, ri, bgpState)
-    except: 
-      pass
+      nRegistry.RegisterNeighbor(Router, instance, L3Discovery.NeighborProtocol.BGP, remoteRID, remoteAS, "", neighborIP, ri, bgpState)
+    except Exception as Ex :
+      System.Diagnostics.DebugEx.WriteLine("{0} : registering neighbor failed with error : {1}".format(Name, str(Ex)), System.Diagnostics.DebugLevel.Full)
     
     skipLines = True
       
-System.Diagnostics.DebugEx.WriteLine("BGP neighbors on {0} : discovered : {1}, registered {2}".format(Router.ManagementIP, discoveredNeighborCount, registeredNeighborCount), System.Diagnostics.DebugLevel.Full)
+System.Diagnostics.DebugEx.WriteLine("{0} : BGP neighbors on {1} : discovered : {2}, registered {3}".format(Name, Router.GetManagementIP(), discoveredNeighborCount, registeredNeighborCount), System.Diagnostics.DebugLevel.Full)
 #
 # No need to return anything via ActionResult
 #</MainCode>
@@ -258,7 +266,7 @@ System.Diagnostics.DebugEx.WriteLine("BGP neighbors on {0} : discovered : {1}, r
 and register the neighbors found by the routing protocol for discovery.</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=905, Height=766}|{X=182,Y=182}</EditorSize>
+    <EditorSize>{Width=1184, Height=787}|{X=266,Y=85}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -281,7 +289,7 @@ raise ValueError("{0} has received an unhandled Command request : {1}".format(Mo
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -453,8 +461,8 @@ global BreakExecution</MainCode>
     <WatchVariables />
   </vScriptConnector>
   <Parameters>
-    <ScriptName>Cisco_IOS_BGPParser</ScriptName>
-    <GlobalCode>ScriptVersion = "2.0"
+    <ScriptName>Cisco_IOS_BGP_Parser</ScriptName>
+    <GlobalCode>ScriptVersion = "5.0.1"
 # Describe the Module Name
 ModuleName = "Cisco IOS BGP Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -486,12 +494,12 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.8919996</EditorScaleFactor>
+    <EditorScaleFactor>0.6602139</EditorScaleFactor>
     <Description>This vScript template can be used as a starting point for
 creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
-    <EditorSize>{Width=842, Height=653}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <EditorSize>{Width=619, Height=550}</EditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=435,Y=182}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
