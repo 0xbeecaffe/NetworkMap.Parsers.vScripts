@@ -580,14 +580,14 @@ ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
     <Description>This call should be able to return the list of RoutingProtocols running on nthis router</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1305, Height=788}|{X=210,Y=55}</EditorSize>
+    <EditorSize>{Width=1305, Height=788}|{X=463,Y=235}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -939,6 +939,7 @@ else :
     <Description />
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=312,Y=312}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1033,7 +1034,7 @@ global BreakExecution
 global ScriptExecutor
 global Session</MainCode>
     <Origin_X>642</Origin_X>
-    <Origin_Y>931</Origin_Y>
+    <Origin_Y>933</Origin_Y>
     <Size_Width>150</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -1162,7 +1163,7 @@ def Reset(self):
 dependent RouterID and parse BGP AS number</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1275, Height=851}|{X=54,Y=51}</EditorSize>
+    <EditorSize>{Width=1275, Height=851}|{X=557,Y=191}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1519,6 +1520,7 @@ vrs = re.findall(r"(?=VIRTUAL ROUTER:\s([a-zA-Z0-9]+))", response)
 instances = []
 for thisVR in vrs :
   instance = L3Discovery.RoutingInstance()
+  instance.DeviceVendor = "PaloAlto"
   instance.Name = thisVR
   instances.append(instance)
 
@@ -1539,7 +1541,7 @@ ActionResult  = instances</MainCode>
     <Description>Returns the list of VRs for requested VSys</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=806, Height=700}|{X=208,Y=208}</EditorSize>
+    <EditorSize>{Width=806, Height=700}|{X=671,Y=39}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -1901,8 +1903,8 @@ ActionResult  = instances</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "16.02.2019"
-scriptVersion = "4.8"
+lastModified = "19.03.2019"
+scriptVersion = "4.9"
 VersionInfo = ""
 HostName = ""
 
@@ -1933,10 +1935,10 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.5019311</EditorScaleFactor>
+    <EditorScaleFactor>0.5179016</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=618, Height=696}</EditorSize>
-    <PropertiesEditorSize>{Width=907, Height=602}|{X=386,Y=204}</PropertiesEditorSize>
+    <EditorSize>{Width=582, Height=709}</EditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=279}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
