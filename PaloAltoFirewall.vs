@@ -915,12 +915,16 @@ _versionInfo = Version.GetVersion()
 HostName = Session.GetHostName()
 
 if "paloaltonetworks" in _versionInfo.lower():
-  prompt = Session.GetFullPrompt()
-  if "active" in prompt :
+  haStatus = Session.ExecCommand("show high-availability state").lower()
+  if "ha not enabled" in haStatus :
     ActionResult = True
   else:
-    # Current parser and object module do not support working with the passive firewall
-    ActionResult = False
+    haStates =  re.findall(r"(state:).*", haStatus)
+    if len(haStates) == 2 and "active" in haStates[0] :
+      ActionResult = True
+    else:
+      # Current parser and object module do not support working with the passive firewall
+      ActionResult = False
 else :
   ActionResult = False</MainCode>
     <Origin_X>527</Origin_X>
@@ -932,14 +936,14 @@ else :
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=568, Height=460}|{X=312,Y=312}</EditorSize>
+    <EditorSize>{Width=690, Height=632}|{X=190,Y=140}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1903,8 +1907,8 @@ ActionResult  = instances</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "19.03.2019"
-scriptVersion = "4.9"
+lastModified = "10.03.2019"
+scriptVersion = "4.10"
 VersionInfo = ""
 HostName = ""
 
