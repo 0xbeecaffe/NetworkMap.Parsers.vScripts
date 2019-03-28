@@ -919,7 +919,7 @@ if "paloaltonetworks" in _versionInfo.lower():
   if "ha not enabled" in haStatus :
     ActionResult = True
   else:
-    haStates =  re.findall(r"(state:).*", haStatus)
+    haStates =  re.findall(r"(?:state:).*", haStatus)
     if len(haStates) == 2 and "active" in haStates[0] :
       ActionResult = True
     else:
@@ -943,7 +943,7 @@ else :
     <Description />
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=690, Height=632}|{X=190,Y=140}</EditorSize>
+    <EditorSize>{Width=690, Height=632}|{X=1002,Y=208}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1907,8 +1907,8 @@ ActionResult  = instances</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "10.03.2019"
-scriptVersion = "4.10"
+lastModified = "27.03.2019"
+scriptVersion = "4.11"
 VersionInfo = ""
 HostName = ""
 
@@ -1943,6 +1943,6 @@ import System.Net</CustomNameSpaces>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
     <EditorSize>{Width=582, Height=709}</EditorSize>
-    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=279}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=386,Y=204}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
