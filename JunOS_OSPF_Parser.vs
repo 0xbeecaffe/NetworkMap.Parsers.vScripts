@@ -141,7 +141,7 @@ cToken = ConnectionInfo.bParam
 # RoutingInstance onject is received in cParam
 instance = ConnectionInfo.cParam
 instanceName = "master"
-if instance : instanceName = instance.Name
+if instance : instanceName = instance.Name.lower()
 
 OperationStatusLabel = "Querying OSPF neighbors..."  
 TextToParse = Session.ExecCommand("show ospf neighbor instance {0}".format(instanceName))
@@ -214,7 +214,7 @@ for line in ospf_lines:
     <Description>Discover OSPF adjacencies and register peers for discovery</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1596, Height=1046}|{X=230,Y=27}</EditorSize>
+    <EditorSize>{Width=1184, Height=859}|{X=2310,Y=145}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -756,7 +756,7 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.0.1"
+    <GlobalCode>ScriptVersion = "5.1.0"
 # v4.0 supports Routing instances
 ModuleName =  "Juniper, JunOS OSPF Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -792,6 +792,6 @@ import System.Net</CustomNameSpaces>
     <Description>This Protocol Parser can handle JunOS routers 
 and switches running OSPF protocol.</Description>
     <EditorSize>{Width=519, Height=530}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=2547,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

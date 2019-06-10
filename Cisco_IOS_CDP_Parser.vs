@@ -488,7 +488,7 @@ global BreakExecution</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_CDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "1.0"
+    <GlobalCode>ScriptVersion = "5.1.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS CDP Parser"
 # Describes current operation status
@@ -526,6 +526,6 @@ from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <Description>This vScript template can be used as a starting point for creating a new routing protocol Parser Module for Network Map.
 This is typically required to add support for a new routing protocol to a vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=607, Height=606}</EditorSize>
-    <PropertiesEditorSize>{Width=965, Height=736}|{X=2397,Y=212}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=965, Height=736}|{X=477,Y=212}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

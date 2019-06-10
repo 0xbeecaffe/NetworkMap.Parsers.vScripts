@@ -399,7 +399,7 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_EIGRP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.0"
+    <GlobalCode>ScriptVersion = "5.1.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS EIGRP Protocol Parser Module - Python vScript Parser"
 # Describes current operation status

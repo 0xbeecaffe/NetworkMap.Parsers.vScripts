@@ -497,7 +497,7 @@ global BreakExecution</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAltoFirewall_LLDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.0"
+    <GlobalCode>ScriptVersion = "5.1.0"
 # Describe the Module Name
 ModuleName = "PaloAlto Networks Firewall - LLDP Parser"
 # Describes current operation status

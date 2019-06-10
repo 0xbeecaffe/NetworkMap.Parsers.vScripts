@@ -52,8 +52,8 @@ else:
   ActionResult = False
 
 </MainCode>
-    <Origin_X>359</Origin_X>
-    <Origin_Y>84</Origin_Y>
+    <Origin_X>461</Origin_X>
+    <Origin_Y>124</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -109,8 +109,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>500</Origin_X>
-    <Origin_Y>211</Origin_Y>
+    <Origin_X>392</Origin_X>
+    <Origin_Y>72</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -143,18 +143,12 @@ nRegistry = ConnectionInfo.aParam
 cToken = ConnectionInfo.bParam
 # The routing instance to parser is received via cParam
 instance = ConnectionInfo.cParam
-ospfProcessID = OSPFProcessor.GetProcessIDFromInstance(instance)
 #--  
 OperationStatusLabel = "Querying OSPF neighbors..."  
-
-if (ospfProcessID) : cmd = "show ip ospf {0} neighbor".format(ospfProcessID)
-else : cmd = "show ip ospf neighbor"
-TextToParse = Session.ExecCommand(cmd)
+TextToParse = Session.ExecCommand("show ip ospf neighbor")
 #--
 OperationStatusLabel = "Querying OSPF interfaces..."
-if (ospfProcessID) : cmd = "show ip ospf {0} interface brief".format(ospfProcessID)
-else : cmd = "show ip ospf interface brief"
-ospfInterfaces = Session.ExecCommand(cmd)
+ospfInterfaces = Session.ExecCommand("show ip ospf interface brief")
 #--
 OperationStatusLabel = "Processing OSPF data..."
 cToken.ThrowIfCancellationRequested()
@@ -205,8 +199,8 @@ for line in ospf_lines:
     msg = "Cisco IOS OSPF vScript Parser : Error while processing ospf at line [{0}]. Error is : {1}".format(line, str(Ex))
     System.Diagnostics.DebugEx.WriteLine(msg) 
 </MainCode>
-    <Origin_X>567</Origin_X>
-    <Origin_Y>344</Origin_Y>
+    <Origin_X>518</Origin_X>
+    <Origin_Y>261</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -214,14 +208,14 @@ for line in ospf_lines:
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
     <Description>Discover OSPF adjacencies and register peers for discovery</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1221, Height=805}|{X=153,Y=132}</EditorSize>
+    <EditorSize>{Width=936, Height=735}|{X=153,Y=132}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -234,8 +228,8 @@ for line in ospf_lines:
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>565</Origin_X>
-    <Origin_Y>276</Origin_Y>
+    <Origin_X>525</Origin_X>
+    <Origin_Y>336</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -263,8 +257,8 @@ that are actively running on the router</Description>
 
 ActionResult = None
 raise ValueError("CiscoIOS OSPF Parser module has received an unhandled Command request : {0}".format(ConnectionInfo.Command))</MainCode>
-    <Origin_X>340</Origin_X>
-    <Origin_Y>590</Origin_Y>
+    <Origin_X>453</Origin_X>
+    <Origin_Y>551</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -303,166 +297,139 @@ global Session</MainCode>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
-    <Variables># OSPFProcesses contains the process ID keyed by VRF name
-# Example : OSPFProcesses = {"" : 100, "VRF_Blue" : 200, "VRF_Red" : 300}
-OSPFProcesses = {}
-# OSPFProcessData contains the OSPFAreaLSAs keyed by OSPF process ID
-# Exampe : # OSPFProcessData = {100 : OSPFAreaLSAs{}, 200 : OSPFAreaLSAs, 300 : OSPFAreaLSAs}
-OSPFProcessData = {}
-# OSPFAreaLSAs contains OSPFLSA dictionaries entries keyed by OSPFArea objects. The internal dictinary is then keyed by LSAType - like Router, or Network.
+    <Variables># OSPFAreaLSAs contains OSPFLSA dictionaries entries keyed by OSPFArea objects. The internal dictinary is then keyed by LSAType - like Router, or Network.
+OSPFAreaLSAs = {}
+# example content :
 # LSAs = [item1, item2]
 # OSPFLSAs = {"Router" : [OSPFLSA1, OSPFLSA2], "Network" : [OSPFLSA1, OSPFLSA2]}
 # OSPFAreaLSAs = {"0.0.0.0, Backone" : {"Router" : [OSPFLSA1, OSPFLSA2], "Network" : [OSPFLSA1, OSPFLSA2]}, "10.0.0.0, Normal" : {"Router" : [OSPFLSA1, OSPFLSA2], "Network" : [OSPFLSA1, OSPFLSA2]}}
 
-
-# OSPFAreaInfo will contain the output of "show ip ospf" command and is used to find Area related informations. Keyed by process ID
-OSPFAreInfo = {}</Variables>
+# OSPFAreaInfo will contain the output of "show ip ospf" command and is used to find Area related informations
+OSPFAreInfo = ""</Variables>
     <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
-    <CustomCodeBlock>def ProcessDatabase(self): 
-  """Query and Process the OSPF Database"""
+    <CustomCodeBlock>"""Query and Process the OSPF Database"""
+def ProcessDatabase(self): 
   global OperationStatusLabel
-  global ParsingForVendor
-  defaultInstanceName = L3Discovery.RoutingInstance.DefaultInstanceName(ParsingForVendor)
   # clear contents
-  self.OSPFProcesses = {}
-  self.OSPFProcessData = {} 
-  # query OSPF processes
-  cmd = "show ip ospf | i ID"
-  ospfGeneral = Session.ExecCommand(cmd)
-  # expecting output like this:
-  # Routing Process "ospf 200" with ID 10.9.254.251
-  # Routing Process "ospf 100" with ID 192.168.1.1
-  for ospfProcessLine in ospfGeneral.splitlines():
-    processID = re.findall(r"(?&lt;=\"ospf ).\d{1,8}", ospfProcessLine, re.IGNORECASE) 
-    if len(processID) == 1 :
-      cmd = "show ip ospf {0} | i VRF".format(processID[0])
-      response = Session.ExecCommand(cmd)
-      if response == "" :
-        self.OSPFProcesses[defaultInstanceName] = processID[0].strip()
-      else:
-        vrfName = re.findall(r"(?&lt;=VRF ).*", response, re.IGNORECASE)
-        if len(vrfName) == 1:
-          self.OSPFProcesses[vrfName[0].strip()] = processID[0].strip()
-      
-  # query OSPF database for each process
+  self.OSPFAreaLSAs = {}
+  # query OSPF database
   OperationStatusLabel = "Querying OSPF database..."
-  for vrfName, processID in self.OSPFProcesses.items() :
-    cmd = "show ip ospf {0} database".format(processID)
-    ospfAreaDatabase = Session.ExecCommand(cmd)
-    currentArea = None
-    currentLSATypeName = ""
-    # LSAs = [item1, item2]
-    LSAs = []
-    # OSPFLSAs = {"Router" : [item1, item2], "Network" : [item1, item2]}
-    OSPFLSAdict = {}
-    OSPFAreaLSAs = {}
-    lines = [str.lower(thisLine.strip()) for thisLine in ospfAreaDatabase.splitlines()]
-    OperationStatusLabel = "Processing OSPF database..."
-    for thisLine in lines:
-      # header : Link ID         ADV Router      Age Seq#       Checksum Link count
-      # line is like :100.65.0.46     100.65.0.46     238         0x8000EBC3 0x00D97D 1  
-      try:
-        if "link states (area " in thisLine:
-          # thisLine is like : Router Link States (Area 172.20.0.0)
-          areaName = re.findall(r"(?&lt;=\().*?(?=\))", thisLine)[0]
-          thisAreaID = re.findall(r"(?&lt;=area )[\d.]{0,99}", areaName)[0]
-          thisLSATypeName = re.match(r"^.*(?=(link))", thisLine).group()
-          if currentArea == None:
-            currentArea = L3Discovery.OSPFArea()
-            currentArea.AreaID = thisAreaID.strip()
-            currentArea.AreaType = self.GetAreaType(currentArea.AreaID, processID)
-            
-          elif thisAreaID.strip() != currentArea.AreaID:
-            # area ID is changing
-            OSPFAreaLSAs[currentArea] = OSPFLSAdict
-            OSPFLSAdict = {}
-            currentArea = L3Discovery.OSPFArea()
-            currentArea.AreaID = thisAreaID.strip()
-            currentArea.AreaType = self.GetAreaType(currentArea.AreaID, processID)
+  ospfAreaDatabase = Session.ExecCommand("show ip ospf database")
+  currentArea = None
+  currentLSATypeName = ""
+  # LSAs = [item1, item2]
+  LSAs = []
+  # OSPFLSAs = {"Router" : [item1, item2], "Network" : [item1, item2]}
+  OSPFLSAdict = {}
+  lines = [str.lower(thisLine.strip()) for thisLine in ospfAreaDatabase.splitlines()]
+  OperationStatusLabel = "Processing OSPF database..."
+  for thisLine in lines:
+    # header : Link ID         ADV Router      Age Seq#       Checksum Link count
+    # line is like :100.65.0.46     100.65.0.46     238         0x8000EBC3 0x00D97D 1  
+    try:
+      if "link states (area " in thisLine:
+        # thisLine is like : Router Link States (Area 172.20.0.0)
+        areaName = re.findall(r"(?&lt;=\().*?(?=\))", thisLine)[0]
+        thisAreaID = re.findall(r"(?&lt;=area )[\d.]{0,99}", areaName)[0]
+        thisLSATypeName = re.match(r"^.*(?=(link))", thisLine).group()
+        if currentArea == None:
+          currentArea = L3Discovery.OSPFArea()
+          currentArea.AreaID = thisAreaID.strip()
+          currentArea.AreaType = self.GetAreaType(currentArea.AreaID)
           
-          if currentLSATypeName != thisLSATypeName:
-            # LSA Type is changing
-            OSPFLSAdict[currentLSATypeName] = LSAs
-            LSAs = []
-            currentLSATypeName = thisLSATypeName.strip()
-            
-        elif "link states" in thisLine:
-          # line is like : Type-5 AS External Link States
-          # area is not changing, only the LSA Type
-          thisLSATypeName = re.findall(r"^.*(?=(link))", thisLine)[0]
-          if currentLSATypeName != "" and currentLSATypeName != thisLSATypeName:
-            # LSA Type is changing
-            OSPFLSAdict[currentLSATypeName] = LSAs
-            currentLSATypeName = thisLSATypeName.strip()
-          LSAs = []
-        else:
-          words = filter(None, thisLine.split(" "))
-          firstWord = words[0].strip()
-          #if first word is ip address, then this is an LSA entry
-          ip = clr.Reference[System.Net.IPAddress]()
-          if System.Net.IPAddress.TryParse(firstWord, ip):
-            # The LSA ID should be the first word in thisLine
-            LSAID = firstWord
-            # The Adv Router should be the second word in thisLine
-            AdvRouter = words[1].strip()
-            thisLSA = L3Discovery.OSPFLSA()
-            thisLSA.LSAType = currentLSATypeName
-            thisLSA.LSAID = LSAID
-            thisLSA.AdvRouter = AdvRouter
-            LSAs.Add(thisLSA)
-            
-      except Exception as Ex:
-        msg = "Cisco IOS OSPF vScript Parser : Error while processing ospf database. Error is : {0}".format(str(Ex))
-        System.Diagnostics.DebugEx.WriteLine(msg) 
+        elif thisAreaID.strip() != currentArea.AreaID:
+          # area ID is changing
+          self.OSPFAreaLSAs[currentArea] = OSPFLSAdict
+          OSPFLSAdict = {}
+          currentArea = L3Discovery.OSPFArea()
+          currentArea.AreaID = thisAreaID.strip()
+          currentArea.AreaType = self.GetAreaType(currentArea.AreaID)
         
-    # add the last area router ID-s
-    if currentArea != None: 
-      OSPFAreaLSAs[currentArea] = OSPFLSAdict
-    # now add this OSPFAreaLSAs dictionary to self.OSPFProcessData dictionary keyed by processID
-    self.OSPFProcessData[processID] = OSPFAreaLSAs
-  
-def GetAreas(self, instance):
-  """Return all the Areas the router belongs to """  
-  # if OSPF datbase was not yet processed, do it now. It will populate self.OSPFAreaLSAs
-  if len(self.OSPFProcessData) == 0 : self.ProcessDatabase()
-  # get the OSPF processID for instance name
-  pid = self.OSPFProcesses.get(instance.Name, None)
-  if pid:
-    OSPFAreaLSAs = self.OSPFProcessData.get(pid)
-    if OSPFAreaLSAs :  
-      Areas = OSPFAreaLSAs.keys()
-      return Areas  
-  # return empty list by default
-  return []
+        if currentLSATypeName != thisLSATypeName:
+          # LSA Type is changing
+          OSPFLSAdict[currentLSATypeName] = LSAs
+          LSAs = []
+          currentLSATypeName = thisLSATypeName.strip()
+          
+      elif "link states" in thisLine:
+        # line is like : Type-5 AS External Link States
+        # area is not changing, only the LSA Type
+        thisLSATypeName = re.findall(r"^.*(?=(link))", thisLine)[0]
+        if currentLSATypeName != "" and currentLSATypeName != thisLSATypeName:
+          # LSA Type is changing
+          OSPFLSAdict[currentLSATypeName] = LSAs
+          currentLSATypeName = thisLSATypeName.strip()
+        LSAs = []
+      else:
+        words = filter(None, thisLine.split(" "))
+        firstWord = words[0].strip()
+        #if first word is ip address, then this is an LSA entry
+        ip = clr.Reference[System.Net.IPAddress]()
+        if System.Net.IPAddress.TryParse(firstWord, ip):
+          # The LSA ID should be the first word in thisLine
+          LSAID = firstWord
+          # The Adv Router should be the second word in thisLine
+          AdvRouter = words[1].strip()
+          thisLSA = L3Discovery.OSPFLSA()
+          thisLSA.LSAType = currentLSATypeName
+          thisLSA.LSAID = LSAID
+          thisLSA.AdvRouter = AdvRouter
+          LSAs.Add(thisLSA)
+          
+    except Exception as Ex:
+      msg = "Cisco IOS OSPF vScript Parser : Error while processing ospf database. Error is : {0}".format(str(Ex))
+      System.Diagnostics.DebugEx.WriteLine(msg) 
       
-def GetAreaLSAs(self, instance, ospfArea, lsaTypeName):
-  """Return the list of LSAs for the requested Type and Area """  
-  # if OSPF datbase was not yet processed, do it now. It will populate self.OSPFAreaLSAs
-  if len(self.OSPFProcessData) == 0 : self.ProcessDatabase()
-  pid = self.OSPFProcesses.get(instance.Name, None)
-  if pid:
-    OSPFAreaLSAs = self.OSPFProcessData.get(pid)  
-    # get All LSAs for the requested Area
-    AreaLSAs = OSPFAreaLSAs.get(ospfArea, None)
-    if AreaLSAs :
-      # get the LSA list for the requested LSA type
-      RequestedAreaLSAs = AreaLSAs.get(lsaTypeName, [])
-      return RequestedAreaLSAs
-  # return empty list by default  
-  return []
+  # add the last area router ID-s
+  if currentArea != None: self.OSPFAreaLSAs[currentArea] = OSPFLSAdict
   
-def GetAreaType(self, ospfAreaID, processID):
-  """Return the OSPF Area Type name for the requested AREA ID """
+  
+    
+"""Return the list of LSAs for the requested Type and Area """  
+def GetAreaLSAs(self, ospfArea, lsaTypeName):
+  # if OSPF datbase was not yet processed, do it now. It will populate self.OSPFAreaLSAs
+  if len(self.OSPFAreaLSAs) == 0 : self.ProcessDatabase()
+  # get All LSAs for the requested Area
+  AreaLSAs = self.OSPFAreaLSAs.get(ospfArea)
+  RequestedAreaLSAs = []
+  # get the LSA list for the requested LSA type
+  if AreaLSAs != None : RequestedAreaLSAs = AreaLSAs.get(lsaTypeName)
+  return RequestedAreaLSAs
+  
+  
+
+"""Return all of the LSA Type Names for the specified Area """
+def GetLSATypeNames(self, ospfArea):
+  # if OSPF datbase was not yet processed, do it now. It will populate self.OSPFAreaLSAs
+  if len(self.OSPFAreaLSAs) == 0 : self.ProcessDatabase()  
+  # get All LSAs for the requested Area
+  AreaLSAs = self.OSPFAreaLSAs.get(ospfArea)
+  LSATypeNames = []
+  if AreaLSAs != None : LSATypeNames = AreaLSAs.keys()
+  return LSATypeNames
+  
+  
+
+"""Return all the Areas the router belongs to """  
+def GetAreas(self):
+  # if OSPF datbase was not yet processed, do it now. It will populate self.OSPFAreaLSAs
+  if len(self.OSPFAreaLSAs) == 0 : self.ProcessDatabase()
+  Areas = self.OSPFAreaLSAs.keys()
+  return Areas
+
+"""Return the OSPF Area Type name for the requested AREA ID """
+def GetAreaType(self, ospfAreaID):
   if ospfAreaID == "0.0.0.0" :
-    return L3Discovery.OSPFAreaType.Backbone
-  areaInfo = self.OSPFAreInfo.get(processID, "")
-  if areaInfo == "" :
-     areaInfo = Session.ExecCommand("show ip ospf {0}".format(processID))
-     self.OSPFAreInfo[processID] = areaInfo
+    return "Backbone"
+  if self.OSPFAreInfo == "" :
+    self.OSPFAreInfo = Session.ExecCommand("show ip ospf")
+  
+  # this is what we will return
+  areaTypeName = ""
     
   try:
-    lines = [str.lower(thisLine.strip()) for thisLine in areaInfo.splitlines()]
+    lines = [str.lower(thisLine.strip()) for thisLine in self.OSPFAreInfo.splitlines()]
     OperationStatusLabel = "Processing OSPF Area information..."
     scanningAreaBlock = False
     areaBlock = []
@@ -476,51 +443,29 @@ def GetAreaType(self, ospfAreaID, processID):
             continue
         if scanningAreaBlock:
           areaBlock.Add(thisLine)
-    # Now we have the text block relevant to requested areaID
-    for thisLine in areaBlock:
-      if "nssa" in thisLine : return L3Discovery.OSPFAreaType.NSSA
-      if "stub" in thisLine : return L3Discovery.OSPFAreaType.Stub
-      if "totally" in thisLine : return L3Discovery.OSPFAreaType.TotallyStub
-  
-    return L3Discovery.OSPFAreaType.Normal  
+    # No we have the text block relevant to requested areaID
+    areaTypeName = ["NSSA" for thisLine in areaBlock if "nssa" in thisLine]
+    if areaTypeName == "":
+      areaTypeName = ["Stub" for thisLine in areaBlock if "stub" in thisLine]
+    if areaTypeName == "":
+      areaTypeName = ["Totlly stubby" for thisLine in areaBlock if "totally" in thisLine]
+      
+    areaTypeName = "Normal"
     
   except Exception as Ex:
     msg = "Cisco IOS OSPF vScript Parser : Error while processing ospf area block. Error is : {0}".format(str(Ex))
     System.Diagnostics.DebugEx.WriteLine(msg)
-    return L3Discovery.OSPFAreaType.Unknown
+    areaTypeName = "n/a"
     
-def GetLSATypeNames(self, instance, ospfArea):
-  """Return all of the LSA Type Names for the specified Area """
-  # if OSPF datbase was not yet processed, do it now. It will populate self.OSPFAreaLSAs
-  if len(self.OSPFProcesses) == 0 : self.ProcessDatabase()  
-  pid = self.OSPFProcesses.get(instance.Name, None)  
-  if pid:
-    OSPFAreaLSAs = self.OSPFProcessData.get(pid) 
-    # get All LSAs for the requested Area
-    AreaLSAs = OSPFAreaLSAs.get(ospfArea, None)
-    if AreaLSAs :
-      LSATypeNames = AreaLSAs.keys()
-      return LSATypeNames      
-  # return empty list by default
-  return [] 
-  
-def GetProcessIDFromInstance(self, instance):
-  """Returns the OSPF Process ID as a string, that is associated with the given routing instance(VRF)"""
-  if not instance:
-    return ""
-  if len(self.OSPFProcessData) == 0 : self.ProcessDatabase()
-  return self.OSPFProcesses.get(instance.Name, "")
+  return areaTypeName
     
 def Reset(self):
-  """Reset object state """
-  self.OSPFProcesses = {}
-  self.OSPFProcessData = {}
-  self.OSPFAreInfo = {}</CustomCodeBlock>
+  # old code self.OSPFAreaRouterID = {}
+  self.OSPFAreaLSAs = {}</CustomCodeBlock>
     <DemoMode>false</DemoMode>
     <Description>Process OSPF Database in order to collect Area IDs and different LSAs</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1330, Height=893}|{X=26,Y=26}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -531,13 +476,10 @@ def Reset(self):
     <Commands />
     <MainCode>global ActionResult
 
-# RoutingInstance reference is given in aParam
-instance = ConnectionInfo.aParam
-# --
-ActionResult = OSPFProcessor.GetAreas(instance)
+ActionResult = OSPFProcessor.GetAreas()
 </MainCode>
     <Origin_X>524</Origin_X>
-    <Origin_Y>409</Origin_Y>
+    <Origin_Y>412</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -545,7 +487,7 @@ ActionResult = OSPFProcessor.GetAreas(instance)
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -564,12 +506,10 @@ ActionResult = OSPFProcessor.GetAreas(instance)
 
 # the OSPF Area ID to be queried is received in ConnectionInfo.aParam
 ospfArea = ConnectionInfo.aParam
-# RoutingInstance reference is given in ConnectionInfo.bParam
-instance = ConnectionInfo.bParam
-# --
-ActionResult = OSPFProcessor.GetLSATypeNames(instance, ospfArea)</MainCode>
-    <Origin_X>424</Origin_X>
-    <Origin_Y>532</Origin_Y>
+
+ActionResult = OSPFProcessor.GetLSATypeNames(ospfArea)</MainCode>
+    <Origin_X>480</Origin_X>
+    <Origin_Y>485</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -577,7 +517,7 @@ ActionResult = OSPFProcessor.GetLSATypeNames(instance, ospfArea)</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -598,12 +538,10 @@ ActionResult = OSPFProcessor.GetLSATypeNames(instance, ospfArea)</MainCode>
 ospfArea = ConnectionInfo.aParam
 # the requested LSA Type Name is received in ConnectionInfo.bParam
 LSAType = ConnectionInfo.bParam
-# RoutingInstance reference is given in ConnectionInfo.cParam
-instance = ConnectionInfo.cParam
 # return the LSAs
-ActionResult = OSPFProcessor.GetAreaLSAs(instance, ospfArea, LSAType)</MainCode>
-    <Origin_X>481</Origin_X>
-    <Origin_Y>475</Origin_Y>
+ActionResult = OSPFProcessor.GetAreaLSAs(ospfArea, LSAType)</MainCode>
+    <Origin_X>385</Origin_X>
+    <Origin_Y>605</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -611,7 +549,7 @@ ActionResult = OSPFProcessor.GetAreaLSAs(instance, ospfArea, LSAType)</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -639,8 +577,8 @@ OperationStatusLabel = "Working"
 OSPFProcessor.Reset()
 ActionResult = None
 Router = None</MainCode>
-    <Origin_X>441</Origin_X>
-    <Origin_Y>146</Origin_Y>
+    <Origin_X>499</Origin_X>
+    <Origin_Y>187</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -799,7 +737,7 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.0.1"
+    <GlobalCode>ScriptVersion = "5.1.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS OSPF Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -825,15 +763,15 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.6175469</EditorScaleFactor>
+    <EditorScaleFactor>0.9159999</EditorScaleFactor>
     <Description />
-    <EditorSize>{Width=489, Height=591}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=507,Y=275}</PropertiesEditorSize>
+    <EditorSize>{Width=894, Height=781}</EditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

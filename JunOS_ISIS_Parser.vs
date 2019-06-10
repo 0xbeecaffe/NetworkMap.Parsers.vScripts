@@ -501,7 +501,7 @@ global BreakExecution</MainCode>
   <Parameters>
     <ScriptName>JunOS_ISIS_Parser</ScriptName>
     <GlobalCode># v4.0 supports Routing instances
-ScriptVersion = "5.0"
+ScriptVersion = "5.1.0"
 # Describe the Module Name
 ModuleName = "JunOS ISIS Parser"
 # Describes current operation status

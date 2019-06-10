@@ -667,7 +667,7 @@ Router = None</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAlto_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.0"
+    <GlobalCode>ScriptVersion = "5.1.0"
 # Describe the Module Name
 ModuleName = "PaloAlto OSPF Protocol Parser Support Module - Python vScript Parser"
 # Describes current operation status. The name of this variable is fixed !

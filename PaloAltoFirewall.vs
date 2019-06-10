@@ -1908,7 +1908,7 @@ ActionResult  = instances</MainCode>
 #                                 #
 ###################################
 lastModified = "27.03.2019"
-scriptVersion = "4.11"
+scriptVersion = "5.1.0"
 VersionInfo = ""
 HostName = ""
 
@@ -1933,7 +1933,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -1943,6 +1943,6 @@ import System.Net</CustomNameSpaces>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
     <EditorSize>{Width=582, Height=709}</EditorSize>
-    <PropertiesEditorSize>{Width=907, Height=602}|{X=386,Y=204}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=279}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
