@@ -71,7 +71,7 @@ raise ValueError("{0} vScripot Router received an unhandled Command request : {1
 ###########################################################
 pass</MainCode>
     <Origin_X>465</Origin_X>
-    <Origin_Y>489</Origin_Y>
+    <Origin_Y>488</Origin_Y>
     <Size_Width>100</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -103,7 +103,7 @@ Take care of connector ordering !   </Description>
 ##############################################################################
 global ActionResult
 
-ActionResult = "{0} Router Support Module - Python vScript Parser v{1}".format(Name, scriptVersion)</MainCode>
+ActionResult = "{0} Support Module - Python vScript Parser v{1}".format(Name, scriptVersion)</MainCode>
     <Origin_X>762</Origin_X>
     <Origin_Y>305</Origin_Y>
     <Size_Width>147</Size_Width>
@@ -120,6 +120,7 @@ ActionResult = "{0} Router Support Module - Python vScript Parser v{1}".format(N
     <Description>This call should return a descriptive text for this Router software module</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=679, Height=639}|{X=565,Y=282}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -136,8 +137,8 @@ ActionResult = "{0} Router Support Module - Python vScript Parser v{1}".format(N
 global ActionResult
 
 ActionResult = Version.GetVersion()</MainCode>
-    <Origin_X>610</Origin_X>
-    <Origin_Y>778</Origin_Y>
+    <Origin_X>666</Origin_X>
+    <Origin_Y>769</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -171,8 +172,8 @@ global ActionResult
 # so return that one.
 
 ActionResult = Version.GetVersion()</MainCode>
-    <Origin_X>754</Origin_X>
-    <Origin_Y>659</Origin_Y>
+    <Origin_X>786</Origin_X>
+    <Origin_Y>655</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -209,8 +210,8 @@ if len(_s) &gt; 0:
  ActionResult = _s[0]
 else:
   ActionResult = "n/a"</MainCode>
-    <Origin_X>534</Origin_X>
-    <Origin_Y>839</Origin_Y>
+    <Origin_X>549</Origin_X>
+    <Origin_Y>830</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -245,8 +246,8 @@ if len(_m) &gt; 0:
  ActionResult = _m[0]
 else:
   ActionResult = "n/a"</MainCode>
-    <Origin_X>797</Origin_X>
-    <Origin_Y>593</Origin_Y>
+    <Origin_X>820</Origin_X>
+    <Origin_Y>595</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -281,8 +282,8 @@ stackCount == 1
 # Implement required logic to get the correct number
 #
 ActionResult = stackCount;</MainCode>
-    <Origin_X>292</Origin_X>
-    <Origin_Y>788</Origin_Y>
+    <Origin_X>268</Origin_X>
+    <Origin_Y>782</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -482,8 +483,8 @@ protocol = ConnectionInfo.aParam
 # The RoutingInstance is received in bParam
 instance = ConnectionInfo.bParam
 ActionResult = RouterIDAndASNumber.GetRouterID(protocol, instance)</MainCode>
-    <Origin_X>703</Origin_X>
-    <Origin_Y>724</Origin_Y>
+    <Origin_X>736</Origin_X>
+    <Origin_Y>714</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>47</Size_Height>
     <isStart>false</isStart>
@@ -548,6 +549,23 @@ if len(_runningRoutingProtocols[instanceName]) == 0 :
     response = Session.ExecCommand("show routing protocol bgp summary")
   if (response != ""): 
     _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.BGP)
+  # -- IPSEC --
+  try:
+    response = Session.ExecCommand("show vpn tunnel")
+    rep_TunnelNum = r"(?:Total\s)(\d+)(?:\s+tunnels)"
+    numberofTunnels = int(GetRegexGroupMatches(rep_TunnelNum, response, 1)[0])
+    if numberofTunnels &gt; 0:
+      _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.IPSEC)
+    else :
+      response = Session.ExecCommand("show global-protect-gateway gateway")
+      if "GlobalProtect Gateway" in response:
+        _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.IPSEC)
+      else:
+        response = Session.ExecCommand("show global-protect-satellite current-gateway")
+        if "GlobalProtect Satellite" in response:
+          _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.IPSEC)        
+  except:
+    pass
   # -- LLDP only for default routing instance (VR) --
   if isDefaultInstance :
     response = Session.ExecCommand("show lldp neighbors all")
@@ -571,8 +589,8 @@ if len(_runningRoutingProtocols[instanceName]) == 0 :
     if _sc &gt; 0 : _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.STATIC)  
 
 ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
-    <Origin_X>216</Origin_X>
-    <Origin_Y>732</Origin_Y>
+    <Origin_X>201</Origin_X>
+    <Origin_Y>719</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -587,7 +605,7 @@ ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
     <Description>This call should be able to return the list of RoutingProtocols running on nthis router</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1305, Height=788}|{X=463,Y=235}</EditorSize>
+    <EditorSize>{Width=1305, Height=856}|{X=309,Y=52}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -606,8 +624,8 @@ global ActionResult
 # the RoutingInstance object to query is received in aParam
 instance = ConnectionInfo.aParam
 ActionResult = RouterIDAndASNumber.GetBGPASNumber(instance)</MainCode>
-    <Origin_X>98</Origin_X>
-    <Origin_Y>597</Origin_Y>
+    <Origin_X>81</Origin_X>
+    <Origin_Y>587</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -642,8 +660,8 @@ global HstName
 # Initialize element has already updated the HostName global variable
 # so return that one.
 ActionResult = HostName</MainCode>
-    <Origin_X>139</Origin_X>
-    <Origin_Y>666</Origin_Y>
+    <Origin_X>124</Origin_X>
+    <Origin_Y>649</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -1145,7 +1163,8 @@ def CalculateRouterIDAndASNumber(self, instance):
         self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
         if self.staticRouterID == "" : 
           self.staticRouterID = rid[0]
-        
+    elif thisProtocol == L3Discovery.NeighborProtocol.IPSEC:
+      self.RouterIDs[instanceName][str(thisProtocol)] = self.staticRouterID
     elif thisProtocol == L3Discovery.NeighborProtocol.LLDP:
       lldpMAC = Session.ExecCommand("show system info | match mac-address")
       rid = re.findall(r"[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}", lldpMAC)
@@ -1167,7 +1186,7 @@ def Reset(self):
 dependent RouterID and parse BGP AS number</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1275, Height=851}|{X=557,Y=191}</EditorSize>
+    <EditorSize>{Width=1275, Height=851}|{X=336,Y=42}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -1455,8 +1474,8 @@ def Reset(self):
     <Commands />
     <MainCode># Not relevant to PaloAlto firewall
 pass</MainCode>
-    <Origin_X>383</Origin_X>
-    <Origin_Y>847</Origin_Y>
+    <Origin_X>379</Origin_X>
+    <Origin_Y>835</Origin_Y>
     <Size_Width>139</Size_Width>
     <Size_Height>43</Size_Height>
     <isStart>false</isStart>
@@ -1572,7 +1591,7 @@ ActionResult  = instances</MainCode>
     <Condition>return True</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>23</Order>
+    <Order>24</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1866,9 +1885,10 @@ ActionResult  = instances</MainCode>
     <Condition>return ConnectionInfo.Command == "RegisterNHRP"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>20</Order>
+    <Order>21</Order>
     <Description />
     <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=182,Y=182}</EditorSize>
   </vScriptConnector>
   <vScriptConnector>
     <cID>23</cID>
@@ -1880,7 +1900,7 @@ ActionResult  = instances</MainCode>
     <Condition>return ConnectionInfo.Command == "GetLogicalSystems"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>21</Order>
+    <Order>22</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=234,Y=234}</EditorSize>
@@ -1895,7 +1915,7 @@ ActionResult  = instances</MainCode>
     <Condition>return ConnectionInfo.Command == "GetRoutingInstances"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>22</Order>
+    <Order>23</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=26,Y=26}</EditorSize>
@@ -1907,8 +1927,8 @@ ActionResult  = instances</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "27.03.2019"
-scriptVersion = "5.1.0"
+lastModified = "12.07.2019"
+scriptVersion = "5.2.0"
 VersionInfo = ""
 HostName = ""
 
@@ -1917,7 +1937,19 @@ _runningRoutingProtocols = {}
 # Interface config cache, keyed by Interface Name
 _interfaceConfigurations = {}
 # Routed interfaces
-_routedInterfaces = []</GlobalCode>
+_routedInterfaces = []
+
+def GetRegexGroupMatches(pattern, text, groupNum):
+  """Returns the list of values of specified Regex group number for all matches. Returns Nonde if not matched or groups number does not exist"""
+  try:
+    result = []
+    mi = re.finditer(pattern, text, re.MULTILINE)
+    for matchnum, match in enumerate(mi):
+      # regex group 1 contains the connection remote address
+      result.append(match.group(groupNum))
+    return result
+  except :
+    return None</GlobalCode>
     <BreakPolicy>Before</BreakPolicy>
     <CustomNameSpaces>############################################################
 #                                                          #
@@ -1939,10 +1971,10 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.5179016</EditorScaleFactor>
+    <EditorScaleFactor>0.6859017</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=582, Height=709}</EditorSize>
-    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=279}</PropertiesEditorSize>
+    <EditorSize>{Width=863, Height=877}</EditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=219}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
