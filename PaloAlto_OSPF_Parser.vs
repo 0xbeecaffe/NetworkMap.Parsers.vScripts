@@ -53,8 +53,8 @@ if Router != None:
     ActionResult = False
 else:
   ActionResult = False</MainCode>
-    <Origin_X>359</Origin_X>
-    <Origin_Y>42</Origin_Y>
+    <Origin_X>305</Origin_X>
+    <Origin_Y>20</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -102,6 +102,7 @@ pass</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=234,Y=234}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -120,8 +121,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>483</Origin_X>
-    <Origin_Y>227</Origin_Y>
+    <Origin_X>516</Origin_X>
+    <Origin_Y>259</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -230,8 +231,8 @@ for line in ospf_lines:
     msg = "OSPFarser : Error while parsing ospf output line [{0}]. Error is : {1}".format(line, str(Ex))
     System.Diagnostics.DebugEx.WriteLine(msg) 
 #</MainCode>
-    <Origin_X>489</Origin_X>
-    <Origin_Y>303</Origin_Y>
+    <Origin_X>515</Origin_X>
+    <Origin_Y>317</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -295,8 +296,8 @@ global ParsingForProtocols
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>458</Origin_X>
-    <Origin_Y>156</Origin_Y>
+    <Origin_X>487</Origin_X>
+    <Origin_Y>196</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -507,8 +508,8 @@ OperationStatusLabel = "Working"
 OSPFProcessor.Reset()
 ActionResult = None
 Router = None</MainCode>
-    <Origin_X>437</Origin_X>
-    <Origin_Y>93</Origin_Y>
+    <Origin_X>461</Origin_X>
+    <Origin_Y>137</Origin_Y>
     <Size_Width>128</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -523,6 +524,34 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>12</vsID>
+    <CommandID>b23d9d56-8093-4cf5-acc7-ddc24f66ed9d</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>414</Origin_X>
+    <Origin_Y>83</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=156,Y=156}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -605,7 +634,7 @@ Router = None</MainCode>
     <Condition>return True</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>8</Order>
+    <Order>9</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -665,9 +694,24 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
   </vScriptConnector>
+  <vScriptConnector>
+    <cID>10</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>12</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>8</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=208,Y=208}</EditorSize>
+  </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAlto_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.1.0"
+    <GlobalCode>ScriptVersion = "5.4.0"
 # Describe the Module Name
 ModuleName = "PaloAlto OSPF Protocol Parser Support Module - Python vScript Parser"
 # Describes current operation status. The name of this variable is fixed !
@@ -706,6 +750,6 @@ creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=710, Height=681}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=290}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

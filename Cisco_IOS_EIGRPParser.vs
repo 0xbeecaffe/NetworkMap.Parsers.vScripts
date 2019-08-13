@@ -52,8 +52,8 @@ else:
   ActionResult = False
 
 </MainCode>
-    <Origin_X>459</Origin_X>
-    <Origin_Y>99</Origin_Y>
+    <Origin_X>452</Origin_X>
+    <Origin_Y>152</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -96,6 +96,7 @@ routing protocol  it has been invoked for.</Description>
 which action to take.</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=286,Y=286}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -109,8 +110,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>391</Origin_X>
-    <Origin_Y>41</Origin_Y>
+    <Origin_X>312</Origin_X>
+    <Origin_Y>24</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -187,8 +188,8 @@ for line in eigrp_lines:
     msg = "Cisco IOS EIGRP vScript Parser : Error while processing eigrp at line [{0}]. Error is : {1}".format(line, str(Ex))
     System.Diagnostics.DebugEx.WriteLine(msg) 
 </MainCode>
-    <Origin_X>478</Origin_X>
-    <Origin_Y>239</Origin_Y>
+    <Origin_X>474</Origin_X>
+    <Origin_Y>279</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -216,8 +217,8 @@ for line in eigrp_lines:
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>458</Origin_X>
-    <Origin_Y>302</Origin_Y>
+    <Origin_X>430</Origin_X>
+    <Origin_Y>341</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -245,8 +246,8 @@ that are actively running on the router</Description>
 
 ActionResult = None
 raise ValueError("CiscoIOS OSPF Parser module has received an unhandled Command request : {0}".format(ConnectionInfo.Command))</MainCode>
-    <Origin_X>399</Origin_X>
-    <Origin_Y>379</Origin_Y>
+    <Origin_X>335</Origin_X>
+    <Origin_Y>399</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -281,8 +282,8 @@ global Router
 OperationStatusLabel = "Working"
 ActionResult = None
 Router = None</MainCode>
-    <Origin_X>474</Origin_X>
-    <Origin_Y>171</Origin_Y>
+    <Origin_X>501</Origin_X>
+    <Origin_Y>217</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -297,6 +298,34 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>8</vsID>
+    <CommandID>d6375c75-ff57-41a7-bded-2eff9dc5454f</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>418</Origin_X>
+    <Origin_Y>88</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=234,Y=234}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -397,9 +426,24 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
   </vScriptConnector>
+  <vScriptConnector>
+    <cID>7</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>8</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>7</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=260,Y=260}</EditorSize>
+  </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_EIGRP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.1.0"
+    <GlobalCode>ScriptVersion = "5.4.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS EIGRP Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -434,6 +478,6 @@ import System.Net</CustomNameSpaces>
     <EditorScaleFactor>0.8679999</EditorScaleFactor>
     <Description />
     <EditorSize>{Width=655, Height=505}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=290}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

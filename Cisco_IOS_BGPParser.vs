@@ -65,8 +65,8 @@ else:
 
 if ActionResult:
   DebugEx.WriteLine("{0} is active for Router {1}".format(ModuleName, mgmtIP), DebugLevel.Full)</MainCode>
-    <Origin_X>460</Origin_X>
-    <Origin_Y>89</Origin_Y>
+    <Origin_X>363</Origin_X>
+    <Origin_Y>52</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -98,7 +98,7 @@ for the specified protocol using the given Router instance.</Description>
 #                                                         #
 ###########################################################
 pass</MainCode>
-    <Origin_X>277</Origin_X>
+    <Origin_X>278</Origin_X>
     <Origin_Y>278</Origin_Y>
     <Size_Width>100</Size_Width>
     <Size_Height>50</Size_Height>
@@ -132,8 +132,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>508</Origin_X>
-    <Origin_Y>158</Origin_Y>
+    <Origin_X>539</Origin_X>
+    <Origin_Y>188</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -249,8 +249,8 @@ System.Diagnostics.DebugEx.WriteLine("{0} : BGP neighbors on {1} : discovered : 
 #
 # No need to return anything via ActionResult
 #</MainCode>
-    <Origin_X>535</Origin_X>
-    <Origin_Y>323</Origin_Y>
+    <Origin_X>539</Origin_X>
+    <Origin_Y>356</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>38</Size_Height>
     <isStart>false</isStart>
@@ -280,8 +280,8 @@ global ModuleName
 
 ActionResult = None
 raise ValueError("{0} has received an unhandled Command request : {1}".format(ModuleName, ConnectionInfo.Command))</MainCode>
-    <Origin_X>468</Origin_X>
-    <Origin_Y>474</Origin_Y>
+    <Origin_X>401</Origin_X>
+    <Origin_Y>506</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -314,8 +314,8 @@ global ParsingForProtocols
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>534</Origin_X>
-    <Origin_Y>238</Origin_Y>
+    <Origin_X>547</Origin_X>
+    <Origin_Y>269</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -344,8 +344,8 @@ global ConnectionDropped
 global ScriptSuccess
 global ConnectionInfo
 global BreakExecution</MainCode>
-    <Origin_X>523</Origin_X>
-    <Origin_Y>403</Origin_Y>
+    <Origin_X>511</Origin_X>
+    <Origin_Y>444</Origin_Y>
     <Size_Width>153</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -360,6 +360,34 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>8</vsID>
+    <CommandID>5093d82f-e8b2-446e-adfb-13994dc347bf</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>494</Origin_X>
+    <Origin_Y>117</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=208,Y=208}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -460,9 +488,24 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
   </vScriptConnector>
+  <vScriptConnector>
+    <cID>7</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>8</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>7</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=260,Y=260}</EditorSize>
+  </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_BGP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.1.0"
+    <GlobalCode>ScriptVersion = "5.4.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS BGP Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -494,7 +537,7 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.6602139</EditorScaleFactor>
+    <EditorScaleFactor>0.7802141</EditorScaleFactor>
     <Description>This vScript template can be used as a starting point for
 creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a

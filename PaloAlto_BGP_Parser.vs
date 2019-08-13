@@ -53,8 +53,8 @@ if Router != None:
     ActionResult = False
 else:
   ActionResult = False</MainCode>
-    <Origin_X>371</Origin_X>
-    <Origin_Y>106</Origin_Y>
+    <Origin_X>317</Origin_X>
+    <Origin_Y>61</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -120,8 +120,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>487</Origin_X>
-    <Origin_Y>335</Origin_Y>
+    <Origin_X>492</Origin_X>
+    <Origin_Y>394</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -204,8 +204,8 @@ except Exception as Ex:
   msg = "PaloAlto.BGPParser : Error while parsing bgp summary. Error is : {0}".format(str(Ex))
   System.Diagnostics.DebugEx.WriteLine(msg) 
 #</MainCode>
-    <Origin_X>466</Origin_X>
-    <Origin_Y>432</Origin_Y>
+    <Origin_X>454</Origin_X>
+    <Origin_Y>473</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>36</Size_Height>
     <isStart>false</isStart>
@@ -235,8 +235,8 @@ global ModuleName
 
 ActionResult = None
 raise ValueError("{0} has received an unhandled Command request : {1}".format(ModuleName, ConnectionInfo.Command))</MainCode>
-    <Origin_X>401</Origin_X>
-    <Origin_Y>509</Origin_Y>
+    <Origin_X>370</Origin_X>
+    <Origin_Y>531</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -269,8 +269,8 @@ global ParsingForProtocols
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>489</Origin_X>
-    <Origin_Y>253</Origin_Y>
+    <Origin_X>520</Origin_X>
+    <Origin_Y>305</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -305,8 +305,8 @@ global Router
 OperationStatusLabel = ""
 ActionResult = None
 Router = None</MainCode>
-    <Origin_X>475</Origin_X>
-    <Origin_Y>171</Origin_Y>
+    <Origin_X>523</Origin_X>
+    <Origin_Y>222</Origin_Y>
     <Size_Width>128</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -322,6 +322,34 @@ Router = None</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=949, Height=764}|{X=130,Y=130}</EditorSize>
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>8</vsID>
+    <CommandID>3738b1cf-569a-4864-a91c-4fa0cf728081</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>444</Origin_X>
+    <Origin_Y>141</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=182,Y=182}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -422,9 +450,24 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
   </vScriptConnector>
+  <vScriptConnector>
+    <cID>7</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>8</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>7</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=104,Y=104}</EditorSize>
+  </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAlto_BGP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.1.0"
+    <GlobalCode>ScriptVersion = "5.4.0"
 # Describe the Module Name
 ModuleName = "PaloAlto BGP Protocol Parser Support Module - Python vScript Parser"
 # Describes current operation status. The name of this variable is fixed !
@@ -463,6 +506,6 @@ creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=570, Height=516}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=290}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

@@ -52,8 +52,8 @@ else:
   ActionResult = False
 
 </MainCode>
-    <Origin_X>461</Origin_X>
-    <Origin_Y>124</Origin_Y>
+    <Origin_X>496</Origin_X>
+    <Origin_Y>148</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -96,6 +96,7 @@ routing protocol  it has been invoked for.</Description>
 which action to take.</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=1033, Height=731}|{X=26,Y=26}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -109,8 +110,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>392</Origin_X>
-    <Origin_Y>72</Origin_Y>
+    <Origin_X>327</Origin_X>
+    <Origin_Y>40</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -126,6 +127,7 @@ ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
 the current Protocol Parser</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=286,Y=286}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -199,8 +201,8 @@ for line in ospf_lines:
     msg = "Cisco IOS OSPF vScript Parser : Error while processing ospf at line [{0}]. Error is : {1}".format(line, str(Ex))
     System.Diagnostics.DebugEx.WriteLine(msg) 
 </MainCode>
-    <Origin_X>518</Origin_X>
-    <Origin_Y>261</Origin_Y>
+    <Origin_X>563</Origin_X>
+    <Origin_Y>277</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -228,8 +230,8 @@ for line in ospf_lines:
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>525</Origin_X>
-    <Origin_Y>336</Origin_Y>
+    <Origin_X>567</Origin_X>
+    <Origin_Y>356</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -257,8 +259,8 @@ that are actively running on the router</Description>
 
 ActionResult = None
 raise ValueError("CiscoIOS OSPF Parser module has received an unhandled Command request : {0}".format(ConnectionInfo.Command))</MainCode>
-    <Origin_X>453</Origin_X>
-    <Origin_Y>551</Origin_Y>
+    <Origin_X>444</Origin_X>
+    <Origin_Y>562</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -478,8 +480,8 @@ def Reset(self):
 
 ActionResult = OSPFProcessor.GetAreas()
 </MainCode>
-    <Origin_X>524</Origin_X>
-    <Origin_Y>412</Origin_Y>
+    <Origin_X>547</Origin_X>
+    <Origin_Y>434</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -508,8 +510,8 @@ ActionResult = OSPFProcessor.GetAreas()
 ospfArea = ConnectionInfo.aParam
 
 ActionResult = OSPFProcessor.GetLSATypeNames(ospfArea)</MainCode>
-    <Origin_X>480</Origin_X>
-    <Origin_Y>485</Origin_Y>
+    <Origin_X>506</Origin_X>
+    <Origin_Y>501</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -540,8 +542,8 @@ ospfArea = ConnectionInfo.aParam
 LSAType = ConnectionInfo.bParam
 # return the LSAs
 ActionResult = OSPFProcessor.GetAreaLSAs(ospfArea, LSAType)</MainCode>
-    <Origin_X>385</Origin_X>
-    <Origin_Y>605</Origin_Y>
+    <Origin_X>343</Origin_X>
+    <Origin_Y>624</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -577,8 +579,8 @@ OperationStatusLabel = "Working"
 OSPFProcessor.Reset()
 ActionResult = None
 Router = None</MainCode>
-    <Origin_X>499</Origin_X>
-    <Origin_Y>187</Origin_Y>
+    <Origin_X>533</Origin_X>
+    <Origin_Y>209</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -593,6 +595,34 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>12</vsID>
+    <CommandID>13e5f0a5-51d3-48b7-aaac-c4d779df56f0</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>456</Origin_X>
+    <Origin_Y>88</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=946, Height=591}|{X=797,Y=369}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -675,7 +705,7 @@ Router = None</MainCode>
     <Condition>return True</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>8</Order>
+    <Order>9</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -734,10 +764,26 @@ Router = None</MainCode>
     <Order>7</Order>
     <Description />
     <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=52,Y=52}</EditorSize>
+  </vScriptConnector>
+  <vScriptConnector>
+    <cID>10</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>12</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>8</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=32,Y=496}</EditorSize>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.1.0"
+    <GlobalCode>ScriptVersion = "5.4.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS OSPF Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -769,9 +815,9 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.9159999</EditorScaleFactor>
+    <EditorScaleFactor>0.630172</EditorScaleFactor>
     <Description />
-    <EditorSize>{Width=894, Height=781}</EditorSize>
+    <EditorSize>{Width=494, Height=547}</EditorSize>
     <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

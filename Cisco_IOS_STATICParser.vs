@@ -55,8 +55,8 @@ if Router != None:
     ActionResult = False
 else:
   ActionResult = False</MainCode>
-    <Origin_X>454</Origin_X>
-    <Origin_Y>62</Origin_Y>
+    <Origin_X>399</Origin_X>
+    <Origin_Y>41</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -104,6 +104,7 @@ pass</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=208,Y=208}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -122,8 +123,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>517</Origin_X>
-    <Origin_Y>279</Origin_Y>
+    <Origin_X>538</Origin_X>
+    <Origin_Y>320</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -229,8 +230,8 @@ for line in static_lines:
 #
 # No need to return anything via ActionResult
 #</MainCode>
-    <Origin_X>520</Origin_X>
-    <Origin_Y>202</Origin_Y>
+    <Origin_X>551</Origin_X>
+    <Origin_Y>254</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -260,8 +261,8 @@ global ModuleName
 
 ActionResult = None
 raise ValueError("{0} has received an unhandled Command request : {1}".format(ModuleName, ConnectionInfo.Command))</MainCode>
-    <Origin_X>445</Origin_X>
-    <Origin_Y>414</Origin_Y>
+    <Origin_X>405</Origin_X>
+    <Origin_Y>443</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -294,8 +295,8 @@ global ParsingForProtocols
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>497</Origin_X>
-    <Origin_Y>127</Origin_Y>
+    <Origin_X>546</Origin_X>
+    <Origin_Y>179</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -324,8 +325,8 @@ global ConnectionDropped
 global ScriptSuccess
 global ConnectionInfo
 global BreakExecution</MainCode>
-    <Origin_X>500</Origin_X>
-    <Origin_Y>353</Origin_Y>
+    <Origin_X>497</Origin_X>
+    <Origin_Y>381</Origin_Y>
     <Size_Width>155</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -340,6 +341,34 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>8</vsID>
+    <CommandID>ad80d763-7f03-44a0-8cd6-5b861d5c18bb</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>506</Origin_X>
+    <Origin_Y>101</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=156,Y=156}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -440,9 +469,24 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
   </vScriptConnector>
+  <vScriptConnector>
+    <cID>7</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>8</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>7</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=182,Y=182}</EditorSize>
+  </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_STATIC_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.1.0"
+    <GlobalCode>ScriptVersion = "5.4.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS STATIC Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -480,6 +524,6 @@ creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=582, Height=463}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=290}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

@@ -53,8 +53,8 @@ if Router != None:
     ActionResult = False
 else:
   ActionResult = False</MainCode>
-    <Origin_X>470</Origin_X>
-    <Origin_Y>199</Origin_Y>
+    <Origin_X>428</Origin_X>
+    <Origin_Y>171</Origin_Y>
     <Size_Width>140</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -121,8 +121,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>501</Origin_X>
-    <Origin_Y>258</Origin_Y>
+    <Origin_X>548</Origin_X>
+    <Origin_Y>314</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -155,8 +155,8 @@ global ActionResult
 global OperationStatusLabel
 
 ActionResult = OperationStatusLabel</MainCode>
-    <Origin_X>542</Origin_X>
-    <Origin_Y>327</Origin_Y>
+    <Origin_X>587</Origin_X>
+    <Origin_Y>379</Origin_Y>
     <Size_Width>136</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -250,8 +250,8 @@ for thisLine in [line.strip() for line in isisAdjacencies.splitlines()]:
           DebugEx.WriteLine("Router object failed to provide details for interface &lt; {0} &gt;".format(localIntfName), DebugLevel.Warning)
   except Exception as Ex:
     DebugEx.WriteLine("Error in JunOS_ISIS while parsine line &lt; {0} &gt;. Error is: {1}".format(thisLine, str(Ex)))</MainCode>
-    <Origin_X>548</Origin_X>
-    <Origin_Y>400</Origin_Y>
+    <Origin_X>582</Origin_X>
+    <Origin_Y>444</Origin_Y>
     <Size_Width>144</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -302,8 +302,8 @@ global ModuleName
 
 ActionResult = None
 raise ValueError("{0} has received an unhandled Command request : {1}".format(ModuleName, ConnectionInfo.Command))</MainCode>
-    <Origin_X>476</Origin_X>
-    <Origin_Y>600</Origin_Y>
+    <Origin_X>438</Origin_X>
+    <Origin_Y>631</Origin_Y>
     <Size_Width>128</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -337,7 +337,7 @@ global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
     <Origin_X>508</Origin_X>
-    <Origin_Y>541</Origin_Y>
+    <Origin_Y>569</Origin_Y>
     <Size_Width>152</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -367,8 +367,8 @@ global ConnectionDropped
 global ScriptSuccess
 global ConnectionInfo
 global BreakExecution</MainCode>
-    <Origin_X>539</Origin_X>
-    <Origin_Y>474</Origin_Y>
+    <Origin_X>561</Origin_X>
+    <Origin_Y>510</Origin_Y>
     <Size_Width>142</Size_Width>
     <Size_Height>38</Size_Height>
     <isStart>false</isStart>
@@ -383,6 +383,34 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>9</vsID>
+    <CommandID>9f0b6af8-6eb0-4d1c-80aa-6c32976e74a1</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>504</Origin_X>
+    <Origin_Y>244</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=260,Y=260}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -479,7 +507,7 @@ global BreakExecution</MainCode>
     <Condition>return True</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>6</Order>
+    <Order>7</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -498,10 +526,25 @@ global BreakExecution</MainCode>
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=286,Y=286}</EditorSize>
   </vScriptConnector>
+  <vScriptConnector>
+    <cID>8</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>9</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>6</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=286,Y=286}</EditorSize>
+  </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS_ISIS_Parser</ScriptName>
     <GlobalCode># v4.0 supports Routing instances
-ScriptVersion = "5.1.0"
+ScriptVersion = "5.4.0"
 # Describe the Module Name
 ModuleName = "JunOS ISIS Parser"
 # Describes current operation status
@@ -538,7 +581,7 @@ from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <EditorScaleFactor>0.6391805</EditorScaleFactor>
     <Description>This vScript template can be used as a starting point for creating a new routing protocol Parser Module for Network Map.
 This is typically required to add support for a new routing protocol to a vendor already supported. See also Router Module template.</Description>
-    <EditorSize>{Width=496, Height=443}</EditorSize>
-    <PropertiesEditorSize>{Width=775, Height=526}|{X=572,Y=317}</PropertiesEditorSize>
+    <EditorSize>{Width=609, Height=552}</EditorSize>
+    <PropertiesEditorSize>{Width=775, Height=526}|{X=572,Y=257}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

@@ -53,8 +53,8 @@ if Router != None:
     ActionResult = False
 else:
   ActionResult = False</MainCode>
-    <Origin_X>470</Origin_X>
-    <Origin_Y>199</Origin_Y>
+    <Origin_X>421</Origin_X>
+    <Origin_Y>168</Origin_Y>
     <Size_Width>140</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -121,8 +121,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>501</Origin_X>
-    <Origin_Y>258</Origin_Y>
+    <Origin_X>543</Origin_X>
+    <Origin_Y>312</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -155,8 +155,8 @@ global ActionResult
 global OperationStatusLabel
 
 ActionResult = OperationStatusLabel</MainCode>
-    <Origin_X>542</Origin_X>
-    <Origin_Y>327</Origin_Y>
+    <Origin_X>566</Origin_X>
+    <Origin_Y>379</Origin_Y>
     <Size_Width>136</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -247,8 +247,8 @@ for blockNum, thisBlock in enumerate(lldpInfoBlocks):
         DebugEx.WriteLine("Router object failed to provide details for interface &lt; {0} &gt;".format(localIntfName), DebugLevel.Warning)
   except Exception as Ex:
     DebugEx.WriteLine("Error in PaloAlto_LLDPParser while parsing text &lt; {0} &gt;. Error is: {1}".format(localInfoText, str(Ex)))</MainCode>
-    <Origin_X>548</Origin_X>
-    <Origin_Y>403</Origin_Y>
+    <Origin_X>574</Origin_X>
+    <Origin_Y>448</Origin_Y>
     <Size_Width>144</Size_Width>
     <Size_Height>37</Size_Height>
     <isStart>false</isStart>
@@ -299,8 +299,8 @@ global ModuleName
 
 ActionResult = None
 raise ValueError("{0} has received an unhandled Command request : {1}".format(ModuleName, ConnectionInfo.Command))</MainCode>
-    <Origin_X>476</Origin_X>
-    <Origin_Y>600</Origin_Y>
+    <Origin_X>427</Origin_X>
+    <Origin_Y>629</Origin_Y>
     <Size_Width>128</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -333,8 +333,8 @@ global ParsingForProtocols
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>508</Origin_X>
-    <Origin_Y>541</Origin_Y>
+    <Origin_X>506</Origin_X>
+    <Origin_Y>573</Origin_Y>
     <Size_Width>152</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -364,8 +364,8 @@ global ConnectionDropped
 global ScriptSuccess
 global ConnectionInfo
 global BreakExecution</MainCode>
-    <Origin_X>539</Origin_X>
-    <Origin_Y>474</Origin_Y>
+    <Origin_X>545</Origin_X>
+    <Origin_Y>518</Origin_Y>
     <Size_Width>142</Size_Width>
     <Size_Height>38</Size_Height>
     <isStart>false</isStart>
@@ -380,6 +380,34 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>9</vsID>
+    <CommandID>ba509b73-a6b0-49a5-aab9-19939872060e</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>515</Origin_X>
+    <Origin_Y>236</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=234,Y=234}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -476,7 +504,7 @@ global BreakExecution</MainCode>
     <Condition>return True</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>6</Order>
+    <Order>7</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -491,6 +519,21 @@ global BreakExecution</MainCode>
     <Variables />
     <Break>false</Break>
     <Order>5</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=286,Y=286}</EditorSize>
+  </vScriptConnector>
+  <vScriptConnector>
+    <cID>8</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>9</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>6</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=286,Y=286}</EditorSize>

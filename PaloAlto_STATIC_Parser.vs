@@ -53,8 +53,8 @@ if Router != None:
     ActionResult = False
 else:
   ActionResult = False</MainCode>
-    <Origin_X>393</Origin_X>
-    <Origin_Y>71</Origin_Y>
+    <Origin_X>352</Origin_X>
+    <Origin_Y>46</Origin_Y>
     <Size_Width>146</Size_Width>
     <Size_Height>43</Size_Height>
     <isStart>false</isStart>
@@ -102,6 +102,7 @@ pass</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=576, Height=523}|{X=130,Y=130}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -120,8 +121,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>486</Origin_X>
-    <Origin_Y>216</Origin_Y>
+    <Origin_X>519</Origin_X>
+    <Origin_Y>254</Origin_Y>
     <Size_Width>146</Size_Width>
     <Size_Height>43</Size_Height>
     <isStart>false</isStart>
@@ -233,8 +234,8 @@ for thisLine in static_lines:
 #
 # No need to return anything via ActionResult
 #</MainCode>
-    <Origin_X>484</Origin_X>
-    <Origin_Y>299</Origin_Y>
+    <Origin_X>505</Origin_X>
+    <Origin_Y>351</Origin_Y>
     <Size_Width>146</Size_Width>
     <Size_Height>43</Size_Height>
     <isStart>false</isStart>
@@ -264,8 +265,8 @@ global ModuleName
 
 ActionResult = None
 raise ValueError("{0} has received an unhandled Command request : {1}".format(ModuleName, ConnectionInfo.Command))</MainCode>
-    <Origin_X>389</Origin_X>
-    <Origin_Y>448</Origin_Y>
+    <Origin_X>372</Origin_X>
+    <Origin_Y>475</Origin_Y>
     <Size_Width>146</Size_Width>
     <Size_Height>43</Size_Height>
     <isStart>false</isStart>
@@ -298,8 +299,8 @@ global ParsingForProtocols
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>453</Origin_X>
-    <Origin_Y>135</Origin_Y>
+    <Origin_X>500</Origin_X>
+    <Origin_Y>182</Origin_Y>
     <Size_Width>146</Size_Width>
     <Size_Height>43</Size_Height>
     <isStart>false</isStart>
@@ -335,8 +336,8 @@ global Router
 OperationStatusLabel = "Working"
 ActionResult = None
 Router = None</MainCode>
-    <Origin_X>456</Origin_X>
-    <Origin_Y>388</Origin_Y>
+    <Origin_X>469</Origin_X>
+    <Origin_Y>420</Origin_Y>
     <Size_Width>146</Size_Width>
     <Size_Height>39</Size_Height>
     <isStart>false</isStart>
@@ -351,6 +352,34 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>8</vsID>
+    <CommandID>f770da2e-fc54-490c-913a-3fb886afb885</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>461</Origin_X>
+    <Origin_Y>112</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=26,Y=26}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -451,9 +480,24 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
   </vScriptConnector>
+  <vScriptConnector>
+    <cID>7</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>8</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>7</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=78,Y=78}</EditorSize>
+  </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAlto_STATIC_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.1.0"
+    <GlobalCode>ScriptVersion = "5.4.0"
 # Describe the Module Name
 ModuleName = "PaloAlto STATIC Protocol Parser Support Module - Python vScript Parser"
 # Describes current operation status. The name of this variable is fixed !
@@ -492,6 +536,6 @@ creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=629, Height=540}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=290}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

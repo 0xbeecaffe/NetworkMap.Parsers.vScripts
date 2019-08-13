@@ -53,8 +53,8 @@ if Router != None:
     ActionResult = False
 else:
   ActionResult = False</MainCode>
-    <Origin_X>470</Origin_X>
-    <Origin_Y>199</Origin_Y>
+    <Origin_X>430</Origin_X>
+    <Origin_Y>167</Origin_Y>
     <Size_Width>140</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -121,8 +121,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>501</Origin_X>
-    <Origin_Y>258</Origin_Y>
+    <Origin_X>541</Origin_X>
+    <Origin_Y>304</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -155,8 +155,8 @@ global ActionResult
 global OperationStatusLabel
 
 ActionResult = OperationStatusLabel</MainCode>
-    <Origin_X>542</Origin_X>
-    <Origin_Y>327</Origin_Y>
+    <Origin_X>579</Origin_X>
+    <Origin_Y>374</Origin_Y>
     <Size_Width>136</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -238,8 +238,8 @@ for blockNum, thisBlock in enumerate(cdpInfoBlocks):
       DebugEx.WriteLine("Router object failed to provide details for interface &lt; {0} &gt;".format(localIntfName), DebugLevel.Warning)
   except Exception as Ex:
     DebugEx.WriteLine("Error in PaloAlto_LLDPParser while parsing text &lt; {0} &gt;. Error is: {1}".format(infoBlockText, str(Ex)))</MainCode>
-    <Origin_X>548</Origin_X>
-    <Origin_Y>403</Origin_Y>
+    <Origin_X>585</Origin_X>
+    <Origin_Y>444</Origin_Y>
     <Size_Width>144</Size_Width>
     <Size_Height>37</Size_Height>
     <isStart>false</isStart>
@@ -290,8 +290,8 @@ global ModuleName
 
 ActionResult = None
 raise ValueError("{0} has received an unhandled Command request : {1}".format(ModuleName, ConnectionInfo.Command))</MainCode>
-    <Origin_X>476</Origin_X>
-    <Origin_Y>600</Origin_Y>
+    <Origin_X>439</Origin_X>
+    <Origin_Y>626</Origin_Y>
     <Size_Width>128</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -324,8 +324,8 @@ global ParsingForProtocols
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>508</Origin_X>
-    <Origin_Y>541</Origin_Y>
+    <Origin_X>513</Origin_X>
+    <Origin_Y>567</Origin_Y>
     <Size_Width>152</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -355,8 +355,8 @@ global ConnectionDropped
 global ScriptSuccess
 global ConnectionInfo
 global BreakExecution</MainCode>
-    <Origin_X>539</Origin_X>
-    <Origin_Y>474</Origin_Y>
+    <Origin_X>558</Origin_X>
+    <Origin_Y>508</Origin_Y>
     <Size_Width>142</Size_Width>
     <Size_Height>38</Size_Height>
     <isStart>false</isStart>
@@ -371,6 +371,34 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>9</vsID>
+    <CommandID>30f54859-7b30-46da-9aeb-b72568c7d4ff</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>503</Origin_X>
+    <Origin_Y>229</Origin_Y>
+    <Size_Width>164</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=78,Y=78}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -467,7 +495,7 @@ global BreakExecution</MainCode>
     <Condition>return True</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>6</Order>
+    <Order>7</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -486,9 +514,24 @@ global BreakExecution</MainCode>
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=286,Y=286}</EditorSize>
   </vScriptConnector>
+  <vScriptConnector>
+    <cID>8</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>9</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>6</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=104,Y=104}</EditorSize>
+  </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_CDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.1.0"
+    <GlobalCode>ScriptVersion = "5.4.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS CDP Parser"
 # Describes current operation status
@@ -526,6 +569,6 @@ from System.Diagnostics import DebugLevel</CustomNameSpaces>
     <Description>This vScript template can be used as a starting point for creating a new routing protocol Parser Module for Network Map.
 This is typically required to add support for a new routing protocol to a vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=607, Height=606}</EditorSize>
-    <PropertiesEditorSize>{Width=965, Height=736}|{X=477,Y=212}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=965, Height=736}|{X=477,Y=152}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

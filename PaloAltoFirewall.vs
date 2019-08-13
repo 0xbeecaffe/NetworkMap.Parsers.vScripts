@@ -104,10 +104,10 @@ Take care of connector ordering !   </Description>
 global ActionResult
 
 ActionResult = "{0} Support Module - Python vScript Parser v{1}".format(Name, scriptVersion)</MainCode>
-    <Origin_X>762</Origin_X>
-    <Origin_Y>305</Origin_Y>
+    <Origin_X>770</Origin_X>
+    <Origin_Y>298</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -137,8 +137,8 @@ ActionResult = "{0} Support Module - Python vScript Parser v{1}".format(Name, sc
 global ActionResult
 
 ActionResult = Version.GetVersion()</MainCode>
-    <Origin_X>666</Origin_X>
-    <Origin_Y>769</Origin_Y>
+    <Origin_X>659</Origin_X>
+    <Origin_Y>774</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -172,8 +172,8 @@ global ActionResult
 # so return that one.
 
 ActionResult = Version.GetVersion()</MainCode>
-    <Origin_X>786</Origin_X>
-    <Origin_Y>655</Origin_Y>
+    <Origin_X>796</Origin_X>
+    <Origin_Y>660</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -210,8 +210,8 @@ if len(_s) &gt; 0:
  ActionResult = _s[0]
 else:
   ActionResult = "n/a"</MainCode>
-    <Origin_X>549</Origin_X>
-    <Origin_Y>830</Origin_Y>
+    <Origin_X>536</Origin_X>
+    <Origin_Y>831</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -246,8 +246,8 @@ if len(_m) &gt; 0:
  ActionResult = _m[0]
 else:
   ActionResult = "n/a"</MainCode>
-    <Origin_X>820</Origin_X>
-    <Origin_Y>595</Origin_Y>
+    <Origin_X>844</Origin_X>
+    <Origin_Y>601</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -483,8 +483,8 @@ protocol = ConnectionInfo.aParam
 # The RoutingInstance is received in bParam
 instance = ConnectionInfo.bParam
 ActionResult = RouterIDAndASNumber.GetRouterID(protocol, instance)</MainCode>
-    <Origin_X>736</Origin_X>
-    <Origin_Y>714</Origin_Y>
+    <Origin_X>739</Origin_X>
+    <Origin_Y>720</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>47</Size_Height>
     <isStart>false</isStart>
@@ -698,10 +698,10 @@ Platform = "PaloAlto"
 # network discorey in any way.
 #
 ActionResult = Platform</MainCode>
-    <Origin_X>786</Origin_X>
-    <Origin_Y>384</Origin_Y>
+    <Origin_X>855</Origin_X>
+    <Origin_Y>422</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Size_Height>42</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -736,10 +736,10 @@ DeviceType = "Firewall"
 # network discorey in any way.
 #
 ActionResult = DeviceType</MainCode>
-    <Origin_X>815</Origin_X>
-    <Origin_Y>457</Origin_Y>
+    <Origin_X>860</Origin_X>
+    <Origin_Y>478</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Size_Height>45</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -777,10 +777,10 @@ Vendor = "PaloAlto"
 # For a new vendor register the vendor name there first.
 #
 ActionResult = Vendor</MainCode>
-    <Origin_X>822</Origin_X>
-    <Origin_Y>530</Origin_Y>
+    <Origin_X>860</Origin_X>
+    <Origin_Y>535</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Size_Height>42</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -1507,7 +1507,7 @@ global BreakExecution
 
 # TODO : find out how to retrieve Vsys names
 ActionResult = ["Default"]</MainCode>
-    <Origin_X>637</Origin_X>
+    <Origin_X>618</Origin_X>
     <Origin_Y>195</Origin_Y>
     <Size_Width>145</Size_Width>
     <Size_Height>40</Size_Height>
@@ -1548,8 +1548,8 @@ for thisVR in vrs :
   instances.append(instance)
 
 ActionResult  = instances</MainCode>
-    <Origin_X>705</Origin_X>
-    <Origin_Y>254</Origin_Y>
+    <Origin_X>698</Origin_X>
+    <Origin_Y>247</Origin_Y>
     <Size_Width>157</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -1565,6 +1565,38 @@ ActionResult  = instances</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=806, Height=700}|{X=671,Y=39}</EditorSize>
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>29</vsID>
+    <CommandID>5acee2ac-4dfd-4c25-ac73-cf8aafa91b4d</CommandID>
+    <Name>SupportedEngineVersion</Name>
+    <DisplayLabel>NDE Version</DisplayLabel>
+    <Commands />
+    <MainCode>global ActionResult
+global ConnectionDropped
+global ScriptSuccess
+global ConnectionInfo
+global BreakExecution
+
+ActionResult = r"^7\.5*"</MainCode>
+    <Origin_X>831</Origin_X>
+    <Origin_Y>366</Origin_Y>
+    <Size_Width>133</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=710, Height=554}|{X=26,Y=26}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -1919,6 +1951,21 @@ ActionResult  = instances</MainCode>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=26,Y=26}</EditorSize>
+  </vScriptConnector>
+  <vScriptConnector>
+    <cID>25</cID>
+    <ConnectorID />
+    <Name>SwitchTask_SupportedEngineVersion</Name>
+    <DisplayLabel>Engine version</DisplayLabel>
+    <Left>2</Left>
+    <Right>29</Right>
+    <Condition>return ConnectionInfo.Command == "GetSupportedEngineVersion"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>25</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=52,Y=52}</EditorSize>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAltoFirewall</ScriptName>

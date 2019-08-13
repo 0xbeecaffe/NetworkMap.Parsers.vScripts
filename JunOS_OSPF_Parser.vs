@@ -48,9 +48,9 @@ if Router != None:
     ActionResult = False
 else:
   ActionResult = False</MainCode>
-    <Origin_X>443</Origin_X>
-    <Origin_Y>83</Origin_Y>
-    <Size_Width>100</Size_Width>
+    <Origin_X>462</Origin_X>
+    <Origin_Y>115</Origin_Y>
+    <Size_Width>149</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
@@ -92,6 +92,7 @@ routing protocol  it has been invoked for.</Description>
 which action to take.</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=52,Y=52}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -105,8 +106,8 @@ global ActionResult
 global ModuleName
 
 ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
-    <Origin_X>466</Origin_X>
-    <Origin_Y>141</Origin_Y>
+    <Origin_X>489</Origin_X>
+    <Origin_Y>167</Origin_Y>
     <Size_Width>125</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -198,9 +199,9 @@ for line in ospf_lines:
     msg = "OSPFarser : Error while parsing ospf output line [{0}]. Error is : {1}".format(line, str(Ex))
     System.Diagnostics.DebugEx.WriteLine(msg) 
 </MainCode>
-    <Origin_X>505</Origin_X>
-    <Origin_Y>273</Origin_Y>
-    <Size_Width>100</Size_Width>
+    <Origin_X>524</Origin_X>
+    <Origin_Y>281</Origin_Y>
+    <Size_Width>144</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
@@ -227,8 +228,8 @@ for line in ospf_lines:
 global ActionResult
 
 ActionResult = ParsingForProtocols</MainCode>
-    <Origin_X>482</Origin_X>
-    <Origin_Y>206</Origin_Y>
+    <Origin_X>505</Origin_X>
+    <Origin_Y>224</Origin_Y>
     <Size_Width>136</Size_Width>
     <Size_Height>38</Size_Height>
     <isStart>false</isStart>
@@ -489,9 +490,9 @@ instance = ConnectionInfo.aParam
 # --
 ActionResult = OSPFProcessor.GetAreas(instance)
 </MainCode>
-    <Origin_X>482</Origin_X>
-    <Origin_Y>339</Origin_Y>
-    <Size_Width>125</Size_Width>
+    <Origin_X>501</Origin_X>
+    <Origin_Y>344</Origin_Y>
+    <Size_Width>144</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
@@ -522,8 +523,8 @@ ospfArea = ConnectionInfo.aParam
 instance = ConnectionInfo.bParam
 # --
 ActionResult = OSPFProcessor.GetLSATypeNames(instance, ospfArea)</MainCode>
-    <Origin_X>363</Origin_X>
-    <Origin_Y>36</Origin_Y>
+    <Origin_X>302</Origin_X>
+    <Origin_Y>15</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -557,8 +558,8 @@ LSAType = ConnectionInfo.bParam
 instance = ConnectionInfo.cParam
 # return the LSAs
 ActionResult = OSPFProcessor.GetAreaLSAs(instance, ospfArea, LSAType)</MainCode>
-    <Origin_X>450</Origin_X>
-    <Origin_Y>402</Origin_Y>
+    <Origin_X>457</Origin_X>
+    <Origin_Y>405</Origin_Y>
     <Size_Width>164</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -595,8 +596,8 @@ OperationStatusLabel = "Working"
 OSPFProcessor.Reset()
 ActionResult = None
 Router = None</MainCode>
-    <Origin_X>403</Origin_X>
-    <Origin_Y>461</Origin_Y>
+    <Origin_X>398</Origin_X>
+    <Origin_Y>458</Origin_Y>
     <Size_Width>113</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -611,6 +612,34 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>12</vsID>
+    <CommandID>c7558989-2a27-41cf-9e01-5dc17f0fb5bc</CommandID>
+    <Name>GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Commands />
+    <MainCode>global ParsingForVendor
+global ActionResult
+ActionResult = ParsingForVendor</MainCode>
+    <Origin_X>408</Origin_X>
+    <Origin_Y>68</Origin_Y>
+    <Size_Width>123</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>false</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description />
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=0,Y=0}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -693,7 +722,7 @@ Router = None</MainCode>
     <Condition>return True</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>8</Order>
+    <Order>9</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -754,9 +783,24 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
   </vScriptConnector>
+  <vScriptConnector>
+    <cID>10</cID>
+    <ConnectorID />
+    <Name>SwitchTask_GetVendor</Name>
+    <DisplayLabel>GetVendor</DisplayLabel>
+    <Left>2</Left>
+    <Right>12</Right>
+    <Condition>return ConnectionInfo.Command == "GetVendor"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>8</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=26,Y=26}</EditorSize>
+  </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.1.0"
+    <GlobalCode>ScriptVersion = "5.4.0"
 # v4.0 supports Routing instances
 ModuleName =  "Juniper, JunOS OSPF Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -792,6 +836,6 @@ import System.Net</CustomNameSpaces>
     <Description>This Protocol Parser can handle JunOS routers 
 and switches running OSPF protocol.</Description>
     <EditorSize>{Width=519, Height=530}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=290}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
