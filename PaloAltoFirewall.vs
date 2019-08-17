@@ -7,10 +7,10 @@
     <DisplayLabel>Start</DisplayLabel>
     <Commands />
     <MainCode />
-    <Origin_X>465</Origin_X>
-    <Origin_Y>55</Origin_Y>
-    <Size_Width>100</Size_Width>
-    <Size_Height>40</Size_Height>
+    <Origin_X>417</Origin_X>
+    <Origin_Y>85</Origin_Y>
+    <Size_Width>146</Size_Width>
+    <Size_Height>63</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -38,8 +38,8 @@
 ####################################################################################
 
 raise ValueError("{0} vScripot Router received an unhandled Command request : {1}".format(Name, ConnectionInfo.Command))</MainCode>
-    <Origin_X>324</Origin_X>
-    <Origin_Y>153</Origin_Y>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>119</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -70,8 +70,8 @@ raise ValueError("{0} vScripot Router received an unhandled Command request : {1
 #                                                         #
 ###########################################################
 pass</MainCode>
-    <Origin_X>465</Origin_X>
-    <Origin_Y>488</Origin_Y>
+    <Origin_X>447</Origin_X>
+    <Origin_Y>477</Origin_Y>
     <Size_Width>100</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -104,8 +104,8 @@ Take care of connector ordering !   </Description>
 global ActionResult
 
 ActionResult = "{0} Support Module - Python vScript Parser v{1}".format(Name, scriptVersion)</MainCode>
-    <Origin_X>770</Origin_X>
-    <Origin_Y>298</Origin_Y>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>276</Origin_Y>
     <Size_Width>147</Size_Width>
     <Size_Height>46</Size_Height>
     <isStart>false</isStart>
@@ -137,10 +137,10 @@ ActionResult = "{0} Support Module - Python vScript Parser v{1}".format(Name, sc
 global ActionResult
 
 ActionResult = Version.GetVersion()</MainCode>
-    <Origin_X>659</Origin_X>
-    <Origin_Y>774</Origin_Y>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>795</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -172,10 +172,10 @@ global ActionResult
 # so return that one.
 
 ActionResult = Version.GetVersion()</MainCode>
-    <Origin_X>796</Origin_X>
-    <Origin_Y>660</Origin_Y>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>654</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -210,10 +210,10 @@ if len(_s) &gt; 0:
  ActionResult = _s[0]
 else:
   ActionResult = "n/a"</MainCode>
-    <Origin_X>536</Origin_X>
-    <Origin_Y>831</Origin_Y>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>867</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -246,10 +246,10 @@ if len(_m) &gt; 0:
  ActionResult = _m[0]
 else:
   ActionResult = "n/a"</MainCode>
-    <Origin_X>844</Origin_X>
-    <Origin_Y>601</Origin_Y>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>593</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -282,10 +282,10 @@ stackCount == 1
 # Implement required logic to get the correct number
 #
 ActionResult = stackCount;</MainCode>
-    <Origin_X>268</Origin_X>
-    <Origin_Y>782</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>786</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -402,10 +402,10 @@ for thisLine in routeLines:
     System.Diagnostics.DebugEx.WriteLine(message)
   
 ActionResult = parsedRoutes</MainCode>
-    <Origin_X>81</Origin_X>
-    <Origin_Y>452</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>455</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -439,10 +439,10 @@ global ScriptSuccess
 instance = ConnectionInfo.aParam
 ActionResult = GetInterfaces.GetRoutedInterfaces(instance)
 ScriptSuccess = True</MainCode>
-    <Origin_X>71</Origin_X>
-    <Origin_Y>519</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>522</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -483,10 +483,10 @@ protocol = ConnectionInfo.aParam
 # The RoutingInstance is received in bParam
 instance = ConnectionInfo.bParam
 ActionResult = RouterIDAndASNumber.GetRouterID(protocol, instance)</MainCode>
-    <Origin_X>739</Origin_X>
-    <Origin_Y>720</Origin_Y>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>723</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>47</Size_Height>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -533,21 +533,21 @@ if len(_runningRoutingProtocols[instanceName]) == 0 :
     response = Session.ExecCommand("show routing protocol ospf summary virtual-router {0}".format(instanceName))
   else:
     response = Session.ExecCommand("show routing protocol ospf summary")
-  if (response != ""): 
+  if (response.strip("\r\n ") != ""): 
     _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.OSPF)
   ## -- RIP --
   if instanceName:  
     response = Session.ExecCommand("show routing protocol rip summary virtual-router {0}".format(instanceName))
   else:
     response = Session.ExecCommand("show routing protocol rip summary")
-  if (response != ""): 
+  if (response.strip("\r\n ") != ""): 
     _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.RIP)  
   ## -- BGP --
   if instanceName:  
     response = Session.ExecCommand("show routing protocol bgp summary virtual-router {0}".format(instanceName))
   else:
     response = Session.ExecCommand("show routing protocol bgp summary")
-  if (response != ""): 
+  if (response.strip("\r\n ") != ""): 
     _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.BGP)
   # -- IPSEC --
   try:
@@ -569,7 +569,7 @@ if len(_runningRoutingProtocols[instanceName]) == 0 :
   # -- LLDP only for default routing instance (VR) --
   if isDefaultInstance :
     response = Session.ExecCommand("show lldp neighbors all")
-    if (response != ""): 
+    if (response.strip("\r\n ") != ""): 
       _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.LLDP)
   # -- STATIC -- 
   if instanceName:   
@@ -589,10 +589,10 @@ if len(_runningRoutingProtocols[instanceName]) == 0 :
     if _sc &gt; 0 : _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.STATIC)  
 
 ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
-    <Origin_X>201</Origin_X>
-    <Origin_Y>719</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>723</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -624,10 +624,10 @@ global ActionResult
 # the RoutingInstance object to query is received in aParam
 instance = ConnectionInfo.aParam
 ActionResult = RouterIDAndASNumber.GetBGPASNumber(instance)</MainCode>
-    <Origin_X>81</Origin_X>
-    <Origin_Y>587</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>590</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -660,10 +660,10 @@ global HstName
 # Initialize element has already updated the HostName global variable
 # so return that one.
 ActionResult = HostName</MainCode>
-    <Origin_X>124</Origin_X>
-    <Origin_Y>649</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>652</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -698,10 +698,10 @@ Platform = "PaloAlto"
 # network discorey in any way.
 #
 ActionResult = Platform</MainCode>
-    <Origin_X>855</Origin_X>
-    <Origin_Y>422</Origin_Y>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>400</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>42</Size_Height>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -736,10 +736,10 @@ DeviceType = "Firewall"
 # network discorey in any way.
 #
 ActionResult = DeviceType</MainCode>
-    <Origin_X>860</Origin_X>
-    <Origin_Y>478</Origin_Y>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>459</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>45</Size_Height>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -777,10 +777,10 @@ Vendor = "PaloAlto"
 # For a new vendor register the vendor name there first.
 #
 ActionResult = Vendor</MainCode>
-    <Origin_X>860</Origin_X>
-    <Origin_Y>535</Origin_Y>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>530</Origin_Y>
     <Size_Width>147</Size_Width>
-    <Size_Height>42</Size_Height>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -817,10 +817,10 @@ instance = ConnectionInfo.bParam
 
 #return the interface
 ActionResult = GetInterfaces.GetInterfaceByName(ifName, instance)</MainCode>
-    <Origin_X>112</Origin_X>
-    <Origin_Y>385</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>388</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -857,10 +857,10 @@ instance = ConnectionInfo.bParam
 
 #return the interface name
 ActionResult = GetInterfaces.GetInterfaceNameByAddress(ifAddress, instance)</MainCode>
-    <Origin_X>152</Origin_X>
-    <Origin_Y>321</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>315</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -900,10 +900,10 @@ try:
   ActionResult = True
 except:
   ActionResult = False</MainCode>
-    <Origin_X>214</Origin_X>
-    <Origin_Y>261</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>17</Origin_X>
+    <Origin_Y>246</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -945,16 +945,16 @@ if "paloaltonetworks" in _versionInfo.lower():
       ActionResult = False
 else :
   ActionResult = False</MainCode>
-    <Origin_X>527</Origin_X>
-    <Origin_Y>151</Origin_Y>
-    <Size_Width>122</Size_Width>
-    <Size_Height>40</Size_Height>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>105</Origin_Y>
+    <Size_Width>147</Size_Width>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -985,9 +985,9 @@ _interfaceConfigurations = {}
 Version.Reset()
 RouterIDAndASNumber.Reset()
 GetInterfaces.Reset()</MainCode>
-    <Origin_X>270</Origin_X>
-    <Origin_Y>200</Origin_Y>
-    <Size_Width>121</Size_Width>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>179</Origin_Y>
+    <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
@@ -1018,8 +1018,8 @@ global ConnectionInfo
 global BreakExecution
 global ScriptExecutor
 global Session</MainCode>
-    <Origin_X>248</Origin_X>
-    <Origin_Y>933</Origin_Y>
+    <Origin_X>426</Origin_X>
+    <Origin_Y>668</Origin_Y>
     <Size_Width>149</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -1055,8 +1055,8 @@ global ConnectionInfo
 global BreakExecution
 global ScriptExecutor
 global Session</MainCode>
-    <Origin_X>642</Origin_X>
-    <Origin_Y>933</Origin_Y>
+    <Origin_X>430</Origin_X>
+    <Origin_Y>836</Origin_Y>
     <Size_Width>150</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -1096,7 +1096,7 @@ def GetBGPASNumber(self, instance):
 def CalculateRouterIDAndASNumber(self, instance):
   """ """
   global _runningRoutingProtocols
- 
+  
   instanceName = ""
   if instance : 
     instanceName = instance.Name
@@ -1112,70 +1112,74 @@ def CalculateRouterIDAndASNumber(self, instance):
   # sort the routing protocols by preference (its integer value)
   instanceProtocols = _runningRoutingProtocols[instanceName]
   sRoutingProtocols = sorted(instanceProtocols, key=lambda p: int(p))
-  for thisProtocol in sRoutingProtocols:  
-    if thisProtocol == L3Discovery.NeighborProtocol.BGP:
-      cmd = "show routing protocol bgp summary"
-      if instance:
-        cmd = "show routing protocol bgp summary virtual-router {0}".format(instance.Name)
-      bgpSummary = Session.ExecCommand(cmd)
-      rid = re.findall(r"(?&lt;=router id: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
-      if len(rid) &gt; 0 : 
-        self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
-        if self.staticRouterID == "" : 
-          self.staticRouterID = rid[0]
+  for thisProtocol in sRoutingProtocols: 
+    try: 
+      if thisProtocol == L3Discovery.NeighborProtocol.BGP:
+        cmd = "show routing protocol bgp summary"
+        if instance:
+          cmd = "show routing protocol bgp summary virtual-router {0}".format(instance.Name)
+        bgpSummary = Session.ExecCommand(cmd)
+        rid = re.findall(r"(?&lt;=router id: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
+        if len(rid) &gt; 0 : 
+          self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
+          if self.staticRouterID == "" : 
+            self.staticRouterID = rid[0]
 
-      ASSize = 2
-      re_LocalAS = re.findall(r"(?&lt;=Local AS: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
-      re_ASSize = re.findall(r"(?&lt;=AS size: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
-      if len(re_ASSize) == 1:
-        ASSize = int(re_ASSize[0])
-      if ASSize == 2:
-        if len(re_LocalAS) &gt; 0 : 
-          self.BGPASNumbers[instanceName] = re_LocalAS[0]
-      elif ASSize == 4:
-        ASDigits = re_LocalAS[0].strip().split(".")
-        if len(ASDigits) == 1:
-          self.BGPASNumbers[instanceName] = ASDigits[0]
-        else:
-          highASN = int(ASDigits[0])
-          lowASN = int(ASDigits[1])
-          self.BGPASNumbers[instanceName] = str((highASN&lt;&lt;16) + lowASN)
-      
-    elif thisProtocol == L3Discovery.NeighborProtocol.OSPF:
-      cmd = "show routing protocol ospf summary"
-      if instance:
-        cmd = "show routing protocol ospf summary virtual-router {0}".format(instance.Name)
-      ospfStatus = Session.ExecCommand(cmd)
-      rid = re.findall(r"(?&lt;=router id: )[\ ,\d.]{0,99}", ospfStatus)
-      if len(rid) &gt; 0 : 
-      
-        self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
-        if self.staticRouterID == "" : 
-          self.staticRouterID = rid[0]
+        ASSize = 2
+        re_LocalAS = re.findall(r"(?&lt;=Local AS: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
+        re_ASSize = re.findall(r"(?&lt;=AS size: )[\ \d.]{0,99}", bgpSummary, re.IGNORECASE)
+        if len(re_ASSize) == 1:
+          ASSize = int(re_ASSize[0])
+        if ASSize == 2:
+          if len(re_LocalAS) &gt; 0 : 
+            self.BGPASNumbers[instanceName] = re_LocalAS[0]
+        elif ASSize == 4:
+          ASDigits = re_LocalAS[0].strip().split(".")
+          if len(ASDigits) == 1:
+            self.BGPASNumbers[instanceName] = ASDigits[0]
+          else:
+            highASN = int(ASDigits[0])
+            lowASN = int(ASDigits[1])
+            self.BGPASNumbers[instanceName] = str((highASN&lt;&lt;16) + lowASN)
+        
+      elif thisProtocol == L3Discovery.NeighborProtocol.OSPF:
+        cmd = "show routing protocol ospf summary"
+        if instance:
+          cmd = "show routing protocol ospf summary virtual-router {0}".format(instance.Name)
+        ospfStatus = Session.ExecCommand(cmd)
+        rid = re.findall(r"(?&lt;=router id: )[\ ,\d.]{0,99}", ospfStatus)
+        if len(rid) &gt; 0 : 
+        
+          self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
+          if self.staticRouterID == "" : 
+            self.staticRouterID = rid[0]
 
-    elif thisProtocol == L3Discovery.NeighborProtocol.RIP:
-      cmd = "show routing protocol rip summary"
-      if instance:
-        cmd = "show routing protocol rip summary virtual-router {0}".format(instance.Name)
-      ripfStatus = Session.ExecCommand(cmd)
-      rid = re.findall(r"(?&lt;=router id: )[\ ,\d.]{0,99}", ripStatus)
-      if len(rid) &gt; 0 : 
-        self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
-        if self.staticRouterID == "" : 
-          self.staticRouterID = rid[0]
-    elif thisProtocol == L3Discovery.NeighborProtocol.IPSEC:
-      self.RouterIDs[instanceName][str(thisProtocol)] = self.staticRouterID
-    elif thisProtocol == L3Discovery.NeighborProtocol.LLDP:
-      lldpMAC = Session.ExecCommand("show system info | match mac-address")
-      rid = re.findall(r"[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}", lldpMAC)
-      if len(rid) == 1:
-        self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
-      
-    elif thisProtocol == L3Discovery.NeighborProtocol.STATIC:
-      self.RouterIDs[instanceName][str(thisProtocol)] = self.staticRouterID
-      
-    else :
-      self.RouterIDs[instanceName][str(thisProtocol)] = self.staticRouterID
+      elif thisProtocol == L3Discovery.NeighborProtocol.RIP:
+        cmd = "show routing protocol rip summary"
+        if instance:
+          cmd = "show routing protocol rip summary virtual-router {0}".format(instance.Name)
+        ripStatus = Session.ExecCommand(cmd)
+        rid = re.findall(r"(?&lt;=router id: )[\ ,\d.]{0,99}", ripStatus)
+        if len(rid) &gt; 0 : 
+          self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
+          if self.staticRouterID == "" : 
+            self.staticRouterID = rid[0]
+      elif thisProtocol == L3Discovery.NeighborProtocol.IPSEC:
+        self.RouterIDs[instanceName][str(thisProtocol)] = self.staticRouterID
+      elif thisProtocol == L3Discovery.NeighborProtocol.LLDP:
+        lldpMAC = Session.ExecCommand("show system info | match mac-address")
+        rid = re.findall(r"[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}", lldpMAC)
+        if len(rid) == 1:
+          self.RouterIDs[instanceName][str(thisProtocol)] = rid[0].strip()
+        
+      elif thisProtocol == L3Discovery.NeighborProtocol.STATIC:
+        self.RouterIDs[instanceName][str(thisProtocol)] = self.staticRouterID
+        
+      else :
+        self.RouterIDs[instanceName][str(thisProtocol)] = self.staticRouterID
+    except Exception as Ex:
+      DebugEx.WriteLine("PaloAlto Router Parser : error in CalculateRouterIDAndASNumber. Error is : {0} ".format(str(Ex)))
+      pass
         
 def Reset(self):
   self.RouterIDs = {}
@@ -1196,8 +1200,8 @@ dependent RouterID and parse BGP AS number</Description>
     <DisplayLabel>Get interface details</DisplayLabel>
     <Commands />
     <MainCode />
-    <Origin_X>449</Origin_X>
-    <Origin_Y>936</Origin_Y>
+    <Origin_X>430</Origin_X>
+    <Origin_Y>754</Origin_Y>
     <Size_Width>144</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -1474,10 +1478,10 @@ def Reset(self):
     <Commands />
     <MainCode># Not relevant to PaloAlto firewall
 pass</MainCode>
-    <Origin_X>379</Origin_X>
-    <Origin_Y>835</Origin_Y>
-    <Size_Width>139</Size_Width>
-    <Size_Height>43</Size_Height>
+    <Origin_X>20</Origin_X>
+    <Origin_Y>852</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -1507,10 +1511,10 @@ global BreakExecution
 
 # TODO : find out how to retrieve Vsys names
 ActionResult = ["Default"]</MainCode>
-    <Origin_X>618</Origin_X>
-    <Origin_Y>195</Origin_Y>
-    <Size_Width>145</Size_Width>
-    <Size_Height>40</Size_Height>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>164</Origin_Y>
+    <Size_Width>147</Size_Width>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -1548,10 +1552,10 @@ for thisVR in vrs :
   instances.append(instance)
 
 ActionResult  = instances</MainCode>
-    <Origin_X>698</Origin_X>
-    <Origin_Y>247</Origin_Y>
-    <Size_Width>157</Size_Width>
-    <Size_Height>40</Size_Height>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>223</Origin_Y>
+    <Size_Width>147</Size_Width>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -1580,10 +1584,10 @@ global ConnectionInfo
 global BreakExecution
 
 ActionResult = r"^7\.5*"</MainCode>
-    <Origin_X>831</Origin_X>
-    <Origin_Y>366</Origin_Y>
-    <Size_Width>133</Size_Width>
-    <Size_Height>40</Size_Height>
+    <Origin_X>882</Origin_X>
+    <Origin_Y>344</Origin_Y>
+    <Size_Width>147</Size_Width>
+    <Size_Height>46</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -1917,7 +1921,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "RegisterNHRP"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>21</Order>
+    <Order>20</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=182,Y=182}</EditorSize>
@@ -1932,7 +1936,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetLogicalSystems"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>22</Order>
+    <Order>21</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=234,Y=234}</EditorSize>
@@ -1947,7 +1951,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetRoutingInstances"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>23</Order>
+    <Order>22</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=26,Y=26}</EditorSize>
@@ -1962,7 +1966,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetSupportedEngineVersion"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>25</Order>
+    <Order>23</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=52,Y=52}</EditorSize>
@@ -1975,7 +1979,7 @@ ActionResult = r"^7\.5*"</MainCode>
 #                                 #
 ###################################
 lastModified = "12.07.2019"
-scriptVersion = "5.2.0"
+scriptVersion = "5.3.9"
 VersionInfo = ""
 HostName = ""
 
@@ -2010,7 +2014,8 @@ clr.AddReferenceToFileAndPath("Common.dll")
 clr.AddReferenceToFileAndPath("PGTNetworkMap.dll")
 import PGT.Common
 import L3Discovery
-import System.Net</CustomNameSpaces>
+import System.Net
+from System.Diagnostics import DebugEx</CustomNameSpaces>
     <CustomReferences />
     <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
@@ -2018,10 +2023,10 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.6859017</EditorScaleFactor>
+    <EditorScaleFactor>0.5159394</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=863, Height=877}</EditorSize>
-    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=219}</PropertiesEditorSize>
+    <EditorSize>{Width=677, Height=653}</EditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=279}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

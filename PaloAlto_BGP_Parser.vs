@@ -168,7 +168,7 @@ try:
   cToken.ThrowIfCancellationRequested()
 
   # Regex patterns precompiled
-  rep_outInterfaceName = re.compile(r"^[^\s]+", re.IGNORECASE)
+  rep_outInterfaceName = re.compile(r"\sinterface\s([^,]+)", re.IGNORECASE)
   # -- capture peer groups from summary --
   rep_peers = re.compile(r"(?:peer.*)", re.IGNORECASE)
   # -- capture from a peer text block --
@@ -186,9 +186,9 @@ try:
       peerIP = rep_peerIP.findall(thisPeer)[0].strip()
       # try to figure out the outgoing interface for this adjacency
       OperationStatusLabel = "Finding outgoing interface for {0}...".format(peerIP)    
-      response = Session.ExecCommand("show arp all | match {0}".format(peerIP))    
-      outInterfaceName = rep_outInterfaceName.findall(response)
-      if len(outInterfaceName) == 1:
+      response = Session.ExecCommand("test routing fib-lookup ip {0} virtual-router {1}".format(peerIP, instance.Name)) 
+      outInterfaceName = GetRegexGroupMatches(rep_outInterfaceName, response, 1)
+      if  len(outInterfaceName) == 1 :
         # find the RouterInterface by name   
         ri = Router.GetInterfaceByName(outInterfaceName[0], instance)   
         if ri :
@@ -213,7 +213,7 @@ except Exception as Ex:
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -221,7 +221,7 @@ except Exception as Ex:
 and register the neighbors found by the routing protocol for discovery.</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1373, Height=932}|{X=249,Y=19}</EditorSize>
+    <EditorSize>{Width=1003, Height=784}|{X=752,Y=143}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -478,7 +478,19 @@ Router = None
 #This is the protocol supported by this module
 ParsingForProtocols = [L3Discovery.NeighborProtocol.BGP]
 #This is the vendor name supported by this module
-ParsingForVendor = "PaloAlto"</GlobalCode>
+ParsingForVendor = "PaloAlto"
+
+def GetRegexGroupMatches(pattern, text, groupNum):
+  """Returns the list of values of specified Regex group number for all matches. Returns Nonde if not matched or groups number does not exist"""
+  try:
+    result = []
+    mi = re.finditer(pattern, text, re.MULTILINE | re.IGNORECASE)
+    for matchnum, match in enumerate(mi):
+      # regex group 1 contains the connection remote address
+      result.append(match.group(groupNum))
+    return result
+  except :
+    return None</GlobalCode>
     <BreakPolicy>Before</BreakPolicy>
     <CustomNameSpaces>############################################################
 #                                                          #
@@ -494,7 +506,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
@@ -506,6 +518,6 @@ creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=570, Height=516}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=290}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=862, Height=624}|{X=-1271,Y=193}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
