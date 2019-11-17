@@ -70,10 +70,10 @@ raise ValueError("{0} vScripot Router received an unhandled Command request : {1
 #                                                         #
 ###########################################################
 pass</MainCode>
-    <Origin_X>447</Origin_X>
-    <Origin_Y>477</Origin_Y>
-    <Size_Width>100</Size_Width>
-    <Size_Height>50</Size_Height>
+    <Origin_X>418</Origin_X>
+    <Origin_Y>444</Origin_Y>
+    <Size_Width>158</Size_Width>
+    <Size_Height>81</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -106,8 +106,8 @@ global ActionResult
 ActionResult = "{0} Support Module - Python vScript Parser v{1}".format(Name, scriptVersion)</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>276</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -137,10 +137,10 @@ ActionResult = "{0} Support Module - Python vScript Parser v{1}".format(Name, sc
 global ActionResult
 
 ActionResult = Version.GetVersion()</MainCode>
-    <Origin_X>882</Origin_X>
-    <Origin_Y>795</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Origin_X>822</Origin_X>
+    <Origin_Y>790</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -153,6 +153,7 @@ ActionResult = Version.GetVersion()</MainCode>
     <Description>This call should be able to return device inventory string </Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=156,Y=156}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -174,8 +175,8 @@ global ActionResult
 ActionResult = Version.GetVersion()</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>654</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -188,6 +189,7 @@ ActionResult = Version.GetVersion()</MainCode>
     <Description>This call should be able to return device version information</Description>
     <WatchVariables />
     <Initializer />
+    <EditorSize>{Width=568, Height=460}|{X=182,Y=182}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -210,10 +212,10 @@ if len(_s) &gt; 0:
  ActionResult = _s[0]
 else:
   ActionResult = "n/a"</MainCode>
-    <Origin_X>882</Origin_X>
-    <Origin_Y>867</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Origin_X>731</Origin_X>
+    <Origin_Y>860</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -248,8 +250,8 @@ else:
   ActionResult = "n/a"</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>593</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -282,8 +284,8 @@ stackCount == 1
 # Implement required logic to get the correct number
 #
 ActionResult = stackCount;</MainCode>
-    <Origin_X>20</Origin_X>
-    <Origin_Y>786</Origin_Y>
+    <Origin_X>138</Origin_X>
+    <Origin_Y>857</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -485,8 +487,8 @@ instance = ConnectionInfo.bParam
 ActionResult = RouterIDAndASNumber.GetRouterID(protocol, instance)</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>723</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -589,8 +591,8 @@ if len(_runningRoutingProtocols[instanceName]) == 0 :
     if _sc &gt; 0 : _runningRoutingProtocols[instanceName].Add(L3Discovery.NeighborProtocol.STATIC)  
 
 ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
-    <Origin_X>20</Origin_X>
-    <Origin_Y>723</Origin_Y>
+    <Origin_X>57</Origin_X>
+    <Origin_Y>796</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -625,7 +627,7 @@ global ActionResult
 instance = ConnectionInfo.aParam
 ActionResult = RouterIDAndASNumber.GetBGPASNumber(instance)</MainCode>
     <Origin_X>20</Origin_X>
-    <Origin_Y>590</Origin_Y>
+    <Origin_Y>606</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -661,7 +663,7 @@ global HstName
 # so return that one.
 ActionResult = HostName</MainCode>
     <Origin_X>20</Origin_X>
-    <Origin_Y>652</Origin_Y>
+    <Origin_Y>705</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -700,8 +702,8 @@ Platform = "PaloAlto"
 ActionResult = Platform</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>400</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -738,8 +740,8 @@ DeviceType = "Firewall"
 ActionResult = DeviceType</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>459</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -779,8 +781,8 @@ Vendor = "PaloAlto"
 ActionResult = Vendor</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>530</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -900,7 +902,7 @@ try:
   ActionResult = True
 except:
   ActionResult = False</MainCode>
-    <Origin_X>17</Origin_X>
+    <Origin_X>20</Origin_X>
     <Origin_Y>246</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
@@ -947,8 +949,8 @@ else :
   ActionResult = False</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>105</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -1018,8 +1020,8 @@ global ConnectionInfo
 global BreakExecution
 global ScriptExecutor
 global Session</MainCode>
-    <Origin_X>426</Origin_X>
-    <Origin_Y>668</Origin_Y>
+    <Origin_X>266</Origin_X>
+    <Origin_Y>977</Origin_Y>
     <Size_Width>149</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -1055,8 +1057,8 @@ global ConnectionInfo
 global BreakExecution
 global ScriptExecutor
 global Session</MainCode>
-    <Origin_X>430</Origin_X>
-    <Origin_Y>836</Origin_Y>
+    <Origin_X>633</Origin_X>
+    <Origin_Y>977</Origin_Y>
     <Size_Width>150</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -1200,8 +1202,8 @@ dependent RouterID and parse BGP AS number</Description>
     <DisplayLabel>Get interface details</DisplayLabel>
     <Commands />
     <MainCode />
-    <Origin_X>430</Origin_X>
-    <Origin_Y>754</Origin_Y>
+    <Origin_X>448</Origin_X>
+    <Origin_Y>976</Origin_Y>
     <Size_Width>144</Size_Width>
     <Size_Height>50</Size_Height>
     <isStart>false</isStart>
@@ -1478,8 +1480,8 @@ def Reset(self):
     <Commands />
     <MainCode># Not relevant to PaloAlto firewall
 pass</MainCode>
-    <Origin_X>20</Origin_X>
-    <Origin_Y>852</Origin_Y>
+    <Origin_X>332</Origin_X>
+    <Origin_Y>864</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -1513,8 +1515,8 @@ global BreakExecution
 ActionResult = ["Default"]</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>164</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -1554,8 +1556,8 @@ for thisVR in vrs :
 ActionResult  = instances</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>223</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -1586,8 +1588,8 @@ global BreakExecution
 ActionResult = r"^7\.5*"</MainCode>
     <Origin_X>882</Origin_X>
     <Origin_Y>344</Origin_Y>
-    <Size_Width>147</Size_Width>
-    <Size_Height>46</Size_Height>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
     <isStart>false</isStart>
     <isStop>false</isStop>
     <isSimpleCommand>false</isSimpleCommand>
@@ -1601,6 +1603,48 @@ ActionResult = r"^7\.5*"</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=710, Height=554}|{X=26,Y=26}</EditorSize>
+    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+  </vScriptCommands>
+  <vScriptCommands>
+    <vsID>30</vsID>
+    <CommandID>ff550673-1b0f-45bd-9309-a16dcb634692</CommandID>
+    <Name>ReturnSystemMAC</Name>
+    <DisplayLabel>System MAC</DisplayLabel>
+    <Commands>show system info | match mac-address</Commands>
+    <MainCode>######################################################################################
+#                                                                                    #
+# This call should be able to return the MAC addresses associateed with the device   #
+#                                                                                    #
+######################################################################################
+global ActionResult
+
+systemMAC = ""
+repMACAddress = re.compile(r"[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}", re.IGNORECASE)
+try:
+  foundMACS = repMACAddress.findall(self.CommandResult)
+  if len(foundMACS) &gt; 0 : 
+    systemMAC = ",".join(foundMACS)
+except Exception as Ex:
+  DebugEx.WriteLine("PalotAltoFirewall.GetSystemMAC() : unexpected error : {0}".format(str(Ex)))
+
+ActionResult = systemMAC</MainCode>
+    <Origin_X>529</Origin_X>
+    <Origin_Y>863</Origin_Y>
+    <Size_Width>172</Size_Width>
+    <Size_Height>40</Size_Height>
+    <isStart>false</isStart>
+    <isStop>false</isStop>
+    <isSimpleCommand>false</isSimpleCommand>
+    <isSimpleDecision>false</isSimpleDecision>
+    <Variables />
+    <Break>true</Break>
+    <ExecPolicy>After</ExecPolicy>
+    <CustomCodeBlock />
+    <DemoMode>false</DemoMode>
+    <Description>This call should be able to return the MAC addresses associated with device</Description>
+    <WatchVariables />
+    <Initializer />
+    <EditorSize>{Width=797, Height=609}|{X=104,Y=46}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
@@ -1627,7 +1671,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return True</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>24</Order>
+    <Order>25</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1686,6 +1730,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Order>10</Order>
     <Description />
     <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=234,Y=234}</EditorSize>
   </vScriptConnector>
   <vScriptConnector>
     <cID>6</cID>
@@ -1725,7 +1770,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetStackCount"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>11</Order>
+    <Order>12</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1739,7 +1784,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetRoutingTable"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>16</Order>
+    <Order>17</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1753,7 +1798,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetRoutedInterfaces"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>15</Order>
+    <Order>16</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1781,7 +1826,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetActiveProtocols"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>12</Order>
+    <Order>13</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1795,7 +1840,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GeBGPASNumber"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>14</Order>
+    <Order>15</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1809,7 +1854,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetHostName"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>13</Order>
+    <Order>14</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1865,7 +1910,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetInterfaceByName"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>17</Order>
+    <Order>18</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1879,7 +1924,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetInterfaceNameByIPAddress"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>18</Order>
+    <Order>19</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1893,7 +1938,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetInterfaceConfiguration"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>19</Order>
+    <Order>20</Order>
     <Description />
     <WatchVariables />
   </vScriptConnector>
@@ -1921,7 +1966,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "RegisterNHRP"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>20</Order>
+    <Order>21</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=182,Y=182}</EditorSize>
@@ -1936,7 +1981,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetLogicalSystems"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>21</Order>
+    <Order>22</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=234,Y=234}</EditorSize>
@@ -1951,7 +1996,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetRoutingInstances"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>22</Order>
+    <Order>23</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=26,Y=26}</EditorSize>
@@ -1966,10 +2011,25 @@ ActionResult = r"^7\.5*"</MainCode>
     <Condition>return ConnectionInfo.Command == "GetSupportedEngineVersion"</Condition>
     <Variables />
     <Break>false</Break>
-    <Order>23</Order>
+    <Order>24</Order>
     <Description />
     <WatchVariables />
     <EditorSize>{Width=671, Height=460}|{X=52,Y=52}</EditorSize>
+  </vScriptConnector>
+  <vScriptConnector>
+    <cID>26</cID>
+    <ConnectorID />
+    <Name>SwitchTask_ReturnSystemMAC</Name>
+    <DisplayLabel>Get System MAC</DisplayLabel>
+    <Left>2</Left>
+    <Right>30</Right>
+    <Condition>return ConnectionInfo.Command == "GetSystemMAC"</Condition>
+    <Variables />
+    <Break>false</Break>
+    <Order>11</Order>
+    <Description />
+    <WatchVariables />
+    <EditorSize>{Width=671, Height=460}|{X=117,Y=80}</EditorSize>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAltoFirewall</ScriptName>
@@ -1978,8 +2038,8 @@ ActionResult = r"^7\.5*"</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "12.07.2019"
-scriptVersion = "5.3.9"
+lastModified = "18.09.2019"
+scriptVersion = "6.0.0"
 VersionInfo = ""
 HostName = ""
 
@@ -2017,16 +2077,16 @@ import L3Discovery
 import System.Net
 from System.Diagnostics import DebugEx</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.5159394</EditorScaleFactor>
+    <EditorScaleFactor>0.4622601</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=677, Height=653}</EditorSize>
-    <PropertiesEditorSize>{Width=907, Height=602}|{X=506,Y=279}</PropertiesEditorSize>
+    <EditorSize>{Width=652, Height=660}</EditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=314,Y=111}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
