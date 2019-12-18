@@ -175,6 +175,7 @@ try:
   rep_peerState = re.compile(r"(?&lt;=,\s).*(?=,\sIP)", re.IGNORECASE)
   rep_peerName = re.compile(r"((?&lt;=peer).*)(?=:)", re.IGNORECASE)
   rep_peerIP = re.compile(r"(?&lt;=IP\s)[0-9.]+", re.IGNORECASE)
+  rep_peerAS = re.compile(r"AS\s(\d+)", re.IGNORECASE)
   # -- capture from peer details
   rep_peerRouterID = re.compile(r"(?=Peer router id:\s+([0-9.]+))", re.IGNORECASE)
   
@@ -184,6 +185,7 @@ try:
       peerName = rep_peerName.findall(thisPeer)[0].strip()
       peerState = rep_peerState.findall(thisPeer)[0]
       peerIP = rep_peerIP.findall(thisPeer)[0].strip()
+      peerAS = GetRegexGroupMatches(rep_peerAS, thisPeer, 1)[0]
       # try to figure out the outgoing interface for this adjacency
       OperationStatusLabel = "Finding outgoing interface for {0}...".format(peerIP)    
       response = Session.ExecCommand("test routing fib-lookup ip {0} virtual-router {1}".format(peerIP, instance.Name)) 
@@ -195,7 +197,7 @@ try:
           # find out peer router-id
           peerDetails = Session.ExecCommand("show routing protocol bgp peer peer-name \"{0}\"".format(peerName))
           peerRouterID = rep_peerRouterID.findall(peerDetails)[0]
-          nRegistry.RegisterNeighbor(Router, instance, L3Discovery.NeighborProtocol.BGP, peerRouterID, "", peerName, peerIP, ri, peerState)   
+          nRegistry.RegisterNeighbor(Router, instance, L3Discovery.NeighborProtocol.BGP, peerRouterID, peerAS, peerName, peerIP, ri, peerState)   
     except Exception as Ex:
       msg = "PaloAlto.BGPParser : Error while parsing bgp peer text [{0}]. Error is : {1}".format(thisPeer, str(Ex))
       System.Diagnostics.DebugEx.WriteLine(msg)     
@@ -213,7 +215,7 @@ except Exception as Ex:
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -221,7 +223,7 @@ except Exception as Ex:
 and register the neighbors found by the routing protocol for discovery.</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1003, Height=784}|{X=752,Y=143}</EditorSize>
+    <EditorSize>{Width=1372, Height=894}|{X=383,Y=33}</EditorSize>
     <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
@@ -467,7 +469,7 @@ ActionResult = ParsingForVendor</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAlto_BGP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.4.0"
+    <GlobalCode>ScriptVersion = "5.5.0"
 # Describe the Module Name
 ModuleName = "PaloAlto BGP Protocol Parser Support Module - Python vScript Parser"
 # Describes current operation status. The name of this variable is fixed !
@@ -512,12 +514,12 @@ import System.Net</CustomNameSpaces>
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.6435742</EditorScaleFactor>
+    <EditorScaleFactor>0.7969843</EditorScaleFactor>
     <Description>This vScript template can be used as a starting point for
 creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
-    <EditorSize>{Width=570, Height=516}</EditorSize>
-    <PropertiesEditorSize>{Width=862, Height=624}|{X=-1271,Y=193}</PropertiesEditorSize>
+    <EditorSize>{Width=786, Height=585}</EditorSize>
+    <PropertiesEditorSize>{Width=862, Height=624}|{X=529,Y=208}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
