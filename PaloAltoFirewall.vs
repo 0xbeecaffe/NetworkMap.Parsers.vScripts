@@ -1545,7 +1545,7 @@ global ConnectionInfo
 global BreakExecution
 
 response = Session.ExecCommand("show routing summary")
-vrs = re.findall(r"(?=VIRTUAL ROUTER:\s([a-zA-Z0-9]+))", response)
+vrs = re.findall(r"(?=VIRTUAL ROUTER:\s([a-zA-Z0-9-]+))", response)
 instances = []
 for thisVR in vrs :
   instance = L3Discovery.RoutingInstance()
@@ -2038,8 +2038,8 @@ ActionResult = systemMAC</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "18.09.2019"
-scriptVersion = "6.0.0"
+lastModified = "17.01.2020"
+scriptVersion = "6.1.0"
 VersionInfo = ""
 HostName = ""
 
@@ -2077,16 +2077,16 @@ import L3Discovery
 import System.Net
 from System.Diagnostics import DebugEx</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.4622601</EditorScaleFactor>
+    <EditorScaleFactor>0.8126426</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=652, Height=660}</EditorSize>
-    <PropertiesEditorSize>{Width=907, Height=602}|{X=314,Y=111}</PropertiesEditorSize>
+    <EditorSize>{Width=1222, Height=869}</EditorSize>
+    <PropertiesEditorSize>{Width=907, Height=602}|{X=-1414,Y=279}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>
