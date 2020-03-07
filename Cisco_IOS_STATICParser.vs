@@ -147,8 +147,7 @@ ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
     <Name>ParseProtocol</Name>
     <DisplayLabel>Parse</DisplayLabel>
     <Commands />
-    <MainCode>
-##############################################################################
+    <MainCode>##############################################################################
 #                                                                            #
 # This call should implement logic to parse a Routing Protocol state         #
 # and register the neighbors found by the routing protocol for discovery.    #
@@ -168,7 +167,9 @@ cToken = ConnectionInfo.bParam
 instance = ConnectionInfo.cParam
 
 OperationStatusLabel = "Identifying router..."
-isIOSXE = "IOS-XE" in Router.GetVersion()
+rv = Router.GetVersion()
+isIOSXE = "IOS-XE" in rv
+isIOSv = "Cisco IOSv" in rv
 #--  
 if instance and not instance.IsDefaultRoutingInstance() :
   TextToParse = Session.ExecCommand("show ip route vrf {0} static".format(instance.Name))
@@ -193,7 +194,7 @@ for line in static_lines:
         cefResponse = Session.ExecCommand("show ip cef vrf {0} {1}".format(instance.Name, nexthop)).splitlines()
       else:
         cefResponse = Session.ExecCommand("show ip cef {0}".format(nexthop)).splitlines()
-      if isIOSXE:
+      if isIOSXE or isIOSv:
         cefEntry = next((thisCEFEntry for thisCEFEntry in cefResponse if ("nexthop" in thisCEFEntry or "attached to" in thisCEFEntry)), None)
         # Exaple cefEntry output :   attached to TenGigabitEthernet0/1/0.3805
         if cefEntry != None:
@@ -231,7 +232,7 @@ for line in static_lines:
 # No need to return anything via ActionResult
 #</MainCode>
     <Origin_X>551</Origin_X>
-    <Origin_Y>254</Origin_Y>
+    <Origin_Y>253</Origin_Y>
     <Size_Width>172</Size_Width>
     <Size_Height>40</Size_Height>
     <isStart>false</isStart>
@@ -239,7 +240,7 @@ for line in static_lines:
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>false</Break>
+    <Break>true</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -486,7 +487,7 @@ ActionResult = ParsingForVendor</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_STATIC_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.4.0"
+    <GlobalCode>ScriptVersion = "5.5.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS STATIC Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -512,7 +513,7 @@ import PGT.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
