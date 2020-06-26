@@ -23,7 +23,7 @@
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStart</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStart</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>1</vsID>
@@ -71,7 +71,7 @@ for the specified protocol using the given Router instance.</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=992, Height=692}|{X=234,Y=234}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>2</vsID>
@@ -103,7 +103,7 @@ pass</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=576, Height=523}|{X=130,Y=130}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>3</vsID>
@@ -137,7 +137,7 @@ ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
     <Description>SupportTag should return a descriptive text for this Protocol Parser Module</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>4</vsID>
@@ -252,7 +252,7 @@ and register the neighbors found by the routing protocol for discovery.</Descrip
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1252, Height=916}|{X=563,Y=128}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>5</vsID>
@@ -281,7 +281,7 @@ raise ValueError("{0} has received an unhandled Command request : {1}".format(Mo
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>6</vsID>
@@ -317,7 +317,7 @@ this module can support</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=981, Height=680}|{X=260,Y=260}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>7</vsID>
@@ -352,7 +352,7 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>8</vsID>
@@ -380,7 +380,7 @@ ActionResult = ParsingForVendor</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=26,Y=26}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
     <cID>0</cID>
@@ -497,7 +497,9 @@ ActionResult = ParsingForVendor</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>PaloAlto_STATIC_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.4.0"
+    <GlobalCode>LastModified = "15.04.2020"
+#
+ScriptVersion = "9.0.0"
 # Describe the Module Name
 ModuleName = "PaloAlto STATIC Protocol Parser Support Module - Python vScript Parser"
 # Describes current operation status. The name of this variable is fixed !
@@ -519,8 +521,8 @@ import re
 import sys
 import clr
 clr.AddReferenceToFileAndPath("Common.dll")
-clr.AddReferenceToFileAndPath("PGTNetworkMap.dll")
-import PGT.Common
+clr.AddReferenceToFileAndPath("NetworkMap.dll")
+import Scriptngo.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />

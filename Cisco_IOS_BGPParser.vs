@@ -23,7 +23,7 @@
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStart</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStart</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>1</vsID>
@@ -83,7 +83,7 @@ for the specified protocol using the given Router instance.</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1187, Height=802}|{X=182,Y=182}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>2</vsID>
@@ -114,7 +114,7 @@ pass</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>3</vsID>
@@ -148,7 +148,7 @@ ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
     <Description>SupportTag should return a descriptive text for this Protocol Parser Module</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>4</vsID>
@@ -267,7 +267,7 @@ and register the neighbors found by the routing protocol for discovery.</Descrip
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1184, Height=787}|{X=266,Y=85}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>5</vsID>
@@ -296,7 +296,7 @@ raise ValueError("{0} has received an unhandled Command request : {1}".format(Mo
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>6</vsID>
@@ -331,7 +331,7 @@ ActionResult = ParsingForProtocols</MainCode>
 this module can support</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>7</vsID>
@@ -360,7 +360,7 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>8</vsID>
@@ -388,7 +388,7 @@ ActionResult = ParsingForVendor</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=208,Y=208}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
     <cID>0</cID>
@@ -505,7 +505,8 @@ ActionResult = ParsingForVendor</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_BGP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.4.0"
+    <GlobalCode>LastModified = "15.04.2020"
+ScriptVersion = "9.0.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS BGP Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -526,8 +527,8 @@ import re
 import sys
 import clr
 clr.AddReferenceToFileAndPath("Common.dll")
-clr.AddReferenceToFileAndPath("PGTNetworkMap.dll")
-import PGT.Common
+clr.AddReferenceToFileAndPath("NetworkMap.dll")
+import Scriptngo.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
@@ -543,6 +544,6 @@ creating a new routing protocol Parser Module for Network Map.
 This is required to add support for a new routing protocol to a
 vendor already supported. See also Router Module template.</Description>
     <EditorSize>{Width=619, Height=550}</EditorSize>
-    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=350}</PropertiesEditorSize>
+    <PropertiesEditorSize>{Width=665, Height=460}|{X=627,Y=290}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

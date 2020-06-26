@@ -23,7 +23,7 @@
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStart</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStart</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>1</vsID>
@@ -70,7 +70,7 @@ is capable of handling the Router and the requested
 routing protocol  it has been invoked for.</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>2</vsID>
@@ -97,7 +97,7 @@ which action to take.</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=286,Y=286}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>3</vsID>
@@ -127,7 +127,7 @@ ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
 the current Protocol Parser</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>4</vsID>
@@ -205,7 +205,7 @@ for line in eigrp_lines:
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1274, Height=839}|{X=337,Y=239}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>5</vsID>
@@ -234,7 +234,7 @@ ActionResult = ParsingForProtocols</MainCode>
 that are actively running on the router</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>6</vsID>
@@ -263,7 +263,7 @@ raise ValueError("CiscoIOS OSPF Parser module has received an unhandled Command 
 that is not handled. This is an ERROR condition.</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>7</vsID>
@@ -298,7 +298,7 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>8</vsID>
@@ -326,7 +326,7 @@ ActionResult = ParsingForVendor</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=234,Y=234}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
     <cID>0</cID>
@@ -443,7 +443,9 @@ ActionResult = ParsingForVendor</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_EIGRP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.4.0"
+    <GlobalCode>lastModified = "15.04.2020"
+#
+ScriptVersion = "9.0.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS EIGRP Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -464,8 +466,8 @@ import re
 import sys
 import clr
 clr.AddReferenceToFileAndPath("Common.dll")
-clr.AddReferenceToFileAndPath("PGTNetworkMap.dll")
-import PGT.Common
+clr.AddReferenceToFileAndPath("NetworkMap.dll")
+import Scriptngo.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />

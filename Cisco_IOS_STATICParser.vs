@@ -23,7 +23,7 @@
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStart</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStart</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>1</vsID>
@@ -73,7 +73,7 @@ for the specified protocol using the given Router instance.</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1227, Height=797}|{X=104,Y=104}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>2</vsID>
@@ -105,7 +105,7 @@ pass</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=208,Y=208}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>3</vsID>
@@ -139,7 +139,7 @@ ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
     <Description>SupportTag should return a descriptive text for this Protocol Parser Module</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>4</vsID>
@@ -249,7 +249,7 @@ and register the neighbors found by the routing protocol for discovery.</Descrip
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1169, Height=773}|{X=210,Y=67}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>5</vsID>
@@ -278,7 +278,7 @@ raise ValueError("{0} has received an unhandled Command request : {1}".format(Mo
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>6</vsID>
@@ -313,7 +313,7 @@ ActionResult = ParsingForProtocols</MainCode>
 this module can support</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>7</vsID>
@@ -342,7 +342,7 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>8</vsID>
@@ -370,7 +370,7 @@ ActionResult = ParsingForVendor</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=156,Y=156}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
     <cID>0</cID>
@@ -487,7 +487,9 @@ ActionResult = ParsingForVendor</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_STATIC_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.5.0"
+    <GlobalCode>LastModified = "15.04.2020"
+#
+ScriptVersion = "9.0.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS STATIC Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -508,12 +510,12 @@ import re
 import sys
 import clr
 clr.AddReferenceToFileAndPath("Common.dll")
-clr.AddReferenceToFileAndPath("PGTNetworkMap.dll")
-import PGT.Common
+clr.AddReferenceToFileAndPath("NetworkMap.dll")
+import Scriptngo.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>true</DebuggingAllowed>
+    <DebuggingAllowed>false</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>

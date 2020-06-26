@@ -23,7 +23,7 @@
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStart</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStart</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>1</vsID>
@@ -71,7 +71,7 @@ for the specified protocol using the given Router instance.</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=743, Height=694}|{X=650,Y=210}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>2</vsID>
@@ -103,7 +103,7 @@ pass</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=609}|{X=312,Y=163}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>3</vsID>
@@ -138,7 +138,7 @@ ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=887, Height=631}|{X=182,Y=182}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>4</vsID>
@@ -171,7 +171,7 @@ ActionResult = OperationStatusLabel</MainCode>
     <Description>Status should return any free text message representing the actual parser status.</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>5</vsID>
@@ -277,7 +277,7 @@ and register the neighbors found by the routing protocol for discovery.</Descrip
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1441, Height=984}|{X=167,Y=9}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>6</vsID>
@@ -306,7 +306,7 @@ raise ValueError("{0} has received an unhandled Command request : {1}".format(Mo
     <Description>This is an unknown task, report as error</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>7</vsID>
@@ -342,7 +342,7 @@ this module can support</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=286,Y=286}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>8</vsID>
@@ -371,7 +371,7 @@ global BreakExecution</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>9</vsID>
@@ -399,7 +399,7 @@ ActionResult = ParsingForVendor</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=78,Y=78}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
     <cID>0</cID>
@@ -531,7 +531,9 @@ ActionResult = ParsingForVendor</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>Cisco_IOS_CDP_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.4.0"
+    <GlobalCode>LastModified = "15.04.2020"
+#
+ScriptVersion = "9.0.0"
 # Describe the Module Name
 ModuleName = "Cisco IOS CDP Parser"
 # Describes current operation status
@@ -552,8 +554,8 @@ import re
 import sys
 import clr
 clr.AddReferenceToFileAndPath("Common.dll")
-clr.AddReferenceToFileAndPath("PGTNetworkMap.dll")
-import PGT.Common
+clr.AddReferenceToFileAndPath("NetworkMap.dll")
+import Scriptngo.Common
 import L3Discovery
 import System.Net
 from System.Diagnostics import DebugEx

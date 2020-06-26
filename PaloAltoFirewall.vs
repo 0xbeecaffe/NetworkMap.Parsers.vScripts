@@ -23,7 +23,7 @@
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStart</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStart</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>1</vsID>
@@ -54,7 +54,7 @@ raise ValueError("{0} vScripot Router received an unhandled Command request : {1
     <Description>This call should never executre if Router Module is implemented in a correct way</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>2</vsID>
@@ -71,7 +71,7 @@ raise ValueError("{0} vScripot Router received an unhandled Command request : {1
 ###########################################################
 pass</MainCode>
     <Origin_X>418</Origin_X>
-    <Origin_Y>444</Origin_Y>
+    <Origin_Y>445</Origin_Y>
     <Size_Width>158</Size_Width>
     <Size_Height>81</Size_Height>
     <isStart>false</isStart>
@@ -88,7 +88,7 @@ Take care of connector ordering !   </Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=794, Height=737}|{X=52,Y=52}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>3</vsID>
@@ -121,7 +121,7 @@ ActionResult = "{0} Support Module - Python vScript Parser v{1}".format(Name, sc
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=679, Height=639}|{X=565,Y=282}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>4</vsID>
@@ -154,7 +154,7 @@ ActionResult = Version.GetVersion()</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=156,Y=156}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>5</vsID>
@@ -190,7 +190,7 @@ ActionResult = Version.GetVersion()</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=182,Y=182}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>6</vsID>
@@ -228,7 +228,7 @@ else:
     <Description>This call should be able to return the serial numnber(s) of the device </Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>7</vsID>
@@ -264,7 +264,7 @@ else:
     <Description>This call should be able to return Model number of this device</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>8</vsID>
@@ -300,7 +300,7 @@ ActionResult = stackCount;</MainCode>
     <Description>This call should be able to return the number of devices stacked together</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>9</vsID>
@@ -421,7 +421,7 @@ ActionResult = parsedRoutes</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=878, Height=791}|{X=26,Y=26}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>10</vsID>
@@ -458,7 +458,7 @@ ScriptSuccess = True</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=709, Height=659}|{X=78,Y=78}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>11</vsID>
@@ -502,7 +502,7 @@ ActionResult = RouterIDAndASNumber.GetRouterID(protocol, instance)</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=836, Height=682}|{X=182,Y=182}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>12</vsID>
@@ -608,7 +608,7 @@ ActionResult = _runningRoutingProtocols[instanceName]</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1305, Height=856}|{X=309,Y=52}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>13</vsID>
@@ -643,7 +643,7 @@ ActionResult = RouterIDAndASNumber.GetBGPASNumber(instance)</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=852, Height=703}|{X=93,Y=181}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>14</vsID>
@@ -678,7 +678,7 @@ ActionResult = HostName</MainCode>
     <Description>This call should be able to return host name of this router</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>15</vsID>
@@ -716,7 +716,7 @@ ActionResult = Platform</MainCode>
     <Description>This call should be able to return Platform of this device </Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>16</vsID>
@@ -754,7 +754,7 @@ ActionResult = DeviceType</MainCode>
     <Description>This call should be able to return Type of this device </Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>17</vsID>
@@ -795,7 +795,7 @@ ActionResult = Vendor</MainCode>
     <Description>This call should be able to returnVendor name of this device  </Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>18</vsID>
@@ -836,7 +836,7 @@ ActionResult = GetInterfaces.GetInterfaceByName(ifName, instance)</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=800, Height=620}|{X=78,Y=78}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>19</vsID>
@@ -876,7 +876,7 @@ ActionResult = GetInterfaces.GetInterfaceNameByAddress(ifAddress, instance)</Mai
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=825, Height=700}|{X=525,Y=211}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>20</vsID>
@@ -920,7 +920,7 @@ A returned bool value should indicate whether the update was successful.</Descri
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=52,Y=52}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>21</vsID>
@@ -964,7 +964,7 @@ else :
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=690, Height=632}|{X=1002,Y=208}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>22</vsID>
@@ -1005,7 +1005,7 @@ clearing any and variables populated during a previous run</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=939, Height=646}|{X=208,Y=208}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>23</vsID>
@@ -1042,7 +1042,7 @@ def Reset(self):
 if it has not yet been collected.</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>24</vsID>
@@ -1193,7 +1193,7 @@ dependent RouterID and parse BGP AS number</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1275, Height=851}|{X=336,Y=42}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>25</vsID>
@@ -1237,7 +1237,7 @@ class FWInterface(object):
 
 """Collects interface details for all interfaces """
 def ParseInterfaces(self) :
-  from  PGT.Common import IPOperations
+  from  Scriptngo.Common import IPOperations
   # get all interface data
   response = Session.ExecCommand("show interface all")
   interfaceBlock = False
@@ -1469,8 +1469,8 @@ def Reset(self):
     <Description>This object will parse interface details</Description>
     <WatchVariables />
     <Initializer />
-    <EditorSize>{Width=1070, Height=655}|{X=180,Y=55}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
+    <EditorSize>{Width=1070, Height=655}|{X=718,Y=245}</EditorSize>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>26</vsID>
@@ -1497,7 +1497,7 @@ pass</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=731, Height=666}|{X=104,Y=104}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>27</vsID>
@@ -1530,7 +1530,7 @@ ActionResult = ["Default"]</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=836, Height=680}|{X=182,Y=182}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>28</vsID>
@@ -1571,7 +1571,7 @@ ActionResult  = instances</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=806, Height=700}|{X=671,Y=39}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>29</vsID>
@@ -1603,7 +1603,7 @@ ActionResult = r"^7\.5*"</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=710, Height=554}|{X=26,Y=26}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>30</vsID>
@@ -1637,7 +1637,7 @@ ActionResult = systemMAC</MainCode>
     <isSimpleCommand>false</isSimpleCommand>
     <isSimpleDecision>false</isSimpleDecision>
     <Variables />
-    <Break>true</Break>
+    <Break>false</Break>
     <ExecPolicy>After</ExecPolicy>
     <CustomCodeBlock />
     <DemoMode>false</DemoMode>
@@ -1645,7 +1645,7 @@ ActionResult = systemMAC</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=797, Height=609}|{X=104,Y=46}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
     <cID>0</cID>
@@ -2038,8 +2038,8 @@ ActionResult = systemMAC</MainCode>
 # Declare global variables here   #
 #                                 #
 ###################################
-lastModified = "17.01.2020"
-scriptVersion = "6.1.0"
+lastModified = "15.04.2020"
+scriptVersion = "9.0.0"
 VersionInfo = ""
 HostName = ""
 
@@ -2071,22 +2071,22 @@ import re
 import sys
 import clr
 clr.AddReferenceToFileAndPath("Common.dll")
-clr.AddReferenceToFileAndPath("PGTNetworkMap.dll")
-import PGT.Common
+clr.AddReferenceToFileAndPath("NetworkMap.dll")
+import Scriptngo.Common
 import L3Discovery
 import System.Net
 from System.Diagnostics import DebugEx</CustomNameSpaces>
     <CustomReferences />
-    <DebuggingAllowed>false</DebuggingAllowed>
+    <DebuggingAllowed>true</DebuggingAllowed>
     <LogFileName />
     <WatchVariables />
     <Language>Python</Language>
     <IsTemplate>false</IsTemplate>
     <IsRepository>false</IsRepository>
-    <EditorScaleFactor>0.8126426</EditorScaleFactor>
+    <EditorScaleFactor>0.6630152</EditorScaleFactor>
     <Description>This vScript is responsible to parse configuration
 items from a Palo Alto PAN firewall</Description>
-    <EditorSize>{Width=1222, Height=869}</EditorSize>
+    <EditorSize>{Width=997, Height=869}</EditorSize>
     <PropertiesEditorSize>{Width=907, Height=602}|{X=-1414,Y=279}</PropertiesEditorSize>
   </Parameters>
 </vScriptDS>

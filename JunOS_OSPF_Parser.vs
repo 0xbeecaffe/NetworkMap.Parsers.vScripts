@@ -23,7 +23,7 @@
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStart</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStart</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>1</vsID>
@@ -66,7 +66,7 @@ is capable of handling the Router and the requested
 routing protocol  it has been invoked for.</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>2</vsID>
@@ -93,7 +93,7 @@ which action to take.</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=52,Y=52}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptCommand</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptCommand</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>3</vsID>
@@ -123,7 +123,7 @@ ActionResult =  ModuleName + " v" + ScriptVersion</MainCode>
 the current Protocol Parser</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>4</vsID>
@@ -216,7 +216,7 @@ for line in ospf_lines:
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1184, Height=859}|{X=2310,Y=145}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>5</vsID>
@@ -245,7 +245,7 @@ ActionResult = ParsingForProtocols</MainCode>
 this module can support</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>6</vsID>
@@ -274,7 +274,7 @@ raise ValueError("Junos OSPF protocol parser module has received an unhandled Co
 that is not handled. This is an ERROR condition.</Description>
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>7</vsID>
@@ -475,7 +475,7 @@ def Reset(self):
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=1601, Height=1123}|{X=2072,Y=27}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptGeneralObject</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptGeneralObject</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>8</vsID>
@@ -507,7 +507,7 @@ ActionResult = OSPFProcessor.GetAreas(instance)
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=765, Height=588}|{X=257,Y=103}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>9</vsID>
@@ -540,7 +540,7 @@ ActionResult = OSPFProcessor.GetLSATypeNames(instance, ospfArea)</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=712, Height=633}|{X=449,Y=323}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>10</vsID>
@@ -576,7 +576,7 @@ for the requested Area ID</Description>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=755, Height=639}|{X=104,Y=104}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>11</vsID>
@@ -612,7 +612,7 @@ Router = None</MainCode>
     <Description />
     <WatchVariables />
     <Initializer />
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptCommands>
     <vsID>12</vsID>
@@ -640,7 +640,7 @@ ActionResult = ParsingForVendor</MainCode>
     <WatchVariables />
     <Initializer />
     <EditorSize>{Width=568, Height=460}|{X=0,Y=0}</EditorSize>
-    <FullTypeName>PGT.VisualScripts.vScriptStop</FullTypeName>
+    <FullTypeName>Scriptngo.VisualScripts.vScriptStop</FullTypeName>
   </vScriptCommands>
   <vScriptConnector>
     <cID>0</cID>
@@ -800,7 +800,9 @@ ActionResult = ParsingForVendor</MainCode>
   </vScriptConnector>
   <Parameters>
     <ScriptName>JunOS_OSPF_Parser</ScriptName>
-    <GlobalCode>ScriptVersion = "5.4.0"
+    <GlobalCode>LastModified = "15.04.2020"
+#
+ScriptVersion = "9.0.0"
 # v4.0 supports Routing instances
 ModuleName =  "Juniper, JunOS OSPF Protocol Parser Module - Python vScript Parser"
 # Describes current operation status
@@ -821,8 +823,8 @@ import re
 import sys
 import clr
 clr.AddReferenceToFileAndPath("Common.dll")
-clr.AddReferenceToFileAndPath("PGTNetworkMap.dll")
-import PGT.Common
+clr.AddReferenceToFileAndPath("NetworkMap.dll")
+import Scriptngo.Common
 import L3Discovery
 import System.Net</CustomNameSpaces>
     <CustomReferences />
